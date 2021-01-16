@@ -1,21 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import PlaylistStack from './navigation/PlaylistStack';
+import { NavigationContainer } from '@react-navigation/native';
+import { configureDb } from './config/db';
+import { Provider as ReduxProvider } from 'react-redux';
+import store from './config/store';
 
 export default function App() {
+  configureDb();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ReduxProvider store={store}>
+      <NavigationContainer>
+        <PlaylistStack />
+      </NavigationContainer>
+    </ReduxProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
