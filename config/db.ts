@@ -6,8 +6,7 @@ export default db;
 
 export const configureDb = () => {
   db.transaction((tx) => {
-    tx.executeSql(
-      `
+    tx.executeSql(`
       CREATE TABLE IF NOT EXISTS Playlists (
         PlaylistId INTEGER PRIMARY KEY AUTOINCREMENT, 
         Name TEXT NOT NULL
@@ -33,7 +32,6 @@ export const configureDb = () => {
             ON UPDATE CASCADE
             ON DELETE CASCADE
       );
-      `
-    );
+    `);
   });
 };

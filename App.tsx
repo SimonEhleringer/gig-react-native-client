@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { configureDb } from './config/db';
 import { Provider as ReduxProvider } from 'react-redux';
 import store from './config/store';
+import AuthenticationStack from './navigation/AuthenticationStack';
 
 export default function App() {
   configureDb();
@@ -12,7 +13,8 @@ export default function App() {
   return (
     <ReduxProvider store={store}>
       <NavigationContainer>
-        <PlaylistStack />
+        {/* <PlaylistStack /> */}
+        <AuthenticationStack />
       </NavigationContainer>
     </ReduxProvider>
   );
