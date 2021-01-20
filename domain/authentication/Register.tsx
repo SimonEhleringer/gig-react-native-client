@@ -2,20 +2,22 @@ import React, { useContext } from 'react';
 import { StyleSheet, View, StatusBar } from 'react-native';
 import { ThemeContext, Input, Button } from 'react-native-elements';
 
-interface LoginProps {
+interface RegisterProps {
   email: string;
   password: string;
+  handleUsernameChanged: (newUsername: string) => void;
   handleEmailChanged: (newEmail: string) => void;
   handlePasswordChanged: (newPassword: string) => void;
-  handleLogin: () => void;
+  handleRegister: () => void;
 }
 
-const Login: React.FC<LoginProps> = ({
+const Register: React.FC<RegisterProps> = ({
   email,
   password,
+  handleUsernameChanged,
   handleEmailChanged,
   handlePasswordChanged,
-  handleLogin,
+  handleRegister,
 }) => {
   const { theme } = useContext(ThemeContext);
 
@@ -25,27 +27,33 @@ const Login: React.FC<LoginProps> = ({
         backgroundColor={theme.colors?.white}
         barStyle='dark-content'
       />
-      <View style={styles.loginForm}>
+      <View style={styles.registerForm}>
         <Input
-          style={styles.loginFormContent}
+          style={styles.registerFormContent}
+          placeholder='Benutzername'
+          onChangeText={(val) => handleUsernameChanged(val)}
+        />
+
+        <Input
+          style={styles.registerFormContent}
           placeholder='E-Mail'
           onChangeText={(val) => handleEmailChanged(val)}
         />
         <Input
-          style={styles.loginFormContent}
+          style={styles.registerFormContent}
           placeholder='Passwort'
           onChangeText={(val) => handlePasswordChanged(val)}
         />
 
         <Button
-          containerStyle={styles.loginFormContent}
-          title='Einloggen'
-          onPress={handleLogin}
+          containerStyle={styles.registerFormContent}
+          title='Registrieren'
+          onPress={handleRegister}
         />
 
         <Button
-          containerStyle={styles.loginFormContent}
-          title='Registieren'
+          containerStyle={styles.registerFormContent}
+          title='Ich habe schon einen Account'
           type='outline'
         />
       </View>
@@ -59,12 +67,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  loginForm: {
+  registerForm: {
     width: '80%',
   },
-  loginFormContent: {
+  registerFormContent: {
     margin: 2,
   },
 });
 
-export default Login;
+export default Register;

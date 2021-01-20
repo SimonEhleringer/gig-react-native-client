@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import Login from './Login';
+import Register from './Register';
 import { useDispatch } from 'react-redux';
-import { login } from './authenticationSlice';
+import {} from './authenticationSlice';
 
-interface LoginContainerProps {}
+interface RegisterContainerProps {}
 
-// !!!! Eventuell mit useNavigation Hook machen das ganze
-
-const LoginContainer: React.FC<LoginContainerProps> = () => {
+const RegisterContainer: React.FC<RegisterContainerProps> = ({}) => {
   const dispatch = useDispatch();
 
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleUsernameChanged = (newUsername: string) => {
+    setUsername(newUsername);
+  };
 
   const handleEmailChanged = (newEmail: string) => {
     setEmail(newEmail);
@@ -21,21 +24,20 @@ const LoginContainer: React.FC<LoginContainerProps> = () => {
     setPassword(newPassword);
   };
 
-  const handleLogin = () => {
-    dispatch(login({ email, password }));
+  const handleRegister = () => {
+    //dispatch(login({ email, password }));
   };
 
-  const handleRegisterButtonPress = () => {};
-
   return (
-    <Login
+    <Register
       email={email}
       password={password}
+      handleUsernameChanged={handleUsernameChanged}
       handleEmailChanged={handleEmailChanged}
       handlePasswordChanged={handlePasswordChanged}
-      handleLogin={handleLogin}
+      handleRegister={handleRegister}
     />
   );
 };
 
-export default LoginContainer;
+export default RegisterContainer;
