@@ -1,19 +1,18 @@
-import React, { useState } from "react";
-import Login from "./Login";
-import { useDispatch } from "react-redux";
-import { login } from "./authenticationSlice";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from 'react';
+import Login from './Login';
+import { useDispatch } from 'react-redux';
+import { login } from './authenticationSlice';
+import { useNavigation } from '@react-navigation/native';
+import { REGISTER_STACK_ROUTE } from '../../navigation/constants';
 
 interface LoginContainerProps {}
-
-// !!!! Eventuell mit useNavigation Hook machen das ganze
 
 const LoginContainer: React.FC<LoginContainerProps> = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleEmailChanged = (newEmail: string) => {
     setEmail(newEmail);
@@ -28,7 +27,7 @@ const LoginContainer: React.FC<LoginContainerProps> = () => {
   };
 
   const handleRegisterButtonPress = () => {
-    navigation.navigate("Register");
+    navigation.navigate(REGISTER_STACK_ROUTE);
   };
 
   return (
