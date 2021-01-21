@@ -1,6 +1,6 @@
-import { createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
 
-const name = 'authentication';
+const name = "authentication";
 export const REGISTER = `${name}/register`;
 export const LOGIN = `${name}/login`;
 
@@ -16,15 +16,22 @@ type AuthenticationState = {
 
 const initialState: AuthenticationState = {
   isUserLoggedIn: false,
-  username: '',
-  email: '',
-  jwtToken: '',
-  userId: '',
+  username: "",
+  email: "",
+  jwtToken: "",
+  userId: "",
   loading: false,
   errors: [],
 };
 
-export const register = createAction(REGISTER);
+export type RegisterPayload = {
+  username: string;
+  email: string;
+  password: string;
+  confirmedPassword: string;
+};
+
+export const register = createAction<RegisterPayload>(REGISTER);
 
 export type LoginPayload = {
   email: string;
@@ -37,11 +44,14 @@ const authenticationSlice = createSlice({
   name,
   initialState,
   reducers: {
-    loginStarted(state) {
+    loginRegisterStarted(state) {
       state.loading = true;
       state.errors = [];
     },
-    loginSucceeded(state, action: PayloadAction<LoginSucceededPayload>) {
+    loginRegisterSucceeded(
+      state,
+      action: PayloadAction<LoginSucceededPayload>
+    ) {
       const { username, email, jwtToken, userId } = action.payload;
 
       state.errors = [];
@@ -52,7 +62,7 @@ const authenticationSlice = createSlice({
       state.isUserLoggedIn = true;
       state.loading = false;
     },
-    loginFailed(state, action: PayloadAction<string[]>) {
+    loginRegisterFailed(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;
       state.loading = false;
     },
@@ -60,9 +70,9 @@ const authenticationSlice = createSlice({
 });
 
 export const {
-  loginStarted,
-  loginSucceeded,
-  loginFailed,
+  loginRegisterStarted,
+  loginRegisterSucceeded,
+  loginRegisterFailed,
 } = authenticationSlice.actions;
 
 export default authenticationSlice.reducer;

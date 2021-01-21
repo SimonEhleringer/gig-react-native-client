@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
-import { ThemeContext, Input, Button } from 'react-native-elements';
+import React, { useContext } from "react";
+import { StyleSheet, View, StatusBar } from "react-native";
+import { ThemeContext, Input, Button } from "react-native-elements";
 
 interface LoginProps {
   email: string;
@@ -8,6 +8,7 @@ interface LoginProps {
   handleEmailChanged: (newEmail: string) => void;
   handlePasswordChanged: (newPassword: string) => void;
   handleLogin: () => void;
+  handleRegisterButtonPress: () => void;
 }
 
 const Login: React.FC<LoginProps> = ({
@@ -16,6 +17,7 @@ const Login: React.FC<LoginProps> = ({
   handleEmailChanged,
   handlePasswordChanged,
   handleLogin,
+  handleRegisterButtonPress,
 }) => {
   const { theme } = useContext(ThemeContext);
 
@@ -23,30 +25,31 @@ const Login: React.FC<LoginProps> = ({
     <View style={[styles.container, { backgroundColor: theme.colors?.white }]}>
       <StatusBar
         backgroundColor={theme.colors?.white}
-        barStyle='dark-content'
+        barStyle="dark-content"
       />
       <View style={styles.loginForm}>
         <Input
           style={styles.loginFormContent}
-          placeholder='E-Mail'
+          placeholder="E-Mail"
           onChangeText={(val) => handleEmailChanged(val)}
         />
         <Input
           style={styles.loginFormContent}
-          placeholder='Passwort'
+          placeholder="Passwort"
           onChangeText={(val) => handlePasswordChanged(val)}
         />
 
         <Button
           containerStyle={styles.loginFormContent}
-          title='Einloggen'
+          title="Einloggen"
           onPress={handleLogin}
         />
 
         <Button
           containerStyle={styles.loginFormContent}
-          title='Registieren'
-          type='outline'
+          title="Registieren"
+          type="outline"
+          onPress={handleRegisterButtonPress}
         />
       </View>
     </View>
@@ -56,11 +59,11 @@ const Login: React.FC<LoginProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   loginForm: {
-    width: '80%',
+    width: "80%",
   },
   loginFormContent: {
     margin: 2,

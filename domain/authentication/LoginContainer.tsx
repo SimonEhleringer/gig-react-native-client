@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import Login from './Login';
-import { useDispatch } from 'react-redux';
-import { login } from './authenticationSlice';
+import React, { useState } from "react";
+import Login from "./Login";
+import { useDispatch } from "react-redux";
+import { login } from "./authenticationSlice";
+import { useNavigation } from "@react-navigation/native";
 
 interface LoginContainerProps {}
 
@@ -9,9 +10,10 @@ interface LoginContainerProps {}
 
 const LoginContainer: React.FC<LoginContainerProps> = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleEmailChanged = (newEmail: string) => {
     setEmail(newEmail);
@@ -25,7 +27,9 @@ const LoginContainer: React.FC<LoginContainerProps> = () => {
     dispatch(login({ email, password }));
   };
 
-  const handleRegisterButtonPress = () => {};
+  const handleRegisterButtonPress = () => {
+    navigation.navigate("Register");
+  };
 
   return (
     <Login
@@ -34,6 +38,7 @@ const LoginContainer: React.FC<LoginContainerProps> = () => {
       handleEmailChanged={handleEmailChanged}
       handlePasswordChanged={handlePasswordChanged}
       handleLogin={handleLogin}
+      handleRegisterButtonPress={handleRegisterButtonPress}
     />
   );
 };
