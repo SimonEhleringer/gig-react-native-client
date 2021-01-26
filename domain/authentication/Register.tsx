@@ -1,6 +1,10 @@
 import React, { useContext } from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
-import { ThemeContext, Input, Button } from 'react-native-elements';
+import { StyleSheet, View, ScrollView } from 'react-native';
+import { ThemeContext } from 'react-native-elements';
+import Container from './Container';
+import Input from './Input';
+import Button from './Button';
+import BottomSection from './BottomSection';
 
 interface RegisterProps {
   email: string;
@@ -26,58 +30,76 @@ const Register: React.FC<RegisterProps> = ({
   const { theme } = useContext(ThemeContext);
 
   return (
-    <View style={[styles.container]}>
+    <Container>
       <View style={styles.registerForm}>
-        <Input
-          style={styles.registerFormContent}
-          placeholder='Benutzername'
-          onChangeText={(val) => handleUsernameChanged(val)}
-        />
+        <View>
+          <ScrollView keyboardShouldPersistTaps='always'>
+            <Input
+              leftIcon={{
+                type: 'material-icons',
+                name: 'person',
+                color: '#6F7278',
+              }}
+              placeholder='Benutzername'
+              onChangeText={(val) => handleUsernameChanged(val)}
+            />
 
-        <Input
-          style={styles.registerFormContent}
-          placeholder='E-Mail'
-          onChangeText={(val) => handleEmailChanged(val)}
-        />
-        <Input
-          style={styles.registerFormContent}
-          placeholder='Passwort'
-          onChangeText={(val) => handlePasswordChanged(val)}
-        />
-        <Input
-          style={styles.registerFormContent}
-          placeholder='Passwort wiederholen'
-          onChangeText={(val) => handleConfirmedPasswordChanged(val)}
-        />
+            <Input
+              leftIcon={{
+                type: 'material-icons',
+                name: 'email',
+                color: '#6F7278',
+              }}
+              placeholder='E-Mail'
+              onChangeText={(val) => handleEmailChanged(val)}
+            />
 
-        <Button
-          containerStyle={styles.registerFormContent}
-          title='Registrieren'
-          onPress={handleRegister}
-        />
+            <Input
+              leftIcon={{
+                type: 'material-icons',
+                name: 'lock',
+                color: '#6F7278',
+              }}
+              placeholder='Passwort'
+              onChangeText={(val) => handlePasswordChanged(val)}
+              secureTextEntry={true}
+            />
 
-        <Button
-          containerStyle={styles.registerFormContent}
-          title='Ich habe schon einen Account'
-          type='outline'
-          onPress={handleLoginButtonPress}
+            <Input
+              leftIcon={{
+                type: 'material-icons',
+                name: 'lock',
+                color: '#6F7278',
+              }}
+              placeholder='Passwort wiederholen'
+              onChangeText={(val) => handleConfirmedPasswordChanged(val)}
+              secureTextEntry={true}
+            />
+
+            <Button title='Registrieren' onPress={handleRegister} />
+          </ScrollView>
+        </View>
+      </View>
+
+      <View style={styles.bottomSection}>
+        <BottomSection
+          text='Du hast schon einen Account?'
+          buttonTitle='Anmelden'
+          buttonPress={handleLoginButtonPress}
         />
       </View>
-    </View>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   registerForm: {
-    width: '80%',
+    flex: 1,
+    justifyContent: 'center',
+    width: '100%',
   },
-  registerFormContent: {
-    margin: 2,
+  bottomSection: {
+    width: '100%',
   },
 });
 

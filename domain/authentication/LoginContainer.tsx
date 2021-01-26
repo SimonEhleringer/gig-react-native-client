@@ -5,6 +5,8 @@ import { login } from './authenticationSlice';
 import { useNavigation } from '@react-navigation/native';
 import { REGISTER_STACK_ROUTE } from '../../navigation/constants';
 import withBackground from '../common/withBackground';
+import { useSelector } from 'react-redux';
+import { ReduxState } from '../../config/store';
 
 interface LoginContainerProps {}
 
@@ -14,6 +16,9 @@ const LoginContainer: React.FC<LoginContainerProps> = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const state = useSelector((state: ReduxState) => state.authentication);
+  const errors = state.errors;
 
   const handleEmailChanged = (newEmail: string) => {
     setEmail(newEmail);
@@ -39,6 +44,7 @@ const LoginContainer: React.FC<LoginContainerProps> = () => {
       handlePasswordChanged={handlePasswordChanged}
       handleLogin={handleLogin}
       handleRegisterButtonPress={handleRegisterButtonPress}
+      errors={errors}
     />
   );
 };

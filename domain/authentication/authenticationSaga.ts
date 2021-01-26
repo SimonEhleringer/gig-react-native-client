@@ -1,6 +1,6 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { put, takeLatest, call } from "redux-saga/effects";
-import api from "../../config/api";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { put, takeLatest, call } from 'redux-saga/effects';
+import api from '../../config/api';
 import {
   REGISTER,
   LOGIN,
@@ -10,10 +10,10 @@ import {
   loginRegisterSucceeded,
   LoginSucceededPayload as LoginRegisterSucceededPayload,
   RegisterPayload,
-} from "./authenticationSlice";
-import jwtDecode, { JwtPayload } from "jwt-decode";
-import { AxiosResponse } from "axios";
-import apiClient from "../../config/apiClient";
+} from './authenticationSlice';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { AxiosResponse, AxiosError } from 'axios';
+import apiClient from '../../config/apiClient';
 
 export function* watchLogin() {
   yield takeLatest(LOGIN, handleLogin);
@@ -38,6 +38,10 @@ interface LoginRegisterJwtPayload extends JwtPayload {
   email: string;
   id: string;
   sub: string;
+}
+
+interface ErrorResponse {
+  errors: string[];
 }
 
 function* handleLogin(action: PayloadAction<LoginPayload>) {
@@ -66,13 +70,18 @@ function* handleLogin(action: PayloadAction<LoginPayload>) {
       yield put(loginRegisterFailed(errors));
     }
   } catch (e) {
-    yield put(loginRegisterFailed([(e as Error).message]));
+    e = e as AxiosError<ErrorResponse>;
+    if (e.response) {
+      yield put(loginRegisterFailed(e.response.data.errors));
+    }
+    //yield put(loginRegisterFailed([(e as Error).message]));
+    //yield put(loginRegisterFailed((e.response.data as ErrorResponse).errors));
   }
 }
 
 const requestLogin = async (loginRequest: LoginRequest) => {
   const response: AxiosResponse<LoginRegisterResponse> = await api.post(
-    "/Authentication/Login",
+    '/Authentication/Login',
     {
       ...loginRequest,
     }
@@ -93,7 +102,7 @@ function* handleRegister(action: PayloadAction<RegisterPayload>) {
   const { username, email, password, confirmedPassword } = action.payload;
 
   if (password !== confirmedPassword) {
-    yield put(loginRegisterFailed(["Passwörter stimmen nicht überein."]));
+    yield put(loginRegisterFailed(['Passwörter stimmen nicht überein.']));
     return;
   }
 
@@ -119,13 +128,16 @@ function* handleRegister(action: PayloadAction<RegisterPayload>) {
       yield put(loginRegisterFailed(errors));
     }
   } catch (e) {
-    yield put(loginRegisterFailed([(e as Error).message]));
+    e = e as AxiosError<ErrorResponse>;
+    if (e.response) {
+      yield put(loginRegisterFailed(e.response.data.errors));
+    }
   }
 }
 
 const requestRegister = async (registerRequest: RegisterRequest) => {
   const response: AxiosResponse<LoginRegisterResponse> = await api.post(
-    "/Authentication/Register",
+    '/Authentication/Register',
     { ...registerRequest }
   );
 

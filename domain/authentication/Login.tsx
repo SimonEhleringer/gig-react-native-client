@@ -1,18 +1,13 @@
-import React, { useContext } from 'react';
-import {
-  StyleSheet,
-  View,
-  StatusBar,
-  ImageBackground,
-  KeyboardAvoidingView,
-  Image,
-} from 'react-native';
-import { ThemeContext, Input, Button, Text } from 'react-native-elements';
-import { MaterialIcons } from '@expo/vector-icons';
+import React, { useRef } from 'react';
+import { StyleSheet, View, Image, ScrollView } from 'react-native';
+import { Button, Text } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
-import withBackground from '../common/withBackground';
+import Container from './Container';
+import Input from './Input';
+import LoginButton from './Button';
+import BottomSection from './BottomSection';
 
 interface LoginProps {
   email: string;
@@ -21,6 +16,7 @@ interface LoginProps {
   handlePasswordChanged: (newPassword: string) => void;
   handleLogin: () => void;
   handleRegisterButtonPress: () => void;
+  errors: string[];
 }
 
 const Login: React.FC<LoginProps> = ({
@@ -30,12 +26,13 @@ const Login: React.FC<LoginProps> = ({
   handlePasswordChanged,
   handleLogin,
   handleRegisterButtonPress,
+  errors,
 }) => {
-  const { theme } = useContext(ThemeContext);
+  // const passwordInputRef = useRef();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.top}>
+    <Container>
+      <View>
         <HideWithKeyboard>
           <Image
             source={require('../../assets/gig-logo-grey.png')}
@@ -46,101 +43,64 @@ const Login: React.FC<LoginProps> = ({
       </View>
 
       <View style={styles.loginForm}>
-        <Input
-          inputStyle={styles.inputStyle}
-          style={styles.loginFormContent}
-          leftIcon={{
-            type: 'material-icons',
-            name: 'email',
-            color: '#6F7278',
-          }}
-          placeholder='E-Mail'
-          onChangeText={(val) => handleEmailChanged(val)}
-        />
-        <Input
-          inputStyle={styles.inputStyle}
-          style={styles.loginFormContent}
-          leftIcon={{
-            type: 'material-icons',
-            name: 'lock',
-            color: '#6F7278',
-          }}
-          placeholder='Passwort'
-          secureTextEntry={true}
-          onChangeText={(val) => handlePasswordChanged(val)}
-        />
+        <View>
+          <ScrollView keyboardShouldPersistTaps='always'>
+            <Input
+              leftIcon={{
+                type: 'material-icons',
+                name: 'email',
+                color: '#6F7278',
+              }}
+              placeholder='E-Mail'
+              onChangeText={(val) => handleEmailChanged(val)}
+              returnKeyType='next'
+              keyboardType='email-address'
+            />
+            <Input
+              leftIcon={{
+                type: 'material-icons',
+                name: 'lock',
+                color: '#6F7278',
+              }}
+              placeholder='Passwort'
+              secureTextEntry={true}
+              onChangeText={(val) => handlePasswordChanged(val)}
+              // ref={passwordInputRef}
+            />
 
-        <Button
-          style={styles.loginFormContent}
-          title='Anmelden'
-          onPress={handleLogin}
-          ViewComponent={LinearGradient}
-          linearGradientProps={{
-            colors: ['#858CEB', '#79C3EB'],
-            start: { x: 0, y: 1 },
-            end: { x: 1, y: 1 },
-          }}
-        />
+            <LoginButton title='Anmelden' onPress={handleLogin} />
+
+            {errors.map((error, index) => {
+              return <Text key={index}>{error}</Text>;
+            })}
+          </ScrollView>
+        </View>
       </View>
 
       <View style={styles.registerSection}>
-        <HideWithKeyboard>
-          <Text style={styles.registerText}>Du hast noch keinen Account?</Text>
-          <Button
-            TouchableComponent={TouchableOpacity}
-            type='outline'
-            containerStyle={{ marginVertical: 5 }}
-            buttonStyle={{
-              borderWidth: 2,
-            }}
-            title='Registrieren'
-            onPress={handleRegisterButtonPress}
-          />
-        </HideWithKeyboard>
+        <BottomSection
+          text='Du hast noch keinen Account?'
+          buttonTitle='Registrieren'
+          buttonPress={handleRegisterButtonPress}
+        />
       </View>
-    </View>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-  },
   image: {
+    marginTop: 10,
     width: 150,
     height: 150,
   },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 20,
-  },
-  top: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   loginForm: {
-    flex: 2,
+    flex: 1,
     width: '100%',
     justifyContent: 'center',
-  },
-  loginFormContent: {
-    marginVertical: 10,
   },
   registerSection: {
-    flex: 1,
     width: '100%',
-    justifyContent: 'flex-end',
-  },
-  registerText: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: '#6F7278',
-    marginVertical: 5,
-  },
-  inputStyle: {
-    color: '#6F7278',
   },
 });
 
