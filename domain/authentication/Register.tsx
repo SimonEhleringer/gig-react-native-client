@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import { StyleSheet, View, StatusBar } from "react-native";
-import { ThemeContext, Input, Button } from "react-native-elements";
+import React, { useContext } from 'react';
+import { StyleSheet, View, StatusBar } from 'react-native';
+import { ThemeContext, Input, Button } from 'react-native-elements';
 
 interface RegisterProps {
   email: string;
@@ -26,44 +26,40 @@ const Register: React.FC<RegisterProps> = ({
   const { theme } = useContext(ThemeContext);
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors?.white }]}>
-      <StatusBar
-        backgroundColor={theme.colors?.white}
-        barStyle="dark-content"
-      />
+    <View style={[styles.container]}>
       <View style={styles.registerForm}>
         <Input
           style={styles.registerFormContent}
-          placeholder="Benutzername"
+          placeholder='Benutzername'
           onChangeText={(val) => handleUsernameChanged(val)}
         />
 
         <Input
           style={styles.registerFormContent}
-          placeholder="E-Mail"
+          placeholder='E-Mail'
           onChangeText={(val) => handleEmailChanged(val)}
         />
         <Input
           style={styles.registerFormContent}
-          placeholder="Passwort"
+          placeholder='Passwort'
           onChangeText={(val) => handlePasswordChanged(val)}
         />
         <Input
           style={styles.registerFormContent}
-          placeholder="Passwort wiederholen"
+          placeholder='Passwort wiederholen'
           onChangeText={(val) => handleConfirmedPasswordChanged(val)}
         />
 
         <Button
           containerStyle={styles.registerFormContent}
-          title="Registrieren"
+          title='Registrieren'
           onPress={handleRegister}
         />
 
         <Button
           containerStyle={styles.registerFormContent}
-          title="Ich habe schon einen Account"
-          type="outline"
+          title='Ich habe schon einen Account'
+          type='outline'
           onPress={handleLoginButtonPress}
         />
       </View>
@@ -74,11 +70,11 @@ const Register: React.FC<RegisterProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   registerForm: {
-    width: "80%",
+    width: '80%',
   },
   registerFormContent: {
     margin: 2,

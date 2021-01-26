@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import Register from "./Register";
-import { useDispatch } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
-import { register } from "./authenticationSlice";
+import React, { useState } from 'react';
+import Register from './Register';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { register } from './authenticationSlice';
+import withBackground from '../common/withBackground';
 
 interface RegisterContainerProps {}
 
@@ -10,10 +11,10 @@ const RegisterContainer: React.FC<RegisterContainerProps> = ({}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmedPassword, setConfirmedPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmedPassword, setConfirmedPassword] = useState('');
 
   const handleUsernameChanged = (newUsername: string) => {
     setUsername(newUsername);
@@ -53,4 +54,4 @@ const RegisterContainer: React.FC<RegisterContainerProps> = ({}) => {
   );
 };
 
-export default RegisterContainer;
+export default withBackground(RegisterContainer);

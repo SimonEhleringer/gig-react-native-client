@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { login } from './authenticationSlice';
 import { useNavigation } from '@react-navigation/native';
 import { REGISTER_STACK_ROUTE } from '../../navigation/constants';
+import withBackground from '../common/withBackground';
 
 interface LoginContainerProps {}
 
@@ -42,4 +43,4 @@ const LoginContainer: React.FC<LoginContainerProps> = () => {
   );
 };
 
-export default LoginContainer;
+export default withBackground(LoginContainer);
