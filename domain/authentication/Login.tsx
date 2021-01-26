@@ -70,9 +70,9 @@ const Login: React.FC<LoginProps> = ({
 
             <LoginButton title='Anmelden' onPress={handleLogin} />
 
-            {errors.map((error, index) => {
+            {/* {errors.map((error, index) => {
               return <Text key={index}>{error}</Text>;
-            })}
+            })} */}
           </ScrollView>
         </View>
       </View>
