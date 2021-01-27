@@ -1,35 +1,41 @@
-import React, { useRef } from 'react';
+import React, { RefObject } from 'react';
 import { StyleSheet, View, Image, ScrollView } from 'react-native';
-import { Button, Text } from 'react-native-elements';
+import { Button, Text, Input, FullTheme } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import Container from './Container';
-import Input from './Input';
 import LoginButton from './Button';
 import BottomSection from './BottomSection';
+import Errors from './Errors';
 
 interface LoginProps {
+  theme: Partial<FullTheme>;
   email: string;
   password: string;
+  passwordInputRef: RefObject<Input>;
   handleEmailChanged: (newEmail: string) => void;
+  handleEmailSubmitEditing: () => void;
   handlePasswordChanged: (newPassword: string) => void;
   handleLogin: () => void;
   handleRegisterButtonPress: () => void;
   errors: string[];
+  loading: boolean;
 }
 
 const Login: React.FC<LoginProps> = ({
+  theme,
   email,
   password,
+  passwordInputRef,
   handleEmailChanged,
+  handleEmailSubmitEditing,
   handlePasswordChanged,
   handleLogin,
   handleRegisterButtonPress,
   errors,
+  loading,
 }) => {
-  // const passwordInputRef = useRef();
-
   return (
     <Container>
       <View>
@@ -46,33 +52,44 @@ const Login: React.FC<LoginProps> = ({
         <View>
           <ScrollView keyboardShouldPersistTaps='always'>
             <Input
+              inputStyle={{ color: theme.colors?.text }}
+              style={styles.loginFormContent}
               leftIcon={{
                 type: 'material-icons',
                 name: 'email',
-                color: '#6F7278',
+                color: theme.colors?.text,
               }}
               placeholder='E-Mail'
               onChangeText={(val) => handleEmailChanged(val)}
               returnKeyType='next'
+              blurOnSubmit={false}
               keyboardType='email-address'
+              onSubmitEditing={handleEmailSubmitEditing}
             />
             <Input
+              ref={passwordInputRef}
+              inputStyle={{ color: theme.colors?.text }}
+              style={styles.loginFormContent}
               leftIcon={{
                 type: 'material-icons',
                 name: 'lock',
-                color: '#6F7278',
+                color: theme.colors?.text,
               }}
-              placeholder='Passwort'
-              secureTextEntry={true}
               onChangeText={(val) => handlePasswordChanged(val)}
-              // ref={passwordInputRef}
+              placeholder='Passwort'
+              secureTextEntry
+              onSubmitEditing={handleLogin}
             />
 
-            <LoginButton title='Anmelden' onPress={handleLogin} />
+            <LoginButton
+              title='Anmelden'
+              onPress={handleLogin}
+              loading={loading}
+            />
 
-            {/* {errors.map((error, index) => {
-              return <Text key={index}>{error}</Text>;
-            })} */}
+            <HideWithKeyboard>
+              <Errors errors={errors} />
+            </HideWithKeyboard>
           </ScrollView>
         </View>
       </View>
@@ -101,6 +118,9 @@ const styles = StyleSheet.create({
   },
   registerSection: {
     width: '100%',
+  },
+  loginFormContent: {
+    marginVertical: 10,
   },
 });
 

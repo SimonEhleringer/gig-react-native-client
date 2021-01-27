@@ -3,6 +3,7 @@ import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import { Button, Text } from 'react-native-elements';
 import { GestureResponderEvent, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useTheme } from '../../hooks/useTheme';
 
 interface BottomSectionProps {
   text: string;
@@ -15,9 +16,11 @@ const BottomSection: React.FC<BottomSectionProps> = ({
   buttonTitle,
   buttonPress,
 }) => {
+  const theme = useTheme();
+
   return (
     <HideWithKeyboard>
-      <Text style={styles.text}>{text}</Text>
+      <Text style={[styles.text, { color: theme.colors?.text }]}>{text}</Text>
       <Button
         TouchableComponent={TouchableOpacity}
         type='outline'
@@ -34,7 +37,6 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontWeight: 'bold',
-    color: '#6F7278',
     marginVertical: 5,
   },
   buttonContainerStyle: {
