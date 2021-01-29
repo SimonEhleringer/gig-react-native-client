@@ -1,19 +1,17 @@
 import React, { RefObject } from 'react';
 import { StyleSheet, View, Image, ScrollView } from 'react-native';
-import { Button, Text, Input, FullTheme } from 'react-native-elements';
+import { Input, FullTheme } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
-import Container from './Container';
-import LoginButton from './Button';
+import Container from './components/Container';
+import Button from './components/Button';
 import BottomSection from './BottomSection';
-import Errors from './Errors';
+import Errors from './components/Errors';
 import { MARGIN } from '../../config/themes';
 
 interface LoginProps {
   theme: Partial<FullTheme>;
-  email: string;
-  password: string;
   passwordInputRef: RefObject<Input>;
   handleEmailChanged: (newEmail: string) => void;
   handleEmailSubmitEditing: () => void;
@@ -26,8 +24,6 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({
   theme,
-  email,
-  password,
   passwordInputRef,
   handleEmailChanged,
   handleEmailSubmitEditing,
@@ -82,11 +78,7 @@ const Login: React.FC<LoginProps> = ({
               onSubmitEditing={handleLogin}
             />
 
-            <LoginButton
-              title='Anmelden'
-              onPress={handleLogin}
-              loading={loading}
-            />
+            <Button title='Anmelden' onPress={handleLogin} loading={loading} />
 
             <HideWithKeyboard>
               <Errors errors={errors} />

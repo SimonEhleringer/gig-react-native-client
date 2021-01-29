@@ -1,17 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import {
-  Avatar,
-  Button,
-  Divider,
-  FullTheme,
-  Text,
-} from 'react-native-elements';
+import { Avatar, Button, FullTheme, Text } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Stat from './Stat';
-import Container from '../common/Container';
-import Paper from '../common/Paper';
-import { MARGIN, MARGIN_HALF, PADDING_DOUBLE } from '../../config/themes';
+import Container from '../../common/Container';
+import Paper from '../../common/Paper';
+import { MARGIN_HALF, PADDING_DOUBLE } from '../../../config/themes';
 
 interface AuthenticationSettingsProps {
   theme: Partial<FullTheme>;

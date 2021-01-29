@@ -1,10 +1,9 @@
-import React from "react";
-import AuthenticationSettings from "./AuthenticationSettings";
-import { useSelector, useDispatch } from "react-redux";
-import { ReduxState } from "../../config/store";
-import { useTheme } from "../../hooks/useTheme";
-import withBackground from "../common/withBackground";
-import { logout } from "../authentication/authenticationSlice";
+import React from 'react';
+import AuthenticationSettings from './AuthenticationSettings';
+import { useSelector, useDispatch } from 'react-redux';
+import { ReduxState } from '../../../config/store';
+import { useTheme } from '../../../hooks/useTheme';
+import { logout } from '../authenticationSlice';
 
 interface AuthenticationSettingsContainerProps {}
 

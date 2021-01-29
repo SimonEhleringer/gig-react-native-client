@@ -70,8 +70,6 @@ const RegisterContainer: React.FC<RegisterContainerProps> = ({}) => {
   return (
     <Register
       theme={theme}
-      email={email}
-      password={password}
       emailInputRef={emailInputRef}
       passwordInputRef={passwordInputRef}
       confirmedPasswordInputRef={confirmedPasswordInputRef}

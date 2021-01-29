@@ -1,17 +1,15 @@
 import React, { RefObject } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { FullTheme, Input } from 'react-native-elements';
-import Container from './Container';
-import Button from './Button';
+import Container from './components/Container';
+import Button from './components/Button';
 import BottomSection from './BottomSection';
-import Errors from './Errors';
+import Errors from './components/Errors';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import { MARGIN } from '../../config/themes';
 
 interface RegisterProps {
   theme: Partial<FullTheme>;
-  email: string;
-  password: string;
   emailInputRef: RefObject<Input>;
   passwordInputRef: RefObject<Input>;
   confirmedPasswordInputRef: RefObject<Input>;
@@ -30,8 +28,6 @@ interface RegisterProps {
 
 const Register: React.FC<RegisterProps> = ({
   theme,
-  email,
-  password,
   emailInputRef,
   passwordInputRef,
   confirmedPasswordInputRef,
