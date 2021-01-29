@@ -4,6 +4,7 @@ import playlist from "../domain/playlist/playlistSlice";
 import authentication from "../domain/authentication/authenticationSlice";
 import {
   watchLogin,
+  watchLogout,
   watchRegister,
 } from "../domain/authentication/authenticationSaga";
 
@@ -18,6 +19,7 @@ const store = createStore(reducer, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(watchLogin);
 sagaMiddleware.run(watchRegister);
+sagaMiddleware.run(watchLogout);
 
 export type ReduxState = ReturnType<typeof reducer>;
 export default store;

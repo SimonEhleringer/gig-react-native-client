@@ -8,12 +8,17 @@ import {
   loginRegisterStarted,
   loginRegisterFailed,
   loginRegisterSucceeded,
+  logoutStarted,
+  logoutSucceeded,
+  logoutFailed,
   LoginSucceededPayload as LoginRegisterSucceededPayload,
   RegisterPayload,
+  LOGOUT,
 } from "./authenticationSlice";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import { AxiosResponse, AxiosError } from "axios";
 import apiClient from "../../config/apiClient";
+import store, { ReduxState } from "../../config/store";
 
 export function* watchLogin() {
   yield takeLatest(LOGIN, handleLogin);
@@ -23,23 +28,8 @@ export function* watchRegister() {
   yield takeLatest(REGISTER, handleRegister);
 }
 
-interface LoginRegisterResponse {
-  jwtToken: string;
-}
-
-interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-interface LoginRegisterJwtPayload extends JwtPayload {
-  email: string;
-  id: string;
-  sub: string;
-}
-
-interface ErrorResponse {
-  errors: string[];
+export function* watchLogout() {
+  yield takeLatest(LOGOUT, handleLogout);
 }
 
 function* handleLogin(action: PayloadAction<LoginPayload>) {
@@ -53,14 +43,14 @@ function* handleLogin(action: PayloadAction<LoginPayload>) {
   };
 
   try {
-    const response: AxiosResponse<LoginRegisterResponse> = yield call(
+    const response: AxiosResponse<AuthenticationResponse> = yield call(
       requestLogin,
       loginRequest
     );
 
-    const { jwtToken } = response.data;
+    const { jwtToken, refreshToken } = response.data;
 
-    const payload = getLoginRegisterSucceededPayload(jwtToken);
+    const payload = getLoginRegisterSucceededPayload(jwtToken, refreshToken);
 
     yield put(loginRegisterSucceeded(payload));
   } catch (e) {
@@ -74,7 +64,7 @@ function* handleLogin(action: PayloadAction<LoginPayload>) {
 }
 
 const requestLogin = async (loginRequest: LoginRequest) => {
-  const response: AxiosResponse<LoginRegisterResponse> = await api.post(
+  const response: AxiosResponse<AuthenticationResponse> = await api.post(
     "/Authentication/Login",
     {
       ...loginRequest,
@@ -107,14 +97,14 @@ function* handleRegister(action: PayloadAction<RegisterPayload>) {
   };
 
   try {
-    const response: AxiosResponse<LoginRegisterResponse> = yield call(
+    const response: AxiosResponse<AuthenticationResponse> = yield call(
       requestRegister,
       registerRequest
     );
 
-    const { jwtToken } = response.data;
+    const { jwtToken, refreshToken } = response.data;
 
-    const payload = getLoginRegisterSucceededPayload(jwtToken);
+    const payload = getLoginRegisterSucceededPayload(jwtToken, refreshToken);
 
     yield put(loginRegisterSucceeded(payload));
   } catch (e) {
@@ -126,7 +116,7 @@ function* handleRegister(action: PayloadAction<RegisterPayload>) {
 }
 
 const requestRegister = async (registerRequest: RegisterRequest) => {
-  const response: AxiosResponse<LoginRegisterResponse> = await api.post(
+  const response: AxiosResponse<AuthenticationResponse> = await api.post(
     "/Authentication/Register",
     { ...registerRequest }
   );
@@ -134,7 +124,36 @@ const requestRegister = async (registerRequest: RegisterRequest) => {
   return response;
 };
 
-const getLoginRegisterSucceededPayload = (jwtToken: string) => {
+function* handleLogout() {
+  yield put(logoutStarted());
+
+  try {
+    const refreshToken = store.getState().authentication.refreshToken;
+
+    const logoutRequest: LogoutRequest = {
+      refreshToken,
+    };
+
+    yield call(requestLogout, logoutRequest);
+
+    yield put(logoutSucceeded());
+  } catch (e) {
+    e = e as AxiosError<ErrorResponse>;
+    if (e.response) {
+      yield put(logoutFailed(e.response.data.errors));
+      console.log(e.response.data.errors);
+    }
+  }
+}
+
+const requestLogout = async (logoutRequest: LogoutRequest) => {
+  await api.post("Authentication/Logout", { ...logoutRequest });
+};
+
+const getLoginRegisterSucceededPayload = (
+  jwtToken: string,
+  refreshToken: string
+) => {
   const decodedJwt = jwtDecode<LoginRegisterJwtPayload>(jwtToken);
 
   const { sub, email, id } = decodedJwt;
@@ -142,9 +161,34 @@ const getLoginRegisterSucceededPayload = (jwtToken: string) => {
   const payload: LoginRegisterSucceededPayload = {
     email,
     jwtToken,
+    refreshToken,
     userId: id,
     username: sub,
   };
 
   return payload;
 };
+
+interface AuthenticationResponse {
+  jwtToken: string;
+  refreshToken: string;
+}
+
+interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+interface LoginRegisterJwtPayload extends JwtPayload {
+  email: string;
+  id: string;
+  sub: string;
+}
+
+interface ErrorResponse {
+  errors: string[];
+}
+
+interface LogoutRequest {
+  refreshToken: string;
+}
