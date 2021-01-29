@@ -56,7 +56,7 @@ const authenticationSlice = createSlice({
     },
     loginRegisterSucceeded(
       state,
-      action: PayloadAction<LoginSucceededPayload>
+      action: PayloadAction<LoginRegisterSucceededPayload>
     ) {
       const {
         username,
@@ -112,7 +112,7 @@ export const {
 
 export default authenticationSlice.reducer;
 
-export type LoginSucceededPayload = {
+export type LoginRegisterSucceededPayload = {
   username: string;
   email: string;
   jwtToken: string;

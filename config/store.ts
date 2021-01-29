@@ -1,12 +1,10 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import createSagaMiddleware from "redux-saga";
-import playlist from "../domain/playlist/playlistSlice";
-import authentication from "../domain/authentication/authenticationSlice";
-import {
-  watchLogin,
-  watchLogout,
-  watchRegister,
-} from "../domain/authentication/authenticationSaga";
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import playlist from '../domain/playlist/playlistSlice';
+import authentication from '../domain/authentication/authenticationSlice';
+import { watchLogin } from '../domain/authentication/saga/login';
+import { watchRegister } from '../domain/authentication/saga/register';
+import { watchLogout } from '../domain/authentication/saga/logout';
 
 const sagaMiddleware = createSagaMiddleware();
 
