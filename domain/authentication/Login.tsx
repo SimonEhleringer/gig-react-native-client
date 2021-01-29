@@ -8,6 +8,7 @@ import Container from './Container';
 import LoginButton from './Button';
 import BottomSection from './BottomSection';
 import Errors from './Errors';
+import { MARGIN } from '../../config/themes';
 
 interface LoginProps {
   theme: Partial<FullTheme>;
@@ -107,7 +108,7 @@ const Login: React.FC<LoginProps> = ({
 
 const styles = StyleSheet.create({
   image: {
-    marginTop: 10,
+    marginTop: MARGIN,
     width: 150,
     height: 150,
   },
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   loginFormContent: {
-    marginVertical: 10,
+    marginVertical: MARGIN,
   },
 });
 

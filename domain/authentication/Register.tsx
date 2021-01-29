@@ -6,6 +6,7 @@ import Button from './Button';
 import BottomSection from './BottomSection';
 import Errors from './Errors';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
+import { MARGIN } from '../../config/themes';
 
 interface RegisterProps {
   theme: Partial<FullTheme>;
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   loginFormContent: {
-    marginVertical: 10,
+    marginVertical: MARGIN,
   },
 });
 

@@ -1,9 +1,10 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { put, takeLatest, call } from "redux-saga/effects";
-import api from "../../config/api";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { put, takeLatest, call, select } from 'redux-saga/effects';
+import api from '../../config/api';
 import {
   REGISTER,
   LOGIN,
+  AuthenticationState,
   LoginPayload,
   loginRegisterStarted,
   loginRegisterFailed,
@@ -14,11 +15,11 @@ import {
   LoginSucceededPayload as LoginRegisterSucceededPayload,
   RegisterPayload,
   LOGOUT,
-} from "./authenticationSlice";
-import jwtDecode, { JwtPayload } from "jwt-decode";
-import { AxiosResponse, AxiosError } from "axios";
-import apiClient from "../../config/apiClient";
-import store, { ReduxState } from "../../config/store";
+} from './authenticationSlice';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { AxiosResponse, AxiosError } from 'axios';
+import apiClient from '../../config/apiClient';
+import { ReduxState } from '../../config/store';
 
 export function* watchLogin() {
   yield takeLatest(LOGIN, handleLogin);
@@ -65,7 +66,7 @@ function* handleLogin(action: PayloadAction<LoginPayload>) {
 
 const requestLogin = async (loginRequest: LoginRequest) => {
   const response: AxiosResponse<AuthenticationResponse> = await api.post(
-    "/Authentication/Login",
+    '/Authentication/Login',
     {
       ...loginRequest,
     }
@@ -86,7 +87,7 @@ function* handleRegister(action: PayloadAction<RegisterPayload>) {
   const { username, email, password, confirmedPassword } = action.payload;
 
   if (password !== confirmedPassword) {
-    yield put(loginRegisterFailed(["Passwörter stimmen nicht überein."]));
+    yield put(loginRegisterFailed(['Passwörter stimmen nicht überein.']));
     return;
   }
 
@@ -117,7 +118,7 @@ function* handleRegister(action: PayloadAction<RegisterPayload>) {
 
 const requestRegister = async (registerRequest: RegisterRequest) => {
   const response: AxiosResponse<AuthenticationResponse> = await api.post(
-    "/Authentication/Register",
+    '/Authentication/Register',
     { ...registerRequest }
   );
 
@@ -128,9 +129,15 @@ function* handleLogout() {
   yield put(logoutStarted());
 
   try {
-    const refreshToken = store.getState().authentication.refreshToken;
+    const state: AuthenticationState = yield select(
+      (state: ReduxState) => state.authentication
+    );
+
+    const refreshToken = state.refreshToken;
+    const jwtToken = state.jwtToken;
 
     const logoutRequest: LogoutRequest = {
+      jwtToken,
       refreshToken,
     };
 
@@ -141,13 +148,12 @@ function* handleLogout() {
     e = e as AxiosError<ErrorResponse>;
     if (e.response) {
       yield put(logoutFailed(e.response.data.errors));
-      console.log(e.response.data.errors);
     }
   }
 }
 
 const requestLogout = async (logoutRequest: LogoutRequest) => {
-  await api.post("Authentication/Logout", { ...logoutRequest });
+  await api.post('Authentication/Logout', { ...logoutRequest });
 };
 
 const getLoginRegisterSucceededPayload = (
@@ -190,5 +196,6 @@ interface ErrorResponse {
 }
 
 interface LogoutRequest {
+  jwtToken: string;
   refreshToken: string;
 }

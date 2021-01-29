@@ -1,11 +1,11 @@
-import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
 
-const name = "authentication";
+const name = 'authentication';
 export const REGISTER = `${name}/register`;
 export const LOGIN = `${name}/login`;
 export const LOGOUT = `${name}/logout`;
 
-type AuthenticationState = {
+export type AuthenticationState = {
   isUserLoggedIn: boolean;
   username: string;
   email: string;
@@ -18,11 +18,11 @@ type AuthenticationState = {
 
 const initialState: AuthenticationState = {
   isUserLoggedIn: false,
-  username: "",
-  email: "",
-  jwtToken: "",
-  refreshToken: "",
-  userId: "",
+  username: '',
+  email: '',
+  jwtToken: '',
+  refreshToken: '',
+  userId: '',
   loading: false,
   errors: [],
 };
@@ -85,7 +85,14 @@ const authenticationSlice = createSlice({
       state.errors = [];
     },
     logoutSucceeded(state) {
-      state = initialState;
+      state.isUserLoggedIn = false;
+      state.username = '';
+      state.email = '';
+      state.jwtToken = '';
+      state.refreshToken = '';
+      state.userId = '';
+      state.loading = false;
+      state.errors = [];
     },
     logoutFailed(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;
