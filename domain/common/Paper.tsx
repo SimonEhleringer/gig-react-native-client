@@ -4,10 +4,15 @@ import { BORDER_RADIUS, MARGIN, PADDING } from '../../config/themes';
 import { useTheme } from '../../hooks/useTheme';
 
 interface PaperProps {
+  hasPadding?: boolean;
   hasMarginBottom?: boolean;
 }
 
-const Paper: React.FC<PaperProps> = ({ children, hasMarginBottom }) => {
+const Paper: React.FC<PaperProps> = ({
+  children,
+  hasPadding,
+  hasMarginBottom,
+}) => {
   const theme = useTheme();
 
   return (
@@ -16,6 +21,8 @@ const Paper: React.FC<PaperProps> = ({ children, hasMarginBottom }) => {
         styles.paper,
         {
           backgroundColor: theme.colors?.white,
+
+          padding: hasPadding ? PADDING : 0,
           marginBottom: hasMarginBottom ? MARGIN : 0,
         },
       ]}
@@ -27,8 +34,8 @@ const Paper: React.FC<PaperProps> = ({ children, hasMarginBottom }) => {
 
 const styles = StyleSheet.create({
   paper: {
-    padding: PADDING,
     borderRadius: BORDER_RADIUS,
+    overflow: 'hidden',
   },
 });
 

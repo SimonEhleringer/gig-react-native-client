@@ -1,7 +1,7 @@
 export default interface SongEntity {
-  SongId: string;
-  Name: string;
-  Artist: string;
-  Tempo: number;
-  Notes: string;
+  songId: string;
+  title: string;
+  interpreter: string;
+  tempo: number;
+  notes: string;
 }

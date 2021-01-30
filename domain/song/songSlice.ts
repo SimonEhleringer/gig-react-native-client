@@ -2,7 +2,7 @@ import { createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
 import SongEntity from './SongEntity';
 
 const name = 'song';
-const LOAD_SONGS = `${name}/loadSongs`;
+export const LOAD_SONGS = `${name}/loadSongs`;
 
 export type SongState = {
   songs: SongEntity[];
@@ -43,4 +43,4 @@ export const {
   loadSongsFailed,
 } = songSlice.actions;
 
-export default songSlice;
+export default songSlice.reducer;

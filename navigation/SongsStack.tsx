@@ -13,7 +13,10 @@ const SongsStack: React.FC<SongsStackProps> = ({}) => {
       <Stack.Screen
         name={SONGS_STACK_ROUTE}
         component={SongsScreen}
-        options={{ title: 'Songs' }}
+        options={{
+          title: 'Songs',
+          //headerStyle: { backgroundColor: 'rgba(255, 255, 255, 0.8)' },
+        }}
       />
     </Stack.Navigator>
   );

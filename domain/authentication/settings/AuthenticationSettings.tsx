@@ -20,7 +20,7 @@ const AuthenticationSettings: React.FC<AuthenticationSettingsProps> = ({
 }) => {
   return (
     <Container>
-      <Paper>
+      <Paper hasPadding>
         <View style={styles.avatarAndStatsContainer}>
           <Avatar
             containerStyle={styles.avatarContainer}
