@@ -1,4 +1,4 @@
-import SongModel from '../song/SongModel';
+import SongModel from '../song/SongEntity';
 
 export default interface PlaylistModel {
   PlaylistId?: number;

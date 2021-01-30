@@ -5,11 +5,16 @@ import {
 } from '@react-navigation/bottom-tabs';
 import PlaylistStack from './PlaylistStack';
 import SettingsStack from './SettingsStack';
-import { PLAYLISTS_TAB_ROUTE, SETTINGS_TAB_ROUTE } from './constants';
+import {
+  PLAYLISTS_TAB_ROUTE,
+  SETTINGS_TAB_ROUTE,
+  SONGS_TAB_ROUTE,
+} from './constants';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from '../hooks/useTheme';
 import { LinearGradient } from 'expo-linear-gradient';
 import { View } from 'react-native';
+import SongsStack from './SongsStack';
 
 interface MainTabProps {}
 
@@ -42,7 +47,7 @@ const MainTab: React.FC<MainTabProps> = ({}) => {
       //   </View>
       // )}
       tabBarOptions={{
-        inactiveTintColor: theme.colors?.grey3,
+        inactiveTintColor: theme.colors?.text,
         activeTintColor: theme.colors?.primary,
         activeBackgroundColor: 'black',
         inactiveBackgroundColor: 'black',
@@ -63,6 +68,16 @@ const MainTab: React.FC<MainTabProps> = ({}) => {
             <MaterialIcons name='queue-music' color={color} size={size} />
           ),
           title: 'Playlists',
+        }}
+      />
+      <Tab.Screen
+        name={SONGS_TAB_ROUTE}
+        component={SongsStack}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name='music-note' color={color} size={size} />
+          ),
+          title: 'Songs',
         }}
       />
       <Tab.Screen
