@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-elements';
+import { Text, ListItem } from 'react-native-elements';
 import { MARGIN_HALF, PADDING, PADDING_HALF } from '../../../config/themes';
 import { useTheme } from '../../../hooks/useTheme';
 
@@ -11,6 +11,17 @@ interface TempoProps {
 const Tempo: React.FC<TempoProps> = ({ tempo }) => {
   const theme = useTheme();
 
+  const [isLeftIndicatorActive, setIsLeftIndicatorActive] = useState(true);
+
+  useEffect(() => {
+    // const interval = setInterval(() => {
+    //   setIsLeftIndicatorActive(!isLeftIndicatorActive);
+    // }, 60000 / (tempo * 1.1));
+    // return () => {
+    //   clearInterval(interval);
+    // };
+  });
+
   return (
     <View>
       <View style={styles.bpmIndicatorContainer}>
@@ -18,19 +29,27 @@ const Tempo: React.FC<TempoProps> = ({ tempo }) => {
           <View
             style={[
               styles.bpmIndicatorPoint,
-              { backgroundColor: theme.colors?.success },
+              {
+                backgroundColor: isLeftIndicatorActive
+                  ? theme.colors?.primary
+                  : 'transparent',
+              },
             ]}
           />
           <View
             style={[
               styles.bpmIndicatorPoint,
-              { backgroundColor: theme.colors?.success },
+              {
+                backgroundColor: isLeftIndicatorActive
+                  ? 'transparent'
+                  : theme.colors?.secondary,
+              },
             ]}
           />
         </View>
       </View>
 
-      <Text>{tempo} BPM</Text>
+      <ListItem.Subtitle>{tempo} BPM</ListItem.Subtitle>
     </View>
   );
 };

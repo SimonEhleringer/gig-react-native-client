@@ -13,7 +13,12 @@ const SettingsStack: React.FC<SettingsStackProps> = ({}) => {
       <Stack.Screen
         name={SETTINGS_STACK_ROUTE}
         component={SettingsScreen}
-        options={{ title: 'Einstellungen', headerStyle: { elevation: 0 } }}
+        options={{
+          title: 'Einstellungen',
+          headerStyle: {
+            elevation: 0,
+          },
+        }}
       />
     </Stack.Navigator>
   );

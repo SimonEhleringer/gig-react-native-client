@@ -20,8 +20,8 @@ const Paper: React.FC<PaperProps> = ({
       style={[
         styles.paper,
         {
-          backgroundColor: theme.colors?.white,
-
+          // backgroundColor: theme.colors?.white,
+          backgroundColor: 'rgba(255, 255, 255, 0.85)',
           padding: hasPadding ? PADDING : 0,
           marginBottom: hasMarginBottom ? MARGIN : 0,
         },

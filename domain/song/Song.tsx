@@ -11,7 +11,12 @@ interface SongProps {
 
 const Song: React.FC<SongProps> = ({ song, hasBottomDivider }) => {
   return (
-    <ListItem bottomDivider={hasBottomDivider} onPress={() => alert('test')}>
+    <ListItem
+      style={{ backgroundColor: 'transparent' }}
+      containerStyle={{ backgroundColor: 'transparent' }}
+      bottomDivider={hasBottomDivider}
+      onPress={() => alert('test')}
+    >
       <ListItem.Content style={styles.leftListItemContent}>
         <ListItem.Title>{song.title}</ListItem.Title>
         <ListItem.Subtitle>{song.interpreter}</ListItem.Subtitle>

@@ -15,6 +15,9 @@ const SongsStack: React.FC<SongsStackProps> = ({}) => {
         component={SongsScreen}
         options={{
           title: 'Songs',
+          headerStyle: {
+            elevation: 0,
+          },
           //headerStyle: { backgroundColor: 'rgba(255, 255, 255, 0.8)' },
         }}
       />
