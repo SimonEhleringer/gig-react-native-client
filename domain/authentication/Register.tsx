@@ -4,7 +4,7 @@ import { FullTheme, Input } from 'react-native-elements';
 import Container from './components/Container';
 import Button from './components/Button';
 import BottomSection from './BottomSection';
-import Errors from './components/Errors';
+import Errors from '../common/Errors';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import { MARGIN } from '../../config/themes';
 

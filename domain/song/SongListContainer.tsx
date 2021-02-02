@@ -14,9 +14,10 @@ const SongListContainer: React.FC<SongListContainerProps> = ({}) => {
   }, []);
 
   const state = useSelector((state: ReduxState) => state.song);
-  const songs = state.songs;
 
-  return <SongList songs={songs} />;
+  const { loading, errors, songs } = state;
+
+  return <SongList songs={songs} loading={loading} errors={errors} />;
 };
 
 export default SongListContainer;

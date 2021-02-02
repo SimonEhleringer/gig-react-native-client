@@ -7,7 +7,7 @@ import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import Container from './components/Container';
 import Button from './components/Button';
 import BottomSection from './BottomSection';
-import Errors from './components/Errors';
+import Errors from '../common/Errors';
 import { MARGIN } from '../../config/themes';
 
 interface LoginProps {

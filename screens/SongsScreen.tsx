@@ -8,11 +8,7 @@ import SongListContainer from '../domain/song/SongListContainer';
 interface SongsScreenProps {}
 
 const SongsScreen: React.FC<SongsScreenProps> = ({}) => {
-  return (
-    <ScrollView>
-      <SongListContainer />
-    </ScrollView>
-  );
+  return <SongListContainer />;
 };
 
 export default withBottomRoundedCorners(withBackground(SongsScreen));

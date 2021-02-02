@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
-import { useTheme } from '../../../hooks/useTheme';
+import { useTheme } from '../../hooks/useTheme';
 
 interface ErrorsProps {
   errors: string[];
