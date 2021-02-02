@@ -22,7 +22,7 @@ const LoadingAndErrors: React.FC<LoadingAndErrorsProps> = ({
           {loading && (
             <ActivityIndicator
               animating={true}
-              color={theme.colors?.text}
+              color={theme.colors?.primary}
               size='large'
             />
           )}

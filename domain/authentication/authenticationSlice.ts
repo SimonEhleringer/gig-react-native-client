@@ -47,7 +47,7 @@ export type LoginPayload = {
 
 export const login = createAction<LoginPayload>(LOGIN);
 
-export const refresh = createAction(REFRESH);
+//export const refresh = createAction(REFRESH);
 
 export const logout = createAction(LOGOUT);
 
@@ -82,8 +82,6 @@ const authenticationSlice = createSlice({
       state.userId = userId;
       state.isUserLoggedIn = true;
       state.loading = false;
-
-      console.log(state);
     },
     loginRegisterFailed(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;

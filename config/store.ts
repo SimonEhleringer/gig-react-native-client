@@ -7,7 +7,6 @@ import { watchLogin } from '../domain/authentication/saga/login';
 import { watchRegister } from '../domain/authentication/saga/register';
 import { watchLogout } from '../domain/authentication/saga/logout';
 import { watchLoadSongs } from '../domain/song/saga/loadSongs';
-import { watchRefresh } from '../domain/authentication/saga/refresh';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -21,7 +20,6 @@ const store = createStore(reducer, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(watchLogin);
 sagaMiddleware.run(watchRegister);
-sagaMiddleware.run(watchRefresh);
 sagaMiddleware.run(watchLogout);
 
 sagaMiddleware.run(watchLoadSongs);

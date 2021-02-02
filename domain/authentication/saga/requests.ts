@@ -28,7 +28,12 @@ export const requestRegister = async (registerRequest: RegisterRequest) => {
 };
 
 export const requestRefresh = async (refreshRequest: RefreshLogoutRequest) => {
-  await api.post('Authentication/Refresh', { ...refreshRequest });
+  const response: AxiosResponse<AuthenticationResponse> = await api.post(
+    'Authentication/Refresh',
+    { ...refreshRequest }
+  );
+
+  return response;
 };
 
 export const requestLogout = async (logoutRequest: RefreshLogoutRequest) => {
