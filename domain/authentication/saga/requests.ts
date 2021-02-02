@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import api from '../../../config/api';
 import {
   LoginRequest,
-  LogoutRequest,
+  RefreshLogoutRequest,
   AuthenticationResponse,
   RegisterRequest,
 } from './shared';
@@ -27,6 +27,10 @@ export const requestRegister = async (registerRequest: RegisterRequest) => {
   return response;
 };
 
-export const requestLogout = async (logoutRequest: LogoutRequest) => {
+export const requestRefresh = async (refreshRequest: RefreshLogoutRequest) => {
+  await api.post('Authentication/Refresh', { ...refreshRequest });
+};
+
+export const requestLogout = async (logoutRequest: RefreshLogoutRequest) => {
   await api.post('Authentication/Logout', { ...logoutRequest });
 };

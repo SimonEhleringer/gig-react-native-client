@@ -10,7 +10,7 @@ import {
   logoutSucceeded,
 } from '../authenticationSlice';
 import { requestLogout } from './requests';
-import { LogoutRequest } from './shared';
+import { RefreshLogoutRequest } from './shared';
 
 export function* watchLogout() {
   yield takeLatest(LOGOUT, handleLogout);
@@ -27,7 +27,7 @@ function* handleLogout() {
     const refreshToken = state.refreshToken;
     const jwtToken = state.jwtToken;
 
-    const logoutRequest: LogoutRequest = {
+    const logoutRequest: RefreshLogoutRequest = {
       jwtToken,
       refreshToken,
     };

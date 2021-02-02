@@ -18,7 +18,6 @@ import {
 } from './authenticationSlice';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
 import { AxiosResponse, AxiosError } from 'axios';
-import apiClient from '../../config/apiClient';
 import { ReduxState } from '../../config/store';
 
 // export function* watchLogin() {

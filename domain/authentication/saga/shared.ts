@@ -7,11 +7,12 @@ export const getLoginRegisterSucceededPayload = (
 ) => {
   const decodedJwt = jwtDecode<LoginRegisterJwtPayload>(jwtToken);
 
-  const { sub, email, id } = decodedJwt;
+  const { sub, email, exp, id } = decodedJwt;
 
   const payload: LoginRegisterSucceededPayload = {
     email,
     jwtToken,
+    jwtTokenExpiryTime: exp,
     refreshToken,
     userId: id,
     username: sub,
@@ -32,7 +33,7 @@ export interface RegisterRequest {
   password: string;
 }
 
-export interface LogoutRequest {
+export interface RefreshLogoutRequest {
   jwtToken: string;
   refreshToken: string;
 }
@@ -45,6 +46,11 @@ export interface AuthenticationResponse {
 
 export interface LoginRegisterJwtPayload extends JwtPayload {
   email: string;
+  exp: number;
   id: string;
   sub: string;
+}
+
+export interface RefreshJwtPayload extends JwtPayload {
+  exp: number;
 }
