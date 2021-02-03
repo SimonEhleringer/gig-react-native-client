@@ -1,25 +1,42 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import SongsScreen from '../screens/SongsScreen';
-import { SONGS_STACK_ROUTE } from './constants';
+import AddSongScreen from '../screens/AddSongScreen';
 
 interface SongsStackProps {}
 
-const Stack = createStackNavigator();
+export type SongsStackParamList = {
+  Songs: undefined;
+  AddSong: undefined;
+};
+
+const Stack = createStackNavigator<SongsStackParamList>();
 
 const SongsStack: React.FC<SongsStackProps> = ({}) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={SONGS_STACK_ROUTE}
+        name='Songs'
         component={SongsScreen}
         options={{
           title: 'Songs',
           headerStyle: {
             elevation: 0,
           },
-          //headerStyle: { backgroundColor: 'rgba(255, 255, 255, 0.8)' },
         }}
+      />
+      <Stack.Screen
+        name='AddSong'
+        component={AddSongScreen}
+        options={{
+          headerShown: false,
+        }}
+        // options={{
+        //   title: 'Songs',
+        //   headerStyle: {
+        //     elevation: 0,
+        //   },
+        // }}
       />
     </Stack.Navigator>
   );

@@ -16,7 +16,7 @@ const SongList: React.FC<SongListProps> = ({ songs, loading, errors }) => {
   return (
     <>
       <LoadingAndErrors loading={loading} errors={errors}>
-        <ScrollView>
+        <ScrollView nestedScrollEnabled>
           <Container>
             <Paper>
               {songs.map((song, index) => {

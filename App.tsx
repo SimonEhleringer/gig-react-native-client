@@ -6,15 +6,18 @@ import { ThemeProvider } from 'react-native-elements';
 import { theme } from './config/themes';
 import api from './config/api';
 import { addRefreshRequestInterceptor } from './config/apiRefreshRequestInterceptor';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
   addRefreshRequestInterceptor(api);
 
   return (
-    <ReduxProvider store={store}>
-      <ThemeProvider theme={theme}>
-        <NavigationContainer />
-      </ThemeProvider>
-    </ReduxProvider>
+    <SafeAreaProvider>
+      <ReduxProvider store={store}>
+        <ThemeProvider theme={theme}>
+          <NavigationContainer />
+        </ThemeProvider>
+      </ReduxProvider>
+    </SafeAreaProvider>
   );
 }

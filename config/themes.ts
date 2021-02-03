@@ -4,6 +4,7 @@ export const theme = {
     secondary: '#858CEB',
     text: '#6F7278',
     black: 'black',
+    lightGrey: '#D3D3D3',
   },
   Button: {
     buttonStyle: {
@@ -21,3 +22,4 @@ export const PADDING_HALF = PADDING / 2;
 export const PADDING_DOUBLE = PADDING * 2;
 
 export const BORDER_RADIUS = 15;
+export const BORDER_RADIUS_LESS = 10;

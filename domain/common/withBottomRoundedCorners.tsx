@@ -1,6 +1,7 @@
 import { useTheme } from '../../hooks/useTheme';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { BORDER_RADIUS } from '../../config/themes';
 
 function withBottomRoundedCorners<T>(Component: React.ComponentType<T>) {
   return (props: T) => {
@@ -33,8 +34,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   higherContainer: {
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
+    borderBottomLeftRadius: BORDER_RADIUS,
+    borderBottomRightRadius: BORDER_RADIUS,
     flex: 1,
     overflow: 'hidden',
   },

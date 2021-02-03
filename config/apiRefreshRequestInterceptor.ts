@@ -20,8 +20,6 @@ export const addRefreshRequestInterceptor = (api: AxiosInstance) => {
       const authState = store.getState().authentication;
       const { jwtTokenExpiryTime } = authState;
 
-      console.log('test');
-
       // Don't check for Authentication endpoints, because they don't need a Jwt
       if (config.url?.includes('Authentication')) {
         return config;
