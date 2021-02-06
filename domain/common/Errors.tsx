@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   },
   error: {
     margin: 3,
+    textAlign: 'center',
   },
 });
 

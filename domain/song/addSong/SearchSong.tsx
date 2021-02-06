@@ -10,20 +10,16 @@ import {
   PADDING_HALF,
 } from '../../../config/themes';
 import { FullTheme, Input } from 'react-native-elements';
-import SearchSongContent from './SearchSongContent';
-import withBackground from '../../common/withBackground';
-import GetSongBpmSongModel from './GetSongBpmSongModel';
+import SearchSongContentContainer from './SearchSongContentContainer';
 
 interface SearchSongProps {
   theme: Partial<FullTheme>;
-  getSongBpmSongs: GetSongBpmSongModel[];
   handleSearch: (newSearch: string) => void;
   handleGoBack: () => void;
 }
 
 const SearchSong: React.FC<SearchSongProps> = ({
   theme,
-  getSongBpmSongs,
   handleSearch,
   handleGoBack,
 }) => {
@@ -59,7 +55,7 @@ const SearchSong: React.FC<SearchSongProps> = ({
         />
       </View>
 
-      <SearchSongContent getSongBpmSongs={getSongBpmSongs} />
+      <SearchSongContentContainer />
     </>
   );
 };

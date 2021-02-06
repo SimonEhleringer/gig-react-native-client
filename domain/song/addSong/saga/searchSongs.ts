@@ -10,7 +10,10 @@ import {
 } from '../addSongSlice';
 import GetSongBpmSongModel from '../GetSongBpmSongModel';
 import { requestSearchSongs } from './requests';
-import { GetSongBpmSearchSongResponse } from './shared';
+import {
+  GetSongBpmSearchSongResponse,
+  isGetSongBpmErrorResponse,
+} from './shared';
 
 export function* watchSearchSongs() {
   yield takeLatest(SEARCH_SONGS, handleSearchSongs);
@@ -23,6 +26,11 @@ function* handleSearchSongs(action: PayloadAction<string>) {
 
   console.log(search);
 
+  if (search.trim() === '') {
+    yield put(searchSongsSucceded([]));
+    return;
+  }
+
   try {
     const response: AxiosResponse<GetSongBpmSearchSongResponse> = yield call(
       requestSearchSongs,
@@ -33,31 +41,32 @@ function* handleSearchSongs(action: PayloadAction<string>) {
 
     const payload: GetSongBpmSongModel[] = [];
 
-    response.data.search.forEach((song) => {
-      const { title, artist, tempo } = song;
+    const searchResponse = response.data.search;
 
-      // Map artist to interpreter
-      let interpreter = artist.name;
+    // Search can be an error object or an array with results. Only map over the results if it is no error object
+    if (!isGetSongBpmErrorResponse(searchResponse)) {
+      // Map response to payload
+      searchResponse.forEach((song) => {
+        const { title, artist, tempo } = song;
 
-      // artist.forEach((singleArtist, index) => {
-      //   interpreter += singleArtist.name;
+        // Map artist to interpreter
+        let interpreter = artist.name;
 
-      //   if (index < artist.length - 1) {
-      //     interpreter += ', ';
-      //   }
-      // });
+        const getSongBpmSongModel: GetSongBpmSongModel = {
+          title,
+          interpreter,
+          tempo,
+        };
 
-      const getSongBpmSongModel: GetSongBpmSongModel = {
-        title,
-        interpreter,
-        tempo,
-      };
-
-      payload.push(getSongBpmSongModel);
-    });
+        payload.push(getSongBpmSongModel);
+      });
+    }
 
     yield put(searchSongsSucceded(payload));
   } catch (e) {
+    console.log(e + ' (im Catch)');
+    console.log(e.message);
+
     yield put(searchSongsFailed(getErrorsFromError(e)));
   }
 }

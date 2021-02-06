@@ -4,6 +4,14 @@ export interface ErrorResponse {
   errors: string[];
 }
 
+const isAxiosResponse = (error: Error): error is AxiosError => {
+  return (error as AxiosError).response !== undefined;
+};
+
+const isErrorResponse = (response: any): response is ErrorResponse => {
+  return (response as ErrorResponse).errors !== undefined;
+};
+
 // export const handleError = (e: Error, action: (errors: string[]) => void) => {
 //   const axiosError = e as AxiosError<ErrorResponse>;
 
@@ -14,11 +22,21 @@ export interface ErrorResponse {
 // };
 
 export const getErrorsFromError = (e: Error) => {
-  const axiosError = e as AxiosError<ErrorResponse>;
+  if (isAxiosResponse(e)) {
+    const axiosError = e as AxiosError;
 
-  if (!axiosError.response) {
-    return [];
+    if (isErrorResponse(axiosError.response?.data)) {
+      const axiosError_ErrorResponse = e as AxiosError<ErrorResponse>;
+
+      if (!axiosError_ErrorResponse.response) {
+        return [];
+      }
+
+      return axiosError_ErrorResponse.response.data.errors;
+    } else {
+      return [axiosError.message];
+    }
+  } else {
+    return [e.message];
   }
-
-  return axiosError.response.data.errors;
 };

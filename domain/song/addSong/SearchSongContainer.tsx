@@ -20,15 +20,12 @@ const SearchSongContainer: React.FC<SearchSongContainerProps> = ({
 
   const [search, setSearch] = useState('');
 
-  const state = useSelector((state: ReduxState) => state.addSong);
-  const getSongBpmSongs = state.getSongBpmSongs;
-
   const handleSearch = (newSearch: string) => {
     setSearch(newSearch);
 
-    if (newSearch.length >= 3) {
-      dispatch(searchSongs(newSearch));
-    }
+    //if (newSearch.length >= 3) {
+    dispatch(searchSongs(newSearch));
+    //}
   };
 
   const handleGoBack = () => {
@@ -38,7 +35,6 @@ const SearchSongContainer: React.FC<SearchSongContainerProps> = ({
   return (
     <SearchSong
       theme={theme}
-      getSongBpmSongs={getSongBpmSongs}
       handleSearch={handleSearch}
       handleGoBack={handleGoBack}
     />
