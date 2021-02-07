@@ -4,8 +4,8 @@ import { Input, FullTheme } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
-import Container from './components/Container';
-import Button from './components/Button';
+import FormContainer from '../common/FormContainer';
+import Button from '../common/FormButton';
 import BottomSection from './BottomSection';
 import Errors from '../common/Errors';
 import { MARGIN } from '../../config/themes';
@@ -34,7 +34,7 @@ const Login: React.FC<LoginProps> = ({
   loading,
 }) => {
   return (
-    <Container>
+    <FormContainer>
       <View>
         <HideWithKeyboard>
           <Image
@@ -94,7 +94,7 @@ const Login: React.FC<LoginProps> = ({
           buttonPress={handleRegisterButtonPress}
         />
       </View>
-    </Container>
+    </FormContainer>
   );
 };
 

@@ -42,12 +42,13 @@ function* handleSearchSongs(action: PayloadAction<string>) {
     if (!isGetSongBpmErrorResponse(searchResponse)) {
       // Map response to payload
       searchResponse.forEach((song) => {
-        const { title, artist } = song;
+        const { id, title, artist } = song;
 
         // Map artist to interpreter
         let interpreter = artist.name;
 
         const getSongBpmSongModel: GetSongBpmSongModel = {
+          id,
           title,
           interpreter,
         };

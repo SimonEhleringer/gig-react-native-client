@@ -1,8 +1,9 @@
 export interface GetSongBpmSearchSongResponse {
-  search: GetSongBpmSongResponse[] | GetSongBpmErrorResponse;
+  search: GetSongBpmSearchedSongResponse[] | GetSongBpmErrorResponse;
 }
 
-export interface GetSongBpmSongResponse {
+export interface GetSongBpmSearchedSongResponse {
+  id: string;
   title: string;
   artist: GetSongBpmArtistReponse;
 }
@@ -15,8 +16,19 @@ export interface GetSongBpmErrorResponse {
   error: string;
 }
 
+export interface GetSongBpmSongWrapperResponse {
+  song: GetSongBpmSongResponse;
+}
+
+export interface GetSongBpmSongResponse {
+  id: string;
+  title: string;
+  artist: GetSongBpmArtistReponse;
+  tempo: number;
+}
+
 export const isGetSongBpmErrorResponse = (
-  response: GetSongBpmSongResponse[] | GetSongBpmErrorResponse
+  response: GetSongBpmSearchedSongResponse[] | GetSongBpmErrorResponse
 ): response is GetSongBpmErrorResponse => {
   return (response as GetSongBpmErrorResponse).error !== undefined;
 };

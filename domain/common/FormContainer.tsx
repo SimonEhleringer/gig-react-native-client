@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { PADDING_DOUBLE } from '../../../config/themes';
+import { PADDING_DOUBLE } from '../../config/themes';
 
-interface ContainerProps {}
+interface FormContainerProps {}
 
-const Container: React.FC<ContainerProps> = ({ children }) => {
+const FormContainer: React.FC<FormContainerProps> = ({ children }) => {
   return <View style={styles.container}>{children}</View>;
 };
 
@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Container;
+export default FormContainer;

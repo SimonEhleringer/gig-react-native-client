@@ -1,8 +1,8 @@
 import React, { RefObject } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { FullTheme, Input } from 'react-native-elements';
-import Container from './components/Container';
-import Button from './components/Button';
+import FormContainer from '../common/FormContainer';
+import Button from '../common/FormButton';
 import BottomSection from './BottomSection';
 import Errors from '../common/Errors';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
@@ -44,7 +44,7 @@ const Register: React.FC<RegisterProps> = ({
   loading,
 }) => {
   return (
-    <Container>
+    <FormContainer>
       <View style={styles.registerForm}>
         <View>
           <ScrollView keyboardShouldPersistTaps='always'>
@@ -132,7 +132,7 @@ const Register: React.FC<RegisterProps> = ({
           buttonPress={handleLoginButtonPress}
         />
       </View>
-    </Container>
+    </FormContainer>
   );
 };
 

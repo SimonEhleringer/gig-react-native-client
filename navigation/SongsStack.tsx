@@ -9,8 +9,15 @@ interface SongsStackProps {}
 export type SongsStackParamList = {
   Songs: undefined;
   SearchSong: undefined;
-  AddSong: undefined;
+  AddSong: AddSongParams;
 };
+
+export interface AddSongParams {
+  title: string;
+  interpreter: string;
+  tempo: number;
+  notes: string;
+}
 
 const Stack = createStackNavigator<SongsStackParamList>();
 

@@ -12,11 +12,7 @@ interface SearchSongScreenContentProps {
 const SearchSongScreenContent: React.FC<SearchSongScreenContentProps> = ({
   navigation,
 }) => {
-  const handleSongPress = () => {
-    navigation.navigate('AddSong');
-  };
-
-  return <GetSongBpmSongListContainer handleSongPress={handleSongPress} />;
+  return <GetSongBpmSongListContainer navigation={navigation} />;
 };
 
 export default withBottomRoundedCorners(

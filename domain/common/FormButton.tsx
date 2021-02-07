@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Button as RneButton, ButtonProps } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useTheme } from '../../../hooks/useTheme';
-import { MARGIN } from '../../../config/themes';
+import { useTheme } from '../../hooks/useTheme';
+import { MARGIN } from '../../config/themes';
 
-const Button: React.FC<ButtonProps> = (props) => {
+const FormButton: React.FC<ButtonProps> = (props) => {
   const theme = useTheme();
 
   return (
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Button;
+export default FormButton;

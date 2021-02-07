@@ -10,7 +10,7 @@ interface GetSongBpmSongListProps {
   getSongBpmSongs: GetSongBpmSongModel[];
   loading: boolean;
   errors: string[];
-  handleSongPress: () => void;
+  handleSongPress: (id: string) => void;
 }
 
 const GetSongBpmSongList: React.FC<GetSongBpmSongListProps> = ({
@@ -28,10 +28,10 @@ const GetSongBpmSongList: React.FC<GetSongBpmSongListProps> = ({
               {getSongBpmSongs.map((song, index) => {
                 return (
                   <GetSongBpmSong
-                    key={index}
+                    key={song.id}
                     getSongBpmSong={song}
                     hasBottomDivider={index !== getSongBpmSongs.length - 1}
-                    handleSongPress={handleSongPress}
+                    handleSongPress={() => handleSongPress(song.id)}
                   />
                 );
               })}

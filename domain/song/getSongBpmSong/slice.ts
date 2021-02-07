@@ -36,6 +36,13 @@ const addSongSlice = createSlice({
 
       console.log(action.payload);
     },
+    setLoading(state, action: PayloadAction<boolean>) {
+      state.loading = action.payload;
+    },
+    setErrors(state, action: PayloadAction<string[]>) {
+      state.errors = action.payload;
+      state.loading = false;
+    },
   },
 });
 
@@ -43,6 +50,8 @@ export const {
   searchSongsStarted,
   searchSongsSucceded,
   searchSongsFailed,
+  setLoading,
+  setErrors,
 } = addSongSlice.actions;
 
 export default addSongSlice.reducer;

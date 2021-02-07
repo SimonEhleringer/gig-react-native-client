@@ -1,8 +1,10 @@
 import React, { RefObject } from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { FullTheme, Input } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-import Container from '../common/Container';
+import { MARGIN } from '../../config/themes';
+import Button from '../common/FormButton';
+import FormContainer from '../common/FormContainer';
 import Paper from '../common/Paper';
 
 interface AddSongProps {
@@ -49,54 +51,75 @@ const AddSong: React.FC<AddSongProps> = ({
   handleNotesChanged,
 }) => {
   return (
-    <ScrollView>
-      <Container>
-        <Paper hasPadding>
-          <Input
-            inputStyle={{ color: theme.colors?.text }}
-            placeholder='Titel'
-            onSubmitEditing={handleTitleSubmitEditing}
-            onChangeText={(val) => handleTitleChanged(val)}
-            value={title}
-            maxLength={50}
-          />
-
-          <View style={{ flexDirection: 'row' }}>
+    <FormContainer>
+      <View
+        style={{
+          flex: 1,
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <View style={{ width: '100%' }}>
+          <ScrollView style={{ width: '100%' }}>
             <Input
-              ref={interpreterInputRef}
-              containerStyle={{ flex: 4 }}
+              style={styles.formContent}
               inputStyle={{ color: theme.colors?.text }}
-              placeholder='Interpreter'
-              onSubmitEditing={handleInterpreterSubmitEditing}
-              onChangeText={(val) => handleInterpreterChanged(val)}
-              value={interpreter}
+              placeholder='Titel'
+              onSubmitEditing={handleTitleSubmitEditing}
+              onChangeText={(val) => handleTitleChanged(val)}
+              value={title}
               maxLength={50}
             />
+
+            <View style={{ flexDirection: 'row' }}>
+              <Input
+                style={styles.formContent}
+                ref={interpreterInputRef}
+                containerStyle={{ flex: 4 }}
+                inputStyle={{ color: theme.colors?.text }}
+                placeholder='Interpreter'
+                onSubmitEditing={handleInterpreterSubmitEditing}
+                onChangeText={(val) => handleInterpreterChanged(val)}
+                value={interpreter}
+                maxLength={50}
+              />
+              <Input
+                style={styles.formContent}
+                ref={tempoInputRef}
+                containerStyle={{ flex: 1 }}
+                inputStyle={{ color: theme.colors?.text }}
+                placeholder='Tempo'
+                keyboardType='number-pad'
+                onSubmitEditing={handleTempoSubmitEditing}
+                onChangeText={(val) => handleTempoChanged(val)}
+                value={tempo.toString()}
+              />
+            </View>
             <Input
-              ref={tempoInputRef}
-              containerStyle={{ flex: 1 }}
+              style={styles.formContent}
+              ref={notesInputRef}
               inputStyle={{ color: theme.colors?.text }}
-              placeholder='Tempo'
-              keyboardType='number-pad'
-              onSubmitEditing={handleTempoSubmitEditing}
-              onChangeText={(val) => handleTempoChanged(val)}
-              value={tempo.toString()}
+              placeholder='Notizen (Zeilenumbrüche möglich)'
+              multiline
+              onChangeText={(val) => handleNotesChanged(val)}
+              value={notes}
+              maxLength={256}
             />
-          </View>
-          <Input
-            ref={notesInputRef}
-            inputStyle={{ color: theme.colors?.text }}
-            placeholder='Notizen (Zeilenumbrüche möglich)'
-            multiline
-            onChangeText={(val) => handleNotesChanged(val)}
-            value={notes}
-            maxLength={256}
-          />
-        </Paper>
-      </Container>
-    </ScrollView>
+
+            <Button title='Hinzufügen' />
+          </ScrollView>
+        </View>
+      </View>
+    </FormContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  formContent: {
+    marginVertical: MARGIN,
+  },
+});
 
 {
   /* <Input

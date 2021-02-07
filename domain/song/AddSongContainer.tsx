@@ -1,11 +1,21 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AddSong from './AddSong';
 import { useTheme } from '../../hooks/useTheme';
 import { Input } from 'react-native-elements';
 
-interface AddSongContainerProps {}
+interface AddSongContainerProps {
+  initialTitle: string;
+  initialInterpreter: string;
+  initialTempo: number;
+  initialNotes: string;
+}
 
-const AddSongContainer: React.FC<AddSongContainerProps> = ({}) => {
+const AddSongContainer: React.FC<AddSongContainerProps> = ({
+  initialTitle,
+  initialInterpreter,
+  initialTempo,
+  initialNotes,
+}) => {
   const theme = useTheme();
 
   const [title, setTitle] = useState('');
@@ -16,6 +26,13 @@ const AddSongContainer: React.FC<AddSongContainerProps> = ({}) => {
   const interpreterInputRef = useRef<Input>(null);
   const tempoInputRef = useRef<Input>(null);
   const notesInputRef = useRef<Input>(null);
+
+  useEffect(() => {
+    setTitle(initialTitle);
+    setInterpreter(initialInterpreter);
+    setTempo(initialTempo.toString());
+    setNotes(initialNotes);
+  }, []);
 
   const handleTitleSubmitEditing = () => {
     interpreterInputRef.current?.focus();
