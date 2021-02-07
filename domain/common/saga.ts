@@ -32,11 +32,14 @@ export const getErrorsFromError = (e: Error) => {
         return [];
       }
 
+      console.log(axiosError_ErrorResponse.response.data.errors);
       return axiosError_ErrorResponse.response.data.errors;
     } else {
+      console.log(axiosError.message);
       return [axiosError.message];
     }
   } else {
+    console.log(e.message);
     return [e.message];
   }
 };

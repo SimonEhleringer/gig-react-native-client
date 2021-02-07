@@ -27,6 +27,8 @@ interface AddSongProps {
   notes: string;
   notesInputRef: RefObject<Input>;
   handleNotesChanged: (newNotes: string) => void;
+
+  handleAddSong: () => void;
 }
 
 const AddSong: React.FC<AddSongProps> = ({
@@ -49,19 +51,14 @@ const AddSong: React.FC<AddSongProps> = ({
   notes,
   notesInputRef,
   handleNotesChanged,
+
+  handleAddSong,
 }) => {
   return (
     <FormContainer>
-      <View
-        style={{
-          flex: 1,
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <View style={{ width: '100%' }}>
-          <ScrollView style={{ width: '100%' }}>
+      <View style={styles.container}>
+        <View style={styles.subContainer}>
+          <ScrollView style={styles.subContainer}>
             <Input
               style={styles.formContent}
               inputStyle={{ color: theme.colors?.text }}
@@ -107,7 +104,7 @@ const AddSong: React.FC<AddSongProps> = ({
               maxLength={256}
             />
 
-            <Button title='Hinzufügen' />
+            <Button title='Hinzufügen' onPress={handleAddSong} />
           </ScrollView>
         </View>
       </View>
@@ -116,6 +113,15 @@ const AddSong: React.FC<AddSongProps> = ({
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  subContainer: {
+    width: '100%',
+  },
   formContent: {
     marginVertical: MARGIN,
   },

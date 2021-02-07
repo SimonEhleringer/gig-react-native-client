@@ -47,13 +47,7 @@ const SearchSongScreen: React.FC<SearchSongScreenProps> = ({ navigation }) => {
       <SafeAreaView
         style={[styles.safeAreaView, { backgroundColor: theme.colors?.white }]}
       >
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            padding: PADDING,
-          }}
-        >
+        <View style={styles.header}>
           <Icon
             name='arrow-back'
             size={25}
@@ -62,15 +56,10 @@ const SearchSongScreen: React.FC<SearchSongScreenProps> = ({ navigation }) => {
           />
 
           <TextInput
-            style={{
-              backgroundColor: theme.colors?.lightGrey,
-              borderRadius: BORDER_RADIUS_LESS,
-              paddingVertical: PADDING_HALF,
-              paddingHorizontal: PADDING,
-              marginHorizontal: MARGIN,
-              flex: 1,
-              fontSize: 16,
-            }}
+            style={[
+              styles.searchBar,
+              { backgroundColor: theme.colors?.lightGrey },
+            ]}
             placeholder='GetSongBPM durchsuchen...'
             keyboardType='web-search'
             onChangeText={handleSearch}
@@ -86,6 +75,19 @@ const SearchSongScreen: React.FC<SearchSongScreenProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: PADDING,
+  },
+  searchBar: {
+    borderRadius: BORDER_RADIUS_LESS,
+    paddingVertical: PADDING_HALF,
+    paddingHorizontal: PADDING,
+    marginHorizontal: MARGIN,
+    flex: 1,
+    fontSize: 16,
   },
 });
 

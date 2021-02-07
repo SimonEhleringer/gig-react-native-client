@@ -3,6 +3,7 @@ import SongEntity from './SongEntity';
 
 const name = 'song';
 export const LOAD_SONGS = `${name}/loadSongs`;
+export const CREATE_SONG = `${name}/createSong`;
 
 export type SongState = {
   songs: SongEntity[];
@@ -18,11 +19,13 @@ const initialState: SongState = {
 
 export const loadSongs = createAction(LOAD_SONGS);
 
+export const createSong = createAction<CreateSongPayload>(CREATE_SONG);
+
 const songSlice = createSlice({
   name,
   initialState,
   reducers: {
-    loadSongsStarted(state) {
+    songActionStarted(state) {
       state.loading = true;
       state.errors = [];
     },
@@ -30,7 +33,13 @@ const songSlice = createSlice({
       state.songs = action.payload;
       state.loading = false;
     },
-    loadSongsFailed(state, action: PayloadAction<string[]>) {
+    createSongSucceeded(state, action: PayloadAction<SongEntity>) {
+      state.songs.push(action.payload);
+      state.loading = false;
+
+      console.log(state.songs);
+    },
+    songActionFailed(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;
       state.loading = false;
     },
@@ -38,9 +47,17 @@ const songSlice = createSlice({
 });
 
 export const {
-  loadSongsStarted,
+  songActionStarted,
   loadSongsSucceeded,
-  loadSongsFailed,
+  createSongSucceeded,
+  songActionFailed,
 } = songSlice.actions;
 
 export default songSlice.reducer;
+
+export interface CreateSongPayload {
+  title: string;
+  interpreter: string;
+  tempo: number;
+  notes: string;
+}

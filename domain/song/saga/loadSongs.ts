@@ -3,9 +3,9 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { getErrorsFromError } from '../../common/saga';
 import SongEntity from '../SongEntity';
 import {
-  loadSongsStarted,
+  songActionStarted,
   loadSongsSucceeded,
-  loadSongsFailed,
+  songActionFailed,
   LOAD_SONGS,
 } from '../slice';
 import { requestLoadSongs } from './requests';
@@ -18,7 +18,7 @@ export function* watchLoadSongs() {
 }
 
 export function* handleLoadSongs() {
-  yield put(loadSongsStarted());
+  yield put(songActionStarted());
 
   try {
     // Firt get JwtToken for authorization
@@ -48,6 +48,6 @@ export function* handleLoadSongs() {
 
     yield put(loadSongsSucceeded(songEntities));
   } catch (e) {
-    yield put(loadSongsFailed(getErrorsFromError(e)));
+    yield put(songActionFailed(getErrorsFromError(e)));
   }
 }

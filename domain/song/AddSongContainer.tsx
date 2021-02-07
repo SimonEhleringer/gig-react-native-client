@@ -2,8 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import AddSong from './AddSong';
 import { useTheme } from '../../hooks/useTheme';
 import { Input } from 'react-native-elements';
+import { useDispatch } from 'react-redux';
+import { createSong, CreateSongPayload } from './slice';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { SongsStackParamList } from '../../navigation/SongsStack';
 
 interface AddSongContainerProps {
+  navigation: StackNavigationProp<SongsStackParamList, 'AddSong'>;
   initialTitle: string;
   initialInterpreter: string;
   initialTempo: number;
@@ -11,11 +16,13 @@ interface AddSongContainerProps {
 }
 
 const AddSongContainer: React.FC<AddSongContainerProps> = ({
+  navigation,
   initialTitle,
   initialInterpreter,
   initialTempo,
   initialNotes,
 }) => {
+  const dispatch = useDispatch();
   const theme = useTheme();
 
   const [title, setTitle] = useState('');
@@ -67,8 +74,19 @@ const AddSongContainer: React.FC<AddSongContainerProps> = ({
 
   const handleNotesChanged = (newNotes: string) => {
     setNotes(newNotes);
+  };
 
-    console.log(newNotes);
+  const handleAddSong = () => {
+    const payload: CreateSongPayload = {
+      title,
+      interpreter,
+      tempo: +tempo,
+      notes,
+    };
+
+    dispatch(createSong(payload));
+
+    navigation.navigate('Songs');
   };
 
   return (
@@ -88,6 +106,7 @@ const AddSongContainer: React.FC<AddSongContainerProps> = ({
       interpreterInputRef={interpreterInputRef}
       tempoInputRef={tempoInputRef}
       notesInputRef={notesInputRef}
+      handleAddSong={handleAddSong}
     />
   );
 };

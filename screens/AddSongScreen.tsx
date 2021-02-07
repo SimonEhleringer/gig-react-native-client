@@ -17,6 +17,7 @@ const AddSongScreen: React.FC<AddSongScreenProps> = ({ route, navigation }) => {
 
   return (
     <AddSongContainer
+      navigation={navigation}
       initialTitle={title}
       initialInterpreter={interpreter}
       initialTempo={tempo}
