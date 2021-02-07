@@ -6,9 +6,10 @@ import { useTheme } from '../../../hooks/useTheme';
 
 interface TempoProps {
   tempo: number;
+  isMetronomeOn: boolean;
 }
 
-const Tempo: React.FC<TempoProps> = ({ tempo }) => {
+const Tempo: React.FC<TempoProps> = ({ tempo, isMetronomeOn }) => {
   const theme = useTheme();
 
   const [isLeftIndicatorActive, setIsLeftIndicatorActive] = useState(true);
@@ -23,31 +24,33 @@ const Tempo: React.FC<TempoProps> = ({ tempo }) => {
   });
 
   return (
-    <View>
-      <View style={styles.bpmIndicatorContainer}>
-        <View style={styles.bpmIndicator}>
-          <View
-            style={[
-              styles.bpmIndicatorPoint,
-              {
-                backgroundColor: isLeftIndicatorActive
-                  ? theme.colors?.primary
-                  : 'transparent',
-              },
-            ]}
-          />
-          <View
-            style={[
-              styles.bpmIndicatorPoint,
-              {
-                backgroundColor: isLeftIndicatorActive
-                  ? 'transparent'
-                  : theme.colors?.secondary,
-              },
-            ]}
-          />
+    <View style={styles.container}>
+      {isMetronomeOn && (
+        <View style={styles.bpmIndicatorContainer}>
+          <View style={styles.bpmIndicator}>
+            <View
+              style={[
+                styles.bpmIndicatorPoint,
+                {
+                  backgroundColor: isLeftIndicatorActive
+                    ? theme.colors?.primary
+                    : 'transparent',
+                },
+              ]}
+            />
+            <View
+              style={[
+                styles.bpmIndicatorPoint,
+                {
+                  backgroundColor: isLeftIndicatorActive
+                    ? 'transparent'
+                    : theme.colors?.secondary,
+                },
+              ]}
+            />
+          </View>
         </View>
-      </View>
+      )}
 
       <ListItem.Subtitle>{tempo} BPM</ListItem.Subtitle>
     </View>
@@ -55,6 +58,10 @@ const Tempo: React.FC<TempoProps> = ({ tempo }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   bpmIndicatorContainer: {
     margin: MARGIN_HALF,
     alignItems: 'center',

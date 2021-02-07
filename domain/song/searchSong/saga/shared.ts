@@ -5,7 +5,6 @@ export interface GetSongBpmSearchSongResponse {
 export interface GetSongBpmSongResponse {
   title: string;
   artist: GetSongBpmArtistReponse;
-  tempo: number;
 }
 
 export interface GetSongBpmArtistReponse {

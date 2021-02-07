@@ -8,7 +8,7 @@ import {
   logoutFailed,
   logoutStarted,
   logoutSucceeded,
-} from '../authenticationSlice';
+} from '../slice';
 import { requestLogout } from './requests';
 import { RefreshLogoutRequest } from './shared';
 

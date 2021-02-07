@@ -1,18 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '../../../config/store';
-import SearchSongContent from './SearchSongContent';
+import GetSongBpmSongList from './GetSongBpmSongList';
 
-interface SearchSongContentContainerProps {}
+interface GetSongBpmSongListContainerProps {}
 
-const SearchSongContentContainer: React.FC<SearchSongContentContainerProps> = ({}) => {
+const GetSongBpmSongListContainer: React.FC<GetSongBpmSongListContainerProps> = ({}) => {
   const state = useSelector((state: ReduxState) => state.addSong);
   const getSongBpmSongs = state.getSongBpmSongs;
   const loading = state.loading;
   const errors = state.errors;
 
   return (
-    <SearchSongContent
+    <GetSongBpmSongList
       getSongBpmSongs={getSongBpmSongs}
       loading={loading}
       errors={errors}
@@ -20,4 +20,4 @@ const SearchSongContentContainer: React.FC<SearchSongContentContainerProps> = ({
   );
 };
 
-export default SearchSongContentContainer;
+export default GetSongBpmSongListContainer;

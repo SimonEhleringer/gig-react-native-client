@@ -15,7 +15,7 @@ import {
   LoginRegisterSucceededPayload as LoginRegisterSucceededPayload,
   RegisterPayload,
   LOGOUT,
-} from './authenticationSlice';
+} from './slice';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
 import { AxiosResponse, AxiosError } from 'axios';
 import { ReduxState } from '../../config/store';

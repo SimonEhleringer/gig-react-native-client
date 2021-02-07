@@ -7,10 +7,10 @@ import {
   loadSongsSucceeded,
   loadSongsFailed,
   LOAD_SONGS,
-} from '../songSlice';
+} from '../slice';
 import { requestLoadSongs } from './requests';
 import { ReduxState } from '../../../config/store';
-import { AuthenticationState } from '../../authentication/authenticationSlice';
+import { AuthenticationState } from '../../authentication/slice';
 import { SongResponse } from './shared';
 
 export function* watchLoadSongs() {

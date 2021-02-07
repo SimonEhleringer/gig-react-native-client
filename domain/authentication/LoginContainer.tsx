@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Login from './Login';
 import { useDispatch } from 'react-redux';
-import { login } from './authenticationSlice';
+import { login } from './slice';
 import { useNavigation } from '@react-navigation/native';
 import { REGISTER_STACK_ROUTE } from '../../navigation/constants';
 import withBackground from '../common/withBackground';

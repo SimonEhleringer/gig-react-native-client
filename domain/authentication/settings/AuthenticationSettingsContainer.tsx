@@ -3,7 +3,7 @@ import AuthenticationSettings from './AuthenticationSettings';
 import { useSelector, useDispatch } from 'react-redux';
 import { ReduxState } from '../../../config/store';
 import { useTheme } from '../../../hooks/useTheme';
-import { logout } from '../authenticationSlice';
+import { logout } from '../slice';
 
 interface AuthenticationSettingsContainerProps {}
 

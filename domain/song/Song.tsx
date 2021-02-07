@@ -73,7 +73,7 @@ const Song: React.FC<SongProps> = ({
             </ListItem.Content>
 
             <ListItem.Content style={styles.rightListItemContent}>
-              <Tempo tempo={song.tempo} />
+              <Tempo tempo={song.tempo} isMetronomeOn />
             </ListItem.Content>
 
             <ListItem.Chevron

@@ -7,7 +7,7 @@ import {
   searchSongsStarted,
   searchSongsSucceded,
   SEARCH_SONGS,
-} from '../addSongSlice';
+} from '../slice';
 import GetSongBpmSongModel from '../GetSongBpmSongModel';
 import { requestSearchSongs } from './requests';
 import {
@@ -24,8 +24,6 @@ function* handleSearchSongs(action: PayloadAction<string>) {
 
   const search = action.payload;
 
-  console.log(search);
-
   if (search.trim() === '') {
     yield put(searchSongsSucceded([]));
     return;
@@ -36,9 +34,6 @@ function* handleSearchSongs(action: PayloadAction<string>) {
       requestSearchSongs,
       search
     );
-
-    console.log(response);
-
     const payload: GetSongBpmSongModel[] = [];
 
     const searchResponse = response.data.search;
@@ -47,7 +42,7 @@ function* handleSearchSongs(action: PayloadAction<string>) {
     if (!isGetSongBpmErrorResponse(searchResponse)) {
       // Map response to payload
       searchResponse.forEach((song) => {
-        const { title, artist, tempo } = song;
+        const { title, artist } = song;
 
         // Map artist to interpreter
         let interpreter = artist.name;
@@ -55,7 +50,6 @@ function* handleSearchSongs(action: PayloadAction<string>) {
         const getSongBpmSongModel: GetSongBpmSongModel = {
           title,
           interpreter,
-          tempo,
         };
 
         payload.push(getSongBpmSongModel);

@@ -40,7 +40,7 @@ const SongsScreen: React.FC<SongsScreenProps> = ({ navigation }) => {
   });
 
   const handleAddSongItemClick = () => {
-    navigation.navigate('AddSong');
+    navigation.navigate('SearchSong');
 
     bottomSheetRef.current?.close();
   };

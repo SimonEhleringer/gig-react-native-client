@@ -8,7 +8,7 @@ import {
   loginRegisterFailed,
   loginRegisterStarted,
   loginRegisterSucceeded,
-} from '../authenticationSlice';
+} from '../slice';
 import { requestLogin } from './requests';
 import {
   AuthenticationResponse,

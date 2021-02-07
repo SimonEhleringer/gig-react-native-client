@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Register from './Register';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { register } from './authenticationSlice';
+import { register } from './slice';
 import withBackground from '../common/withBackground';
 import { Keyboard } from 'react-native';
 import { Input } from 'react-native-elements';

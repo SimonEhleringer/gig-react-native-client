@@ -5,7 +5,7 @@ import {
   refreshStarted,
   refreshSucceeded,
   RefreshSucceededPayload,
-} from '../domain/authentication/authenticationSlice';
+} from '../domain/authentication/slice';
 import { requestRefresh } from '../domain/authentication/saga/requests';
 import {
   RefreshJwtPayload,

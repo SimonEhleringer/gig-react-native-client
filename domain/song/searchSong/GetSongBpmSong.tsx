@@ -2,16 +2,20 @@ import React from 'react';
 import { ListItem } from 'react-native-elements';
 import GetSongBpmSongModel from './GetSongBpmSongModel';
 
-interface SearchSongItemProps {
+interface GetSongBpmSongProps {
   getSongBpmSong: GetSongBpmSongModel;
+  hasBottomDivider: boolean;
 }
 
-const SearchSongItem: React.FC<SearchSongItemProps> = ({ getSongBpmSong }) => {
-  const { title, interpreter, tempo } = getSongBpmSong;
+const GetSongBpmSong: React.FC<GetSongBpmSongProps> = ({
+  getSongBpmSong,
+  hasBottomDivider,
+}) => {
+  const { title, interpreter } = getSongBpmSong;
 
   return (
     <ListItem
-      bottomDivider={true}
+      bottomDivider={hasBottomDivider}
       containerStyle={{ backgroundColor: 'transparent' }}
     >
       <ListItem.Content>
@@ -22,4 +26,4 @@ const SearchSongItem: React.FC<SearchSongItemProps> = ({ getSongBpmSong }) => {
   );
 };
 
-export default SearchSongItem;
+export default GetSongBpmSong;

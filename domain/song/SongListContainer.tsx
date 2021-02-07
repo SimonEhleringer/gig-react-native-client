@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import SongList from './SongList';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadSongs } from './songSlice';
+import { loadSongs } from './slice';
 import { ReduxState } from '../../config/store';
 
 interface SongListContainerProps {}

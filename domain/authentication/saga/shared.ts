@@ -1,5 +1,5 @@
 import jwtDecode, { JwtPayload } from 'jwt-decode';
-import { LoginRegisterSucceededPayload } from '../authenticationSlice';
+import { LoginRegisterSucceededPayload } from '../slice';
 
 export const getLoginRegisterSucceededPayload = (
   jwtToken: string,
