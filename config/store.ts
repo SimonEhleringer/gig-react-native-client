@@ -3,12 +3,12 @@ import createSagaMiddleware from 'redux-saga';
 import playlist from '../domain/playlist/playlistSlice';
 import authentication from '../domain/authentication/slice';
 import song from '../domain/song/slice';
-import addSong from '../domain/song/searchSong/slice';
+import addSong from '../domain/song/getSongBpmSong/slice';
 import { watchLogin } from '../domain/authentication/saga/login';
 import { watchRegister } from '../domain/authentication/saga/register';
 import { watchLogout } from '../domain/authentication/saga/logout';
 import { watchLoadSongs } from '../domain/song/saga/loadSongs';
-import { watchSearchSongs } from '../domain/song/searchSong/saga/searchSongs';
+import { watchSearchSongs } from '../domain/song/getSongBpmSong/saga/searchSongs';
 
 const sagaMiddleware = createSagaMiddleware();
 

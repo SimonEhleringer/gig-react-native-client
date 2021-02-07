@@ -3,9 +3,13 @@ import { useSelector } from 'react-redux';
 import { ReduxState } from '../../../config/store';
 import GetSongBpmSongList from './GetSongBpmSongList';
 
-interface GetSongBpmSongListContainerProps {}
+interface GetSongBpmSongListContainerProps {
+  handleSongPress: () => void;
+}
 
-const GetSongBpmSongListContainer: React.FC<GetSongBpmSongListContainerProps> = ({}) => {
+const GetSongBpmSongListContainer: React.FC<GetSongBpmSongListContainerProps> = ({
+  handleSongPress,
+}) => {
   const state = useSelector((state: ReduxState) => state.addSong);
   const getSongBpmSongs = state.getSongBpmSongs;
   const loading = state.loading;
@@ -16,6 +20,7 @@ const GetSongBpmSongListContainer: React.FC<GetSongBpmSongListContainerProps> = 
       getSongBpmSongs={getSongBpmSongs}
       loading={loading}
       errors={errors}
+      handleSongPress={handleSongPress}
     />
   );
 };

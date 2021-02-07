@@ -2,7 +2,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { StatusBar, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import SearchSongContainer from '../domain/song/searchSong/SearchSongContainer';
 import { SongsStackParamList } from '../navigation/SongsStack';
 import { useTheme } from '../hooks/useTheme';
 import { TextInput } from 'react-native-gesture-handler';
@@ -14,11 +13,10 @@ import {
   PADDING_HALF,
 } from '../config/themes';
 import { useDispatch } from 'react-redux';
-import { searchSongs } from '../domain/song/searchSong/slice';
-import SearchSongContentContainer from '../domain/song/searchSong/SearchSongContentContainer';
+import { searchSongs } from '../domain/song/getSongBpmSong/slice';
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
 import withBackground from '../domain/common/withBackground';
-import SearchSongScreenContent from '../domain/song/searchSong/SearchSongScreenContent';
+import SearchSongScreenContent from '../domain/song/getSongBpmSong/SearchSongScreenContent';
 
 interface SearchSongScreenProps {
   navigation: StackNavigationProp<SongsStackParamList, 'SearchSong'>;
@@ -79,7 +77,7 @@ const SearchSongScreen: React.FC<SearchSongScreenProps> = ({ navigation }) => {
           />
         </View>
 
-        <SearchSongScreenContent />
+        <SearchSongScreenContent navigation={navigation} />
       </SafeAreaView>
     </>
   );
