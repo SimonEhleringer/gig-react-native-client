@@ -2,28 +2,28 @@ import React, { useEffect, useRef, useState } from 'react';
 import AddSong from './AddSong';
 import { useTheme } from '../../hooks/useTheme';
 import { Input } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createSong, CreateSongPayload } from './slice';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SongsStackParamList } from '../../navigation/SongsStack';
+import { requestSong } from './getSongBpmSong/saga/requests';
+import { getErrorsFromError } from '../common/saga';
+import { ReduxState } from '../../config/store';
 
 interface AddSongContainerProps {
   navigation: StackNavigationProp<SongsStackParamList, 'AddSong'>;
-  initialTitle: string;
-  initialInterpreter: string;
-  initialTempo: number;
-  initialNotes: string;
+  id?: string;
 }
 
 const AddSongContainer: React.FC<AddSongContainerProps> = ({
   navigation,
-  initialTitle,
-  initialInterpreter,
-  initialTempo,
-  initialNotes,
+  id,
 }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
+
+  const [getSongBpmLoading, setGetSongBpmLoading] = useState(false);
+  const [getSongBpmErrors, setGetSongBpmErrors] = useState<string[]>([]);
 
   const [title, setTitle] = useState('');
   const [interpreter, setInterpreter] = useState('');
@@ -34,11 +34,40 @@ const AddSongContainer: React.FC<AddSongContainerProps> = ({
   const tempoInputRef = useRef<Input>(null);
   const notesInputRef = useRef<Input>(null);
 
+  const state = useSelector((state: ReduxState) => state.song);
+  const loading = state.loading;
+  const errors = state.errors;
+
   useEffect(() => {
-    setTitle(initialTitle);
-    setInterpreter(initialInterpreter);
-    setTempo(initialTempo.toString());
-    setNotes(initialNotes);
+    if (!id) {
+      return;
+    }
+
+    setGetSongBpmLoading(true);
+
+    requestSong(id)
+      .then((result) => {
+        const response = result.data;
+        const { title, artist, tempo } = response.song;
+
+        if (title) {
+          setTitle(title);
+        }
+
+        if (artist) {
+          setInterpreter(artist.name);
+        }
+
+        if (tempo) {
+          setTempo(tempo.toString());
+        }
+
+        setGetSongBpmLoading(false);
+      })
+      .catch((e) => {
+        setGetSongBpmErrors(getErrorsFromError(e));
+        setGetSongBpmLoading(false);
+      });
   }, []);
 
   const handleTitleSubmitEditing = () => {
@@ -92,6 +121,10 @@ const AddSongContainer: React.FC<AddSongContainerProps> = ({
   return (
     <AddSong
       theme={theme}
+      loading={loading}
+      errors={errors}
+      getSongBpmLoading={getSongBpmLoading}
+      getSongBpmErrors={getSongBpmErrors}
       title={title}
       interpreter={interpreter}
       tempo={tempo}

@@ -2,13 +2,22 @@ import React, { RefObject } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { FullTheme, Input } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import { MARGIN } from '../../config/themes';
+import Errors from '../common/Errors';
 import Button from '../common/FormButton';
 import FormContainer from '../common/FormContainer';
+import LoadingAndErrors from '../common/LoadingAndErrors';
 import Paper from '../common/Paper';
 
 interface AddSongProps {
   theme: Partial<FullTheme>;
+
+  loading: boolean;
+  errors: string[];
+
+  getSongBpmLoading: boolean;
+  getSongBpmErrors: string[];
 
   title: string;
   handleTitleSubmitEditing: () => void;
@@ -34,6 +43,12 @@ interface AddSongProps {
 const AddSong: React.FC<AddSongProps> = ({
   theme,
 
+  loading,
+  errors,
+
+  getSongBpmLoading,
+  getSongBpmErrors,
+
   title,
   handleTitleSubmitEditing,
   handleTitleChanged,
@@ -56,58 +71,71 @@ const AddSong: React.FC<AddSongProps> = ({
 }) => {
   return (
     <FormContainer>
-      <View style={styles.container}>
-        <View style={styles.subContainer}>
-          <ScrollView style={styles.subContainer}>
-            <Input
-              style={styles.formContent}
-              inputStyle={{ color: theme.colors?.text }}
-              placeholder='Titel'
-              onSubmitEditing={handleTitleSubmitEditing}
-              onChangeText={(val) => handleTitleChanged(val)}
-              value={title}
-              maxLength={50}
-            />
-
-            <View style={{ flexDirection: 'row' }}>
+      <LoadingAndErrors loading={getSongBpmLoading} errors={getSongBpmErrors}>
+        <View style={styles.container}>
+          <View style={styles.subContainer}>
+            <ScrollView
+              style={styles.subContainer}
+              keyboardShouldPersistTaps='always'
+            >
               <Input
                 style={styles.formContent}
-                ref={interpreterInputRef}
-                containerStyle={{ flex: 4 }}
                 inputStyle={{ color: theme.colors?.text }}
-                placeholder='Interpreter'
-                onSubmitEditing={handleInterpreterSubmitEditing}
-                onChangeText={(val) => handleInterpreterChanged(val)}
-                value={interpreter}
+                placeholder='Titel'
+                onSubmitEditing={handleTitleSubmitEditing}
+                onChangeText={(val) => handleTitleChanged(val)}
+                value={title}
                 maxLength={50}
               />
+
+              <View style={{ flexDirection: 'row' }}>
+                <Input
+                  style={styles.formContent}
+                  ref={interpreterInputRef}
+                  containerStyle={{ flex: 4 }}
+                  inputStyle={{ color: theme.colors?.text }}
+                  placeholder='Interpreter'
+                  onSubmitEditing={handleInterpreterSubmitEditing}
+                  onChangeText={(val) => handleInterpreterChanged(val)}
+                  value={interpreter}
+                  maxLength={50}
+                />
+                <Input
+                  style={styles.formContent}
+                  ref={tempoInputRef}
+                  containerStyle={{ flex: 1 }}
+                  inputStyle={{ color: theme.colors?.text }}
+                  placeholder='Tempo'
+                  keyboardType='number-pad'
+                  onSubmitEditing={handleTempoSubmitEditing}
+                  onChangeText={(val) => handleTempoChanged(val)}
+                  value={tempo.toString()}
+                />
+              </View>
               <Input
                 style={styles.formContent}
-                ref={tempoInputRef}
-                containerStyle={{ flex: 1 }}
+                ref={notesInputRef}
                 inputStyle={{ color: theme.colors?.text }}
-                placeholder='Tempo'
-                keyboardType='number-pad'
-                onSubmitEditing={handleTempoSubmitEditing}
-                onChangeText={(val) => handleTempoChanged(val)}
-                value={tempo.toString()}
+                placeholder='Notizen (Zeilenumbrüche möglich)'
+                multiline
+                onChangeText={(val) => handleNotesChanged(val)}
+                value={notes}
+                maxLength={256}
               />
-            </View>
-            <Input
-              style={styles.formContent}
-              ref={notesInputRef}
-              inputStyle={{ color: theme.colors?.text }}
-              placeholder='Notizen (Zeilenumbrüche möglich)'
-              multiline
-              onChangeText={(val) => handleNotesChanged(val)}
-              value={notes}
-              maxLength={256}
-            />
 
-            <Button title='Hinzufügen' onPress={handleAddSong} />
-          </ScrollView>
+              <Button
+                title='Hinzufügen'
+                onPress={handleAddSong}
+                loading={loading}
+              />
+
+              <HideWithKeyboard>
+                <Errors errors={errors} />
+              </HideWithKeyboard>
+            </ScrollView>
+          </View>
         </View>
-      </View>
+      </LoadingAndErrors>
     </FormContainer>
   );
 };

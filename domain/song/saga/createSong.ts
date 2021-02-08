@@ -30,14 +30,10 @@ export function* handleCreateSong(action: PayloadAction<CreateSongPayload>) {
   };
 
   try {
-    console.log(request);
-
     const response: AxiosResponse<SongResponse> = yield call(
       requestCreateSong,
       request
     );
-
-    console.log(response);
 
     const { songId, title, interpreter, tempo, notes } = response.data;
 
@@ -48,13 +44,8 @@ export function* handleCreateSong(action: PayloadAction<CreateSongPayload>) {
       tempo,
       notes,
     };
-
-    console.log(payload);
-
     yield put(createSongSucceeded(payload));
   } catch (e) {
     yield put(songActionFailed(getErrorsFromError(e)));
-
-    console.log(e);
   }
 }

@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import playlist from '../domain/playlist/playlistSlice';
 import authentication from '../domain/authentication/slice';
 import song from '../domain/song/slice';
-import addSong from '../domain/song/getSongBpmSong/slice';
+import getSongBpmSong from '../domain/song/getSongBpmSong/slice';
 import { watchLogin } from '../domain/authentication/saga/login';
 import { watchRegister } from '../domain/authentication/saga/register';
 import { watchLogout } from '../domain/authentication/saga/logout';
@@ -17,7 +17,7 @@ const reducer = combineReducers({
   authentication,
   playlist,
   song,
-  addSong,
+  getSongBpmSong,
 });
 
 const store = createStore(reducer, applyMiddleware(sagaMiddleware));

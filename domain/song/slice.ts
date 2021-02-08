@@ -36,8 +36,6 @@ const songSlice = createSlice({
     createSongSucceeded(state, action: PayloadAction<SongEntity>) {
       state.songs.push(action.payload);
       state.loading = false;
-
-      console.log(state.songs);
     },
     songActionFailed(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;

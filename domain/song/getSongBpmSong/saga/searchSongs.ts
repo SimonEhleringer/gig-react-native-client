@@ -59,9 +59,6 @@ function* handleSearchSongs(action: PayloadAction<string>) {
 
     yield put(searchSongsSucceded(payload));
   } catch (e) {
-    console.log(e + ' (im Catch)');
-    console.log(e.message);
-
     yield put(searchSongsFailed(getErrorsFromError(e)));
   }
 }

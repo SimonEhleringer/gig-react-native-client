@@ -39,7 +39,6 @@ export const getErrorsFromError = (e: Error) => {
       return [axiosError.message];
     }
   } else {
-    console.log(e.message);
     return [e.message];
   }
 };

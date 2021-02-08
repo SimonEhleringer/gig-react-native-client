@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import api from '../../../config/api';
+import authenticationApi from '../../../config/authenticationApi';
 import {
   LoginRequest,
   RefreshLogoutRequest,
@@ -8,7 +8,7 @@ import {
 } from './shared';
 
 export const requestLogin = async (loginRequest: LoginRequest) => {
-  const response: AxiosResponse<AuthenticationResponse> = await api.post(
+  const response: AxiosResponse<AuthenticationResponse> = await authenticationApi.post(
     '/Authentication/Login',
     {
       ...loginRequest,
@@ -19,7 +19,7 @@ export const requestLogin = async (loginRequest: LoginRequest) => {
 };
 
 export const requestRegister = async (registerRequest: RegisterRequest) => {
-  const response: AxiosResponse<AuthenticationResponse> = await api.post(
+  const response: AxiosResponse<AuthenticationResponse> = await authenticationApi.post(
     '/Authentication/Register',
     { ...registerRequest }
   );
@@ -28,7 +28,7 @@ export const requestRegister = async (registerRequest: RegisterRequest) => {
 };
 
 export const requestRefresh = async (refreshRequest: RefreshLogoutRequest) => {
-  const response: AxiosResponse<AuthenticationResponse> = await api.post(
+  const response: AxiosResponse<AuthenticationResponse> = await authenticationApi.post(
     'Authentication/Refresh',
     { ...refreshRequest }
   );
@@ -37,5 +37,5 @@ export const requestRefresh = async (refreshRequest: RefreshLogoutRequest) => {
 };
 
 export const requestLogout = async (logoutRequest: RefreshLogoutRequest) => {
-  await api.post('Authentication/Logout', { ...logoutRequest });
+  await authenticationApi.post('Authentication/Logout', { ...logoutRequest });
 };

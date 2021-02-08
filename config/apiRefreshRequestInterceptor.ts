@@ -21,9 +21,16 @@ export const addRefreshRequestInterceptor = (api: AxiosInstance) => {
       const { jwtTokenExpiryTime } = authState;
 
       // Don't check for Authentication endpoints, because they don't need a Jwt
-      if (config.url?.includes('Authentication')) {
-        return config;
-      }
+      // if (
+      //   config.url?.includes('Authentication') ||
+      //   config.url?.includes('Refresh')
+      // ) {
+      //   console.log('authentication oder refresh');
+
+      //   return config;
+      // }
+
+      console.log(jwtTokenExpiryTime < Date.now().valueOf() / 1000);
 
       // If Jwt is expired -> Refresh Jwt
       if (jwtTokenExpiryTime < Date.now().valueOf() / 1000) {
@@ -36,11 +43,15 @@ export const addRefreshRequestInterceptor = (api: AxiosInstance) => {
           refreshToken,
         };
 
+        console.log(request);
+
         requestRefresh(request)
           .then((result) => {
             const { jwtToken, refreshToken } = result.data;
 
             const decodedJwt: RefreshJwtPayload = jwtDecode(jwtToken);
+
+            console.log(decodedJwt);
 
             const payload: RefreshSucceededPayload = {
               jwtToken,
@@ -51,6 +62,8 @@ export const addRefreshRequestInterceptor = (api: AxiosInstance) => {
             store.dispatch(refreshSucceeded(payload));
           })
           .catch((e) => {
+            console.log(e);
+
             store.dispatch(refreshFailed(getErrorsFromError(e)));
           });
       }

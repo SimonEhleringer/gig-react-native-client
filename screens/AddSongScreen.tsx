@@ -13,17 +13,7 @@ interface AddSongScreenProps {
 }
 
 const AddSongScreen: React.FC<AddSongScreenProps> = ({ route, navigation }) => {
-  const { title, interpreter, tempo, notes } = route.params;
-
-  return (
-    <AddSongContainer
-      navigation={navigation}
-      initialTitle={title}
-      initialInterpreter={interpreter}
-      initialTempo={tempo}
-      initialNotes={notes}
-    />
-  );
+  return <AddSongContainer navigation={navigation} id={route.params?.id} />;
 };
 
 export default withBottomRoundedCorners(withBackground(AddSongScreen));

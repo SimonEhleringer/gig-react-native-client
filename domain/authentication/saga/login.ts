@@ -38,6 +38,8 @@ function* handleLogin(action: PayloadAction<LoginPayload>) {
 
     const { jwtToken, refreshToken } = response.data;
 
+    console.log(refreshToken);
+
     const payload = getLoginRegisterSucceededPayload(jwtToken, refreshToken);
 
     yield put(loginRegisterSucceeded(payload));
