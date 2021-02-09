@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  FlatList,
   ScrollView,
   TouchableHighlight,
   TouchableOpacity,
@@ -11,6 +12,7 @@ import GetSongBpmSongModel from './GetSongBpmSongModel';
 import GetSongBpmSong from './GetSongBpmSong';
 import { ListItem } from 'react-native-elements';
 import { TouchableHighlightBase, TouchableWithoutFeedback } from 'react-native';
+import PaddingView from '../../common/PaddingView';
 
 interface GetSongBpmSongListProps {
   getSongBpmSongs: GetSongBpmSongModel[];
@@ -28,44 +30,44 @@ const GetSongBpmSongList: React.FC<GetSongBpmSongListProps> = ({
   handleDummySongPress,
 }) => {
   return (
-    <ScrollView
-      style={{ backgroundColor: 'transparent' }}
-      contentContainerStyle={{ flexGrow: 1 }}
-    >
-      <Container>
-        <Paper hasMarginBottom>
-          <ListItem
-            containerStyle={{ backgroundColor: 'transparent' }}
-            onPress={handleDummySongPress}
-            Component={TouchableWithoutFeedback}
-          >
-            <ListItem.Content>
-              <ListItem.Title>Ohne Song fortfahren</ListItem.Title>
-              <ListItem.Subtitle>
-                Lässt dich einen ganz eigenen Song erstellen
-              </ListItem.Subtitle>
-            </ListItem.Content>
-          </ListItem>
-        </Paper>
-
-        <LoadingAndErrors loading={loading} errors={errors}>
-          {getSongBpmSongs.length > 0 && (
-            <Paper>
-              {getSongBpmSongs.map((song, index) => {
-                return (
-                  <GetSongBpmSong
-                    key={song.id}
-                    getSongBpmSong={song}
-                    hasBottomDivider={index !== getSongBpmSongs.length - 1}
-                    handleSongPress={() => handleSongPress(song.id)}
-                  />
-                );
-              })}
-            </Paper>
+    <>
+      <LoadingAndErrors loading={loading} errors={errors}>
+        <FlatList
+          keyExtractor={(item) => item.id}
+          data={getSongBpmSongs}
+          renderItem={(item) => (
+            <GetSongBpmSong
+              key={item.item.id}
+              getSongBpmSong={item.item}
+              isFirstItem={item.index === 0}
+              isLastItem={item.index === getSongBpmSongs.length - 1}
+              handleSongPress={() => handleSongPress(item.item.id)}
+            />
           )}
-        </LoadingAndErrors>
-      </Container>
-    </ScrollView>
+          ListHeaderComponent={
+            <>
+              <PaddingView />
+              <Paper>
+                <ListItem
+                  containerStyle={{ backgroundColor: 'transparent' }}
+                  onPress={handleDummySongPress}
+                  Component={TouchableWithoutFeedback}
+                >
+                  <ListItem.Content>
+                    <ListItem.Title>Ohne Song fortfahren</ListItem.Title>
+                    <ListItem.Subtitle>
+                      Lässt dich einen ganz eigenen Song erstellen
+                    </ListItem.Subtitle>
+                  </ListItem.Content>
+                </ListItem>
+              </Paper>
+              <PaddingView />
+            </>
+          }
+          ListFooterComponent={<PaddingView />}
+        />
+      </LoadingAndErrors>
+    </>
   );
 };
 

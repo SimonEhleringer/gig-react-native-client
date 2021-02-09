@@ -5,6 +5,7 @@ export const theme = {
     text: '#6F7278',
     black: 'black',
     lightGrey: '#D3D3D3',
+    paperBackgroundColor: 'rgba(255, 255, 255, 0.85)',
   },
   Button: {
     buttonStyle: {

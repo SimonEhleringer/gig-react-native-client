@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { StyleSheet, View, Animated } from 'react-native';
 import { Divider, FullTheme, ListItem, Text } from 'react-native-elements';
 import Tempo from './components/Tempo';
@@ -8,12 +8,18 @@ import { MaterialIcons as Icon } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import Collapsible from 'react-native-collapsible';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { MARGIN, PADDING, PADDING_DOUBLE } from '../../config/themes';
+import {
+  BORDER_RADIUS,
+  MARGIN,
+  PADDING,
+  PADDING_DOUBLE,
+} from '../../config/themes';
 
 interface SongProps {
   theme: Partial<FullTheme>;
   song: SongEntity;
-  hasBottomDivider: boolean;
+  isFirstItem: boolean;
+  isLastItem: boolean;
   areNotesCollapsed: boolean;
   rotation: Animated.AnimatedInterpolation;
   handleListItemPress: () => void;
@@ -22,7 +28,8 @@ interface SongProps {
 const Song: React.FC<SongProps> = ({
   theme,
   song,
-  hasBottomDivider,
+  isFirstItem,
+  isLastItem,
   areNotesCollapsed,
   rotation,
   handleListItemPress,
@@ -30,8 +37,12 @@ const Song: React.FC<SongProps> = ({
   return (
     <ListItem
       Component={TouchableWithoutFeedback}
-      containerStyle={{ backgroundColor: 'transparent' }}
-      bottomDivider={hasBottomDivider}
+      containerStyle={[
+        { backgroundColor: theme.colors?.paperBackgroundColor },
+        isFirstItem ? styles.borderTopRadius : {},
+        isLastItem ? styles.borderBottomRadius : {},
+      ]}
+      bottomDivider={!isLastItem}
       onPress={handleListItemPress}
     >
       <ListItem.Content>
@@ -137,6 +148,14 @@ const styles = StyleSheet.create({
   },
   notesTextWrapper: {
     paddingTop: PADDING,
+  },
+  borderTopRadius: {
+    borderTopLeftRadius: BORDER_RADIUS,
+    borderTopRightRadius: BORDER_RADIUS,
+  },
+  borderBottomRadius: {
+    borderBottomLeftRadius: BORDER_RADIUS,
+    borderBottomRightRadius: BORDER_RADIUS,
   },
 });
 

@@ -6,12 +6,14 @@ import { useTheme } from '../../hooks/useTheme';
 
 interface SongContainerProps {
   song: SongEntity;
-  hasBottomDivider: boolean;
+  isFirstItem: boolean;
+  isLastItem: boolean;
 }
 
 const SongContainer: React.FC<SongContainerProps> = ({
   song,
-  hasBottomDivider,
+  isLastItem,
+  isFirstItem,
 }) => {
   const theme = useTheme();
 
@@ -39,7 +41,8 @@ const SongContainer: React.FC<SongContainerProps> = ({
     <Song
       theme={theme}
       song={song}
-      hasBottomDivider={hasBottomDivider}
+      isFirstItem={isFirstItem}
+      isLastItem={isLastItem}
       areNotesCollapsed={areNotesCollapsed}
       rotation={rotation}
       handleListItemPress={handleListItemPress}
