@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { ReduxState } from '../../../config/store';
-import { ErrorResponse } from '../../common/saga';
+import { ErrorResponse } from '../../common/saga/shared';
 import {
   AuthenticationState,
   LOGOUT,

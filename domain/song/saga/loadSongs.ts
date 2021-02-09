@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { getErrorsFromError } from '../../common/saga';
+import { getErrorsFromError } from '../../common/saga/shared';
 import SongEntity from '../SongEntity';
 import {
   songActionStarted,

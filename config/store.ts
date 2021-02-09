@@ -10,6 +10,7 @@ import { watchLogout } from '../domain/authentication/saga/logout';
 import { watchLoadSongs } from '../domain/song/saga/loadSongs';
 import { watchCreateSong } from '../domain/song/saga/createSong';
 import { watchSearchSongs } from '../domain/song/getSongBpmSong/saga/searchSongs';
+import { watchOnCompleteSaga } from '../domain/common/saga/onComplete';
 
 const sagaMiddleware = createSagaMiddleware();
 

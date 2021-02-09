@@ -11,7 +11,7 @@ import {
   RefreshJwtPayload,
   RefreshLogoutRequest,
 } from '../domain/authentication/saga/shared';
-import { getErrorsFromError } from '../domain/common/saga';
+import { getErrorsFromError } from '../domain/common/saga/shared';
 import store from './store';
 
 export const addRefreshRequestInterceptor = (api: AxiosInstance) => {

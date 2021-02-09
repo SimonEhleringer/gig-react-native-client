@@ -7,7 +7,7 @@ import { createSong, CreateSongPayload } from './slice';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SongsStackParamList } from '../../navigation/SongsStack';
 import { requestSong } from './getSongBpmSong/saga/requests';
-import { getErrorsFromError } from '../common/saga';
+import { getErrorsFromError } from '../common/saga/shared';
 import { ReduxState } from '../../config/store';
 
 interface AddSongContainerProps {
@@ -70,6 +70,18 @@ const AddSongContainer: React.FC<AddSongContainerProps> = ({
       });
   }, []);
 
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      if (loading === false && errors.length === 0) {
+        navigation.navigate('Songs');
+      }
+    }
+  }, [loading, errors]);
+
   const handleTitleSubmitEditing = () => {
     interpreterInputRef.current?.focus();
   };
@@ -111,11 +123,12 @@ const AddSongContainer: React.FC<AddSongContainerProps> = ({
       interpreter,
       tempo: +tempo,
       notes,
+      onComplete: () => {
+        navigation.navigate('Songs');
+      },
     };
 
     dispatch(createSong(payload));
-
-    navigation.navigate('Songs');
   };
 
   return (

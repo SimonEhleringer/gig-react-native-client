@@ -1,4 +1,5 @@
 import { createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadBase } from '../common/slice';
 import SongEntity from './SongEntity';
 
 const name = 'song';
@@ -53,7 +54,7 @@ export const {
 
 export default songSlice.reducer;
 
-export interface CreateSongPayload {
+export interface CreateSongPayload extends PayloadBase {
   title: string;
   interpreter: string;
   tempo: number;

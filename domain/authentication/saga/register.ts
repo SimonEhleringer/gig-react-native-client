@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError, AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { ErrorResponse } from '../../common/saga';
+import { ErrorResponse } from '../../common/saga/shared';
 import {
   loginRegisterFailed,
   loginRegisterStarted,
