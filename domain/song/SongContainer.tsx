@@ -8,12 +8,14 @@ interface SongContainerProps {
   song: SongEntity;
   isFirstItem: boolean;
   isLastItem: boolean;
+  openBottomSheet: () => void;
 }
 
 const SongContainer: React.FC<SongContainerProps> = ({
   song,
   isLastItem,
   isFirstItem,
+  openBottomSheet,
 }) => {
   const theme = useTheme();
 
@@ -37,6 +39,16 @@ const SongContainer: React.FC<SongContainerProps> = ({
     setAreNotesCollapsed(!areNotesCollapsed);
   };
 
+  const handleChevronPress = () => {
+    console.log('öffne Bottomsheet');
+
+    openBottomSheet();
+
+    //console.log('test');
+
+    console.log('bottomsheet geöffnet');
+  };
+
   return (
     <Song
       theme={theme}
@@ -46,6 +58,7 @@ const SongContainer: React.FC<SongContainerProps> = ({
       areNotesCollapsed={areNotesCollapsed}
       rotation={rotation}
       handleListItemPress={handleListItemPress}
+      handleChevronPress={handleChevronPress}
     />
   );
 };

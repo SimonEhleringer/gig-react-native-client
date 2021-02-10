@@ -7,7 +7,7 @@ import MaskedView from '@react-native-community/masked-view';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import Collapsible from 'react-native-collapsible';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { TouchableWithoutFeedback } from 'react-native';
 import {
   BORDER_RADIUS,
   MARGIN,
@@ -23,6 +23,7 @@ interface SongProps {
   areNotesCollapsed: boolean;
   rotation: Animated.AnimatedInterpolation;
   handleListItemPress: () => void;
+  handleChevronPress: () => void;
 }
 
 const Song: React.FC<SongProps> = ({
@@ -33,6 +34,7 @@ const Song: React.FC<SongProps> = ({
   areNotesCollapsed,
   rotation,
   handleListItemPress,
+  handleChevronPress,
 }) => {
   return (
     <ListItem
@@ -91,7 +93,7 @@ const Song: React.FC<SongProps> = ({
               name='more-vert'
               type='material'
               size={25}
-              onPress={() => alert('Test2')}
+              onPress={handleChevronPress}
             />
           </ListItem.Content>
         </View>
