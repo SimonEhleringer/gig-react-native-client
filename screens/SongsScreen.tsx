@@ -8,14 +8,16 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { SongsStackParamList } from '../navigation/SongsStack';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import { useTheme } from '../hooks/useTheme';
-import { BORDER_RADIUS, PADDING } from '../config/themes';
+import {
+  BORDER_RADIUS,
+  BOTTOM_SHEET_HEADER_HEIGHT,
+  BOTTOM_SHEET_LIST_ITEM_HEIGHT,
+  PADDING,
+} from '../config/themes';
 // import BottomSheet from 'reanimated-bottom-sheet';
 // import BottomSheetBehavior from 'reanimated-bottom-sheet';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { ListItem } from 'react-native-elements';
-
-const BOTTOM_SHEET_HEADER_HEIGHT = 25;
-const LIST_ITEM_HEIGHT = 57.42856979370117;
 
 interface SongsScreenProps {
   navigation: StackNavigationProp<SongsStackParamList, 'Songs'>;
@@ -58,7 +60,9 @@ const SongsScreen: React.FC<SongsScreenProps> = ({ navigation }) => {
             borderTopLeftRadius: BORDER_RADIUS,
           },
         }}
-        height={LIST_ITEM_HEIGHT + BOTTOM_SHEET_HEADER_HEIGHT + PADDING}
+        height={
+          BOTTOM_SHEET_LIST_ITEM_HEIGHT + BOTTOM_SHEET_HEADER_HEIGHT + PADDING
+        }
       >
         <ListItem onPress={handleAddSongItemClick}>
           <Icon name='add' size={25} color='black' />

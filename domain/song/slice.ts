@@ -1,10 +1,10 @@
 import { createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
-import { PayloadBase } from '../common/slice';
 import SongEntity from './SongEntity';
 
 const name = 'song';
 export const LOAD_SONGS = `${name}/loadSongs`;
 export const CREATE_SONG = `${name}/createSong`;
+export const UPDATE_SONG = `${name}/updateSong`;
 
 export type SongState = {
   songs: SongEntity[];
@@ -22,6 +22,8 @@ export const loadSongs = createAction(LOAD_SONGS);
 
 export const createSong = createAction<CreateSongPayload>(CREATE_SONG);
 
+export const updateSong = createAction<UpdateSongPayload>(UPDATE_SONG);
+
 const songSlice = createSlice({
   name,
   initialState,
@@ -38,6 +40,10 @@ const songSlice = createSlice({
       state.songs.push(action.payload);
       state.loading = false;
     },
+    updateSongSucceeded(state, action: PayloadAction<SongEntity[]>) {
+      state.songs = action.payload;
+      state.loading = false;
+    },
     songActionFailed(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;
       state.loading = false;
@@ -49,12 +55,21 @@ export const {
   songActionStarted,
   loadSongsSucceeded,
   createSongSucceeded,
+  updateSongSucceeded,
   songActionFailed,
 } = songSlice.actions;
 
 export default songSlice.reducer;
 
-export interface CreateSongPayload extends PayloadBase {
+export interface CreateSongPayload {
+  title: string;
+  interpreter: string;
+  tempo: number;
+  notes: string;
+}
+
+export interface UpdateSongPayload {
+  songId: string;
   title: string;
   interpreter: string;
   tempo: number;

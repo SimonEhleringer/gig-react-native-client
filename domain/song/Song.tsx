@@ -10,11 +10,14 @@ import Collapsible from 'react-native-collapsible';
 import { TouchableWithoutFeedback } from 'react-native';
 import {
   BORDER_RADIUS,
+  BOTTOM_SHEET_HEADER_HEIGHT,
+  BOTTOM_SHEET_LIST_ITEM_HEIGHT,
   MARGIN,
   PADDING,
   PADDING_DOUBLE,
 } from '../../config/themes';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { ThemeProvider } from '@react-navigation/native';
 
 interface SongProps {
   theme: Partial<FullTheme>;
@@ -26,6 +29,7 @@ interface SongProps {
   bottomSheetRef: RefObject<RBSheet>;
   handleListItemPress: () => void;
   handleChevronPress: () => void;
+  handleBottomSheetEdit: () => void;
 }
 
 const Song: React.FC<SongProps> = ({
@@ -38,6 +42,7 @@ const Song: React.FC<SongProps> = ({
   bottomSheetRef,
   handleListItemPress,
   handleChevronPress,
+  handleBottomSheetEdit,
 }) => {
   return (
     <>
@@ -126,12 +131,23 @@ const Song: React.FC<SongProps> = ({
             borderTopLeftRadius: BORDER_RADIUS,
           },
         }}
-        //height={LIST_ITEM_HEIGHT + BOTTOM_SHEET_HEADER_HEIGHT + PADDING}
+        height={
+          BOTTOM_SHEET_LIST_ITEM_HEIGHT * 2 +
+          BOTTOM_SHEET_HEADER_HEIGHT +
+          PADDING
+        }
       >
-        <ListItem>
-          <Icon name='add' size={25} color='black' />
+        <ListItem onPress={handleBottomSheetEdit}>
+          <Icon name='edit' size={25} color={theme.colors?.black} />
           <ListItem.Content>
-            <ListItem.Title>Neuen Song erstellen</ListItem.Title>
+            <ListItem.Title>Bearbeiten</ListItem.Title>
+          </ListItem.Content>
+        </ListItem>
+
+        <ListItem>
+          <Icon name='delete' size={25} color={theme.colors?.black} />
+          <ListItem.Content>
+            <ListItem.Title>Löschen</ListItem.Title>
           </ListItem.Content>
         </ListItem>
       </RBSheet>

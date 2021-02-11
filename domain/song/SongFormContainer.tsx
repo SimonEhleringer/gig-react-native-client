@@ -1,34 +1,51 @@
-import React, { useEffect, useRef, useState } from 'react';
-import AddSong from './AddSong';
-import { useTheme } from '../../hooks/useTheme';
-import { Input } from 'react-native-elements';
-import { useDispatch, useSelector } from 'react-redux';
-import { createSong, CreateSongPayload } from './slice';
+import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { SongsStackParamList } from '../../navigation/SongsStack';
-import { requestSong } from './getSongBpmSong/saga/requests';
-import { getErrorsFromError } from '../common/saga/shared';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { Input } from 'react-native-elements';
+import { useSelector } from 'react-redux';
 import { ReduxState } from '../../config/store';
+import { useTheme } from '../../hooks/useTheme';
+import { SongsStackParamList } from '../../navigation/SongsStack';
+import SongForm from './SongForm';
 
-interface AddSongContainerProps {
-  navigation: StackNavigationProp<SongsStackParamList, 'AddSong'>;
-  id?: string;
+interface SongFormContainerProps {
+  title: string;
+  setTitle: Dispatch<SetStateAction<string>>;
+
+  interpreter: string;
+  setInterpreter: Dispatch<SetStateAction<string>>;
+
+  tempo: string;
+  setTempo: Dispatch<SetStateAction<string>>;
+
+  notes: string;
+  setNotes: Dispatch<SetStateAction<string>>;
+
+  handleSubmit: () => void;
 }
 
-const AddSongContainer: React.FC<AddSongContainerProps> = ({
-  navigation,
-  id,
+const SongFormContainer: React.FC<SongFormContainerProps> = ({
+  handleSubmit,
+  title,
+  setTitle,
+  interpreter,
+  setInterpreter,
+  tempo,
+  setTempo,
+  notes,
+  setNotes,
 }) => {
-  const dispatch = useDispatch();
   const theme = useTheme();
-
-  const [getSongBpmLoading, setGetSongBpmLoading] = useState(false);
-  const [getSongBpmErrors, setGetSongBpmErrors] = useState<string[]>([]);
-
-  const [title, setTitle] = useState('');
-  const [interpreter, setInterpreter] = useState('');
-  const [tempo, setTempo] = useState('');
-  const [notes, setNotes] = useState('');
+  const navigation: StackNavigationProp<
+    SongsStackParamList,
+    'AddSong'
+  > = useNavigation();
 
   const interpreterInputRef = useRef<Input>(null);
   const tempoInputRef = useRef<Input>(null);
@@ -37,38 +54,6 @@ const AddSongContainer: React.FC<AddSongContainerProps> = ({
   const state = useSelector((state: ReduxState) => state.song);
   const loading = state.loading;
   const errors = state.errors;
-
-  useEffect(() => {
-    if (!id) {
-      return;
-    }
-
-    setGetSongBpmLoading(true);
-
-    requestSong(id)
-      .then((result) => {
-        const response = result.data;
-        const { title, artist, tempo } = response.song;
-
-        if (title) {
-          setTitle(title);
-        }
-
-        if (artist) {
-          setInterpreter(artist.name);
-        }
-
-        if (tempo) {
-          setTempo(tempo.toString());
-        }
-
-        setGetSongBpmLoading(false);
-      })
-      .catch((e) => {
-        setGetSongBpmErrors(getErrorsFromError(e));
-        setGetSongBpmLoading(false);
-      });
-  }, []);
 
   const isInitialMount = useRef(true);
 
@@ -117,27 +102,11 @@ const AddSongContainer: React.FC<AddSongContainerProps> = ({
     setNotes(newNotes);
   };
 
-  const handleAddSong = () => {
-    const payload: CreateSongPayload = {
-      title,
-      interpreter,
-      tempo: +tempo,
-      notes,
-      onComplete: () => {
-        navigation.navigate('Songs');
-      },
-    };
-
-    dispatch(createSong(payload));
-  };
-
   return (
-    <AddSong
+    <SongForm
       theme={theme}
       loading={loading}
       errors={errors}
-      getSongBpmLoading={getSongBpmLoading}
-      getSongBpmErrors={getSongBpmErrors}
       title={title}
       interpreter={interpreter}
       tempo={tempo}
@@ -152,9 +121,9 @@ const AddSongContainer: React.FC<AddSongContainerProps> = ({
       interpreterInputRef={interpreterInputRef}
       tempoInputRef={tempoInputRef}
       notesInputRef={notesInputRef}
-      handleAddSong={handleAddSong}
+      handleSubmit={handleSubmit}
     />
   );
 };
 
-export default AddSongContainer;
+export default SongFormContainer;

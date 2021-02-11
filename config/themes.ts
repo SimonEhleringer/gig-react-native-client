@@ -24,3 +24,6 @@ export const PADDING_DOUBLE = PADDING * 2;
 
 export const BORDER_RADIUS = 15;
 export const BORDER_RADIUS_LESS = 10;
+
+export const BOTTOM_SHEET_HEADER_HEIGHT = 25;
+export const BOTTOM_SHEET_LIST_ITEM_HEIGHT = 57.42856979370117;

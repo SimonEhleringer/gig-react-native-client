@@ -3,16 +3,18 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SongsScreen from '../screens/SongsScreen';
 import AddSongScreen from '../screens/AddSongScreen';
 import SearchSongScreen from '../screens/SearchSongScreen';
+import UpdateSongScreen from '../screens/UpdateSongScreen';
 
 interface SongsStackProps {}
 
 export type SongsStackParamList = {
   Songs: undefined;
   SearchSong: undefined;
-  AddSong: AddSongParams | undefined;
+  AddSong: AddUpdateSongParams | undefined;
+  UpdateSong: AddUpdateSongParams;
 };
 
-export interface AddSongParams {
+export interface AddUpdateSongParams {
   id: string;
 }
 
@@ -43,6 +45,16 @@ const SongsStack: React.FC<SongsStackProps> = ({}) => {
         component={AddSongScreen}
         options={{
           title: 'Song hinzufügen',
+          headerStyle: {
+            elevation: 0,
+          },
+        }}
+      />
+      <Stack.Screen
+        name='UpdateSong'
+        component={UpdateSongScreen}
+        options={{
+          title: 'Song bearbeiten',
           headerStyle: {
             elevation: 0,
           },

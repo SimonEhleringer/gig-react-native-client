@@ -4,6 +4,13 @@ import SongEntity from './SongEntity';
 import { Animated } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { useDispatch } from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
+import {
+  AddUpdateSongParams,
+  SongsStackParamList,
+} from '../../navigation/SongsStack';
+import { useNavigation } from '@react-navigation/native';
 
 interface SongContainerProps {
   song: SongEntity;
@@ -17,6 +24,10 @@ const SongContainer: React.FC<SongContainerProps> = ({
   isFirstItem,
 }) => {
   const theme = useTheme();
+  const navigation: StackNavigationProp<
+    SongsStackParamList,
+    'Songs'
+  > = useNavigation();
 
   const [animatePress] = useState(new Animated.Value(0));
   const [areNotesCollapsed, setAreNotesCollapsed] = useState(true);
@@ -44,6 +55,18 @@ const SongContainer: React.FC<SongContainerProps> = ({
     bottomSheetRef.current?.open();
   };
 
+  const handleBottomSheetEdit = () => {
+    bottomSheetRef.current?.close();
+
+    const params: AddUpdateSongParams = {
+      id: song.songId,
+    };
+
+    navigation.navigate('UpdateSong', params);
+  };
+
+  const handleBottomSheetDelete = () => {};
+
   return (
     <Song
       theme={theme}
@@ -55,6 +78,7 @@ const SongContainer: React.FC<SongContainerProps> = ({
       bottomSheetRef={bottomSheetRef}
       handleListItemPress={handleListItemPress}
       handleChevronPress={handleChevronPress}
+      handleBottomSheetEdit={handleBottomSheetEdit}
     />
   );
 };

@@ -4,7 +4,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import withBackground from '../domain/common/withBackground';
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
-import AddSongContainer from '../domain/song/AddSongContainer';
+import AddSongFormContainer from '../domain/song/AddSongFormContainer';
 import { SongsStackParamList } from '../navigation/SongsStack';
 
 interface AddSongScreenProps {
@@ -13,7 +13,7 @@ interface AddSongScreenProps {
 }
 
 const AddSongScreen: React.FC<AddSongScreenProps> = ({ route, navigation }) => {
-  return <AddSongContainer navigation={navigation} id={route.params?.id} />;
+  return <AddSongFormContainer id={route.params?.id} />;
 };
 
 export default withBottomRoundedCorners(withBackground(AddSongScreen));
