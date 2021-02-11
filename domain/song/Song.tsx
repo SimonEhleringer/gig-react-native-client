@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { StyleSheet, View, Animated } from 'react-native';
 import { Divider, FullTheme, ListItem, Text } from 'react-native-elements';
 import Tempo from './components/Tempo';
@@ -14,6 +14,7 @@ import {
   PADDING,
   PADDING_DOUBLE,
 } from '../../config/themes';
+import RBSheet from 'react-native-raw-bottom-sheet';
 
 interface SongProps {
   theme: Partial<FullTheme>;
@@ -22,6 +23,7 @@ interface SongProps {
   isLastItem: boolean;
   areNotesCollapsed: boolean;
   rotation: Animated.AnimatedInterpolation;
+  bottomSheetRef: RefObject<RBSheet>;
   handleListItemPress: () => void;
   handleChevronPress: () => void;
 }
@@ -33,85 +35,107 @@ const Song: React.FC<SongProps> = ({
   isLastItem,
   areNotesCollapsed,
   rotation,
+  bottomSheetRef,
   handleListItemPress,
   handleChevronPress,
 }) => {
   return (
-    <ListItem
-      Component={TouchableWithoutFeedback}
-      containerStyle={[
-        { backgroundColor: theme.colors?.paperBackgroundColor },
-        isFirstItem ? styles.borderTopRadius : {},
-        isLastItem ? styles.borderBottomRadius : {},
-      ]}
-      bottomDivider={!isLastItem}
-      onPress={handleListItemPress}
-    >
-      <ListItem.Content>
-        <View style={styles.listItemTop}>
-          <Animated.View
-            style={[
-              styles.turnIconWrapper,
-              {
-                transform: [{ rotate: rotation }],
-              },
-            ]}
-          >
-            <MaskedView
-              style={styles.turnIconMaskedView}
-              maskElement={
-                <Icon name='chevron-right' size={30} color='white' />
-              }
+    <>
+      <ListItem
+        Component={TouchableWithoutFeedback}
+        containerStyle={[
+          { backgroundColor: theme.colors?.paperBackgroundColor },
+          isFirstItem ? styles.borderTopRadius : {},
+          isLastItem ? styles.borderBottomRadius : {},
+        ]}
+        bottomDivider={!isLastItem}
+        onPress={handleListItemPress}
+      >
+        <ListItem.Content>
+          <View style={styles.listItemTop}>
+            <Animated.View
+              style={[
+                styles.turnIconWrapper,
+                {
+                  transform: [{ rotate: rotation }],
+                },
+              ]}
             >
-              <LinearGradient
-                style={styles.turnIconLinearGradient}
-                colors={[
-                  theme.colors && theme.colors.secondary
-                    ? theme.colors.secondary
-                    : 'transparent',
-                  theme.colors && theme.colors.primary
-                    ? theme.colors.primary
-                    : 'transparent',
-                ]}
-                start={{ x: 0, y: 1 }}
-                end={{ x: 1, y: 1 }}
+              <MaskedView
+                style={styles.turnIconMaskedView}
+                maskElement={
+                  <Icon name='chevron-right' size={30} color='white' />
+                }
+              >
+                <LinearGradient
+                  style={styles.turnIconLinearGradient}
+                  colors={[
+                    theme.colors && theme.colors.secondary
+                      ? theme.colors.secondary
+                      : 'transparent',
+                    theme.colors && theme.colors.primary
+                      ? theme.colors.primary
+                      : 'transparent',
+                  ]}
+                  start={{ x: 0, y: 1 }}
+                  end={{ x: 1, y: 1 }}
+                />
+              </MaskedView>
+            </Animated.View>
+
+            <ListItem.Content style={styles.listItemContent}>
+              <ListItem.Content style={styles.leftListItemContent}>
+                <ListItem.Title>{song.title}</ListItem.Title>
+                <ListItem.Subtitle>{song.interpreter}</ListItem.Subtitle>
+              </ListItem.Content>
+
+              <ListItem.Content style={styles.rightListItemContent}>
+                <Tempo tempo={song.tempo} isMetronomeOn />
+              </ListItem.Content>
+
+              <ListItem.Chevron
+                name='more-vert'
+                type='material'
+                size={25}
+                onPress={handleChevronPress}
               />
-            </MaskedView>
-          </Animated.View>
-
-          <ListItem.Content style={styles.listItemContent}>
-            <ListItem.Content style={styles.leftListItemContent}>
-              <ListItem.Title>{song.title}</ListItem.Title>
-              <ListItem.Subtitle>{song.interpreter}</ListItem.Subtitle>
             </ListItem.Content>
+          </View>
 
-            <ListItem.Content style={styles.rightListItemContent}>
-              <Tempo tempo={song.tempo} isMetronomeOn />
-            </ListItem.Content>
+          <View style={styles.notesWrapper}>
+            <Collapsible
+              duration={200}
+              collapsed={areNotesCollapsed}
+              style={styles.notesCollapsible}
+            >
+              <Divider />
+              <View style={styles.notesTextWrapper}>
+                <Text>{song.notes}</Text>
+              </View>
+            </Collapsible>
+          </View>
+        </ListItem.Content>
+      </ListItem>
 
-            <ListItem.Chevron
-              name='more-vert'
-              type='material'
-              size={25}
-              onPress={handleChevronPress}
-            />
+      <RBSheet
+        ref={bottomSheetRef}
+        closeOnDragDown
+        customStyles={{
+          container: {
+            borderTopRightRadius: BORDER_RADIUS,
+            borderTopLeftRadius: BORDER_RADIUS,
+          },
+        }}
+        //height={LIST_ITEM_HEIGHT + BOTTOM_SHEET_HEADER_HEIGHT + PADDING}
+      >
+        <ListItem>
+          <Icon name='add' size={25} color='black' />
+          <ListItem.Content>
+            <ListItem.Title>Neuen Song erstellen</ListItem.Title>
           </ListItem.Content>
-        </View>
-
-        <View style={styles.notesWrapper}>
-          <Collapsible
-            duration={200}
-            collapsed={areNotesCollapsed}
-            style={styles.notesCollapsible}
-          >
-            <Divider />
-            <View style={styles.notesTextWrapper}>
-              <Text>{song.notes}</Text>
-            </View>
-          </Collapsible>
-        </View>
-      </ListItem.Content>
-    </ListItem>
+        </ListItem>
+      </RBSheet>
+    </>
   );
 };
 

@@ -5,47 +5,25 @@ import {
 } from '@react-navigation/bottom-tabs';
 import PlaylistStack from './PlaylistStack';
 import SettingsStack from './SettingsStack';
-import {
-  PLAYLISTS_TAB_ROUTE,
-  SETTINGS_TAB_ROUTE,
-  SONGS_TAB_ROUTE,
-} from './constants';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from '../hooks/useTheme';
-import { LinearGradient } from 'expo-linear-gradient';
-import { View } from 'react-native';
 import SongsStack from './SongsStack';
 
 interface MainTabProps {}
 
-const Tab = createBottomTabNavigator();
+export type MainTabParamList = {
+  Playlists: undefined;
+  Songs: undefined;
+  Settings: undefined;
+};
+
+const Tab = createBottomTabNavigator<MainTabParamList>();
 
 const MainTab: React.FC<MainTabProps> = ({}) => {
   const theme = useTheme();
 
   return (
     <Tab.Navigator
-      // tabBar={(props) => (
-      //   <View>
-      //     <View
-      //       style={{
-      //         height: 20,
-      //         backgroundColor: 'black',
-      //       }}
-      //     >
-      //       <View
-      //         style={{
-      //           flex: 1,
-      //           backgroundColor: 'white',
-      //           borderBottomRightRadius: 20,
-      //           borderBottomLeftRadius: 20,
-      //           overflow: 'hidden',
-      //         }}
-      //       />
-      //     </View>
-      //     <BottomTabBar {...props} />
-      //   </View>
-      // )}
       tabBarOptions={{
         inactiveTintColor: theme.colors?.text,
         activeTintColor: theme.colors?.primary,
@@ -53,15 +31,9 @@ const MainTab: React.FC<MainTabProps> = ({}) => {
         inactiveBackgroundColor: 'black',
         style: { borderTopColor: 'black' },
       }}
-      // tabBarOptions={{
-      //   activeBackgroundColor: theme.colors?.secondary,
-      //   inactiveBackgroundColor: theme.colors?.secondary,
-      //   activeTintColor: theme.colors?.primary,
-      //   inactiveTintColor: theme.colors?.white,
-      // }}
     >
       <Tab.Screen
-        name={PLAYLISTS_TAB_ROUTE}
+        name='Playlists'
         component={PlaylistStack}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -71,7 +43,7 @@ const MainTab: React.FC<MainTabProps> = ({}) => {
         }}
       />
       <Tab.Screen
-        name={SONGS_TAB_ROUTE}
+        name='Songs'
         component={SongsStack}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -81,7 +53,7 @@ const MainTab: React.FC<MainTabProps> = ({}) => {
         }}
       />
       <Tab.Screen
-        name={SETTINGS_TAB_ROUTE}
+        name='Settings'
         component={SettingsStack}
         options={{
           tabBarIcon: ({ color, size }) => (

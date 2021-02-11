@@ -37,12 +37,6 @@ const SongsStack: React.FC<SongsStackProps> = ({}) => {
         options={{
           headerShown: false,
         }}
-        // options={{
-        //   title: 'Songs',
-        //   headerStyle: {
-        //     elevation: 0,
-        //   },
-        // }}
       />
       <Stack.Screen
         name='AddSong'

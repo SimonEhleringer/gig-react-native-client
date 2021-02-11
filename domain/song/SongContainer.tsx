@@ -1,26 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Song from './Song';
 import SongEntity from './SongEntity';
 import { Animated } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
+import RBSheet from 'react-native-raw-bottom-sheet';
 
 interface SongContainerProps {
   song: SongEntity;
   isFirstItem: boolean;
   isLastItem: boolean;
-  openBottomSheet: () => void;
 }
 
 const SongContainer: React.FC<SongContainerProps> = ({
   song,
   isLastItem,
   isFirstItem,
-  openBottomSheet,
 }) => {
   const theme = useTheme();
 
   const [animatePress] = useState(new Animated.Value(0));
   const [areNotesCollapsed, setAreNotesCollapsed] = useState(true);
+
+  const bottomSheetRef = useRef<RBSheet>(null);
 
   useEffect(() => {
     Animated.timing(animatePress, {
@@ -40,13 +41,7 @@ const SongContainer: React.FC<SongContainerProps> = ({
   };
 
   const handleChevronPress = () => {
-    console.log('öffne Bottomsheet');
-
-    openBottomSheet();
-
-    //console.log('test');
-
-    console.log('bottomsheet geöffnet');
+    bottomSheetRef.current?.open();
   };
 
   return (
@@ -57,6 +52,7 @@ const SongContainer: React.FC<SongContainerProps> = ({
       isLastItem={isLastItem}
       areNotesCollapsed={areNotesCollapsed}
       rotation={rotation}
+      bottomSheetRef={bottomSheetRef}
       handleListItemPress={handleListItemPress}
       handleChevronPress={handleChevronPress}
     />

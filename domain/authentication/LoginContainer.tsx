@@ -3,19 +3,23 @@ import Login from './Login';
 import { useDispatch } from 'react-redux';
 import { login } from './slice';
 import { useNavigation } from '@react-navigation/native';
-import { REGISTER_STACK_ROUTE } from '../../navigation/constants';
 import withBackground from '../common/withBackground';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '../../config/store';
 import { Keyboard } from 'react-native';
 import { Input } from 'react-native-elements';
 import { useTheme } from '../../hooks/useTheme';
+import { AuthenticationStackParamList } from '../../navigation/AuthenticationStack';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 interface LoginContainerProps {}
 
 const LoginContainer: React.FC<LoginContainerProps> = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation: StackNavigationProp<
+    AuthenticationStackParamList,
+    'Login'
+  > = useNavigation();
   const theme = useTheme();
 
   const [email, setEmail] = useState('');
@@ -46,7 +50,7 @@ const LoginContainer: React.FC<LoginContainerProps> = () => {
   };
 
   const handleRegisterButtonPress = () => {
-    navigation.navigate(REGISTER_STACK_ROUTE);
+    navigation.navigate('Register');
   };
 
   return (

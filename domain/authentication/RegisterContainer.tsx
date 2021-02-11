@@ -8,12 +8,17 @@ import { Keyboard } from 'react-native';
 import { Input } from 'react-native-elements';
 import { ReduxState } from '../../config/store';
 import { useTheme } from '../../hooks/useTheme';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { AuthenticationStackParamList } from '../../navigation/AuthenticationStack';
 
 interface RegisterContainerProps {}
 
 const RegisterContainer: React.FC<RegisterContainerProps> = ({}) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation: StackNavigationProp<
+    AuthenticationStackParamList,
+    'Register'
+  > = useNavigation();
   const theme = useTheme();
 
   const [username, setUsername] = useState('');

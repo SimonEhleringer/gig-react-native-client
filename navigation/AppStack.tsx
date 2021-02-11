@@ -1,11 +1,18 @@
 import React from 'react';
-import { NavigationContainer as ReactNavigationContainer } from '@react-navigation/native';
 import AuthenticationStack from './AuthenticationStack';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '../config/store';
 import MainTab from './MainTab';
+import { createStackNavigator } from '@react-navigation/stack';
 
 interface NavigationContainerProps {}
+
+export type AppStackParamList = {
+  MainTab: undefined;
+  Authentication: undefined;
+};
+
+const Stack = createStackNavigator<AppStackParamList>();
 
 const NavigationContainer: React.FC<NavigationContainerProps> = ({}) => {
   const isUserLoggedIn = useSelector(
@@ -13,9 +20,13 @@ const NavigationContainer: React.FC<NavigationContainerProps> = ({}) => {
   );
 
   return (
-    <ReactNavigationContainer>
-      {isUserLoggedIn ? <MainTab /> : <AuthenticationStack />}
-    </ReactNavigationContainer>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      {isUserLoggedIn ? (
+        <Stack.Screen name='MainTab' component={MainTab} />
+      ) : (
+        <Stack.Screen name='Authentication' component={AuthenticationStack} />
+      )}
+    </Stack.Navigator>
   );
 };
 
