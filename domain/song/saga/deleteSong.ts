@@ -1,16 +1,16 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { AxiosResponse } from "axios";
-import { put, takeLatest, call, select } from "redux-saga/effects";
-import { ReduxState } from "../../../config/store";
-import { getErrorsFromError } from "../../common/saga/shared";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { AxiosResponse } from 'axios';
+import { put, takeLatest, call, select } from 'redux-saga/effects';
+import { ReduxState } from '../../../config/store';
+import { getErrorsFromError } from '../../common/saga/shared';
 import {
   DELETE_SONG,
   songActionFailed,
   songActionStarted,
   SongState,
-} from "../slice";
-import { requestDeleteSong } from "./requests";
-import { deleteSongSucceeded } from "../slice";
+} from '../slice';
+import { requestDeleteSong } from './requests';
+import { deleteSongSucceeded } from '../slice';
 
 export function* watchDeleteSong() {
   yield takeLatest(DELETE_SONG, handleDeleteSong);
@@ -30,7 +30,7 @@ function* handleDeleteSong(action: PayloadAction<string>) {
       (value) => value.songId === action.payload
     );
 
-    payload.splice(indexToRemove);
+    payload.splice(indexToRemove, 1);
 
     yield put(deleteSongSucceeded(payload));
   } catch (e) {

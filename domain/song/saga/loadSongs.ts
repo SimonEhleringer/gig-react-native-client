@@ -12,6 +12,7 @@ import { requestLoadSongs } from './requests';
 import { ReduxState } from '../../../config/store';
 import { AuthenticationState } from '../../authentication/slice';
 import { SongResponse } from './shared';
+import { sortArrayAlphabetically } from '../../common/shared';
 
 export function* watchLoadSongs() {
   yield takeLatest(LOAD_SONGS, handleLoadSongs);
@@ -45,6 +46,8 @@ export function* handleLoadSongs() {
 
       return songEntity;
     });
+
+    songEntities.sort((a, b) => sortArrayAlphabetically(a.title, b.title));
 
     yield put(loadSongsSucceeded(songEntities));
   } catch (e) {

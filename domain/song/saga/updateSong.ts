@@ -1,8 +1,9 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { AxiosResponse } from "axios";
-import { call, put, select, takeLatest } from "redux-saga/effects";
-import { ReduxState } from "../../../config/store";
-import { getErrorsFromError } from "../../common/saga/shared";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { AxiosResponse } from 'axios';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { ReduxState } from '../../../config/store';
+import { getErrorsFromError } from '../../common/saga/shared';
+import { sortArrayAlphabetically } from '../../common/shared';
 import {
   songActionFailed,
   songActionStarted,
@@ -10,9 +11,9 @@ import {
   UpdateSongPayload,
   updateSongSucceeded,
   UPDATE_SONG,
-} from "../slice";
-import { requestUpdateSong } from "./requests";
-import { CreateUpdateSongRequest, SongResponse } from "./shared";
+} from '../slice';
+import { requestUpdateSong } from './requests';
+import { CreateUpdateSongRequest, SongResponse } from './shared';
 
 export function* watchUpdateSong() {
   yield takeLatest(UPDATE_SONG, handleUpdateSong);
@@ -48,6 +49,7 @@ export function* handleUpdateSong(action: PayloadAction<UpdateSongPayload>) {
     );
 
     payload[indexToUpdate] = { ...response.data };
+    payload.sort((a, b) => sortArrayAlphabetically(a.title, b.title));
 
     yield put(updateSongSucceeded(payload));
   } catch (e) {

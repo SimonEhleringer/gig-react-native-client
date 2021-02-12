@@ -1,7 +1,7 @@
-import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
-import SongEntity from "./SongEntity";
+import { createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
+import SongEntity from './SongEntity';
 
-const name = "song";
+const name = 'song';
 export const LOAD_SONGS = `${name}/loadSongs`;
 export const CREATE_SONG = `${name}/createSong`;
 export const UPDATE_SONG = `${name}/updateSong`;
@@ -39,15 +39,13 @@ const songSlice = createSlice({
       state.songs = action.payload;
       state.loading = false;
     },
-    createSongSucceeded(state, action: PayloadAction<SongEntity>) {
-      state.songs.push(action.payload);
+    createSongSucceeded(state, action: PayloadAction<SongEntity[]>) {
+      state.songs = action.payload;
       state.loading = false;
     },
     updateSongSucceeded(state, action: PayloadAction<SongEntity[]>) {
       state.songs = action.payload;
       state.loading = false;
-
-      console.log("succeed");
     },
     deleteSongSucceeded(state, action: PayloadAction<SongEntity[]>) {
       state.songs = action.payload;

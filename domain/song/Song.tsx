@@ -30,6 +30,7 @@ interface SongProps {
   handleListItemPress: () => void;
   handleChevronPress: () => void;
   handleBottomSheetEdit: () => void;
+  handleBottomSheetDelete: () => void;
 }
 
 const Song: React.FC<SongProps> = ({
@@ -43,6 +44,7 @@ const Song: React.FC<SongProps> = ({
   handleListItemPress,
   handleChevronPress,
   handleBottomSheetEdit,
+  handleBottomSheetDelete,
 }) => {
   return (
     <>
@@ -144,7 +146,7 @@ const Song: React.FC<SongProps> = ({
           </ListItem.Content>
         </ListItem>
 
-        <ListItem>
+        <ListItem onPress={handleBottomSheetDelete}>
           <Icon name='delete' size={25} color={theme.colors?.black} />
           <ListItem.Content>
             <ListItem.Title>Löschen</ListItem.Title>

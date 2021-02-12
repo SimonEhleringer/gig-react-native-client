@@ -11,6 +11,7 @@ import {
   SongsStackParamList,
 } from '../../navigation/SongsStack';
 import { useNavigation } from '@react-navigation/native';
+import { deleteSong } from './slice';
 
 interface SongContainerProps {
   song: SongEntity;
@@ -28,6 +29,7 @@ const SongContainer: React.FC<SongContainerProps> = ({
     SongsStackParamList,
     'Songs'
   > = useNavigation();
+  const dispatch = useDispatch();
 
   const [animatePress] = useState(new Animated.Value(0));
   const [areNotesCollapsed, setAreNotesCollapsed] = useState(true);
@@ -65,7 +67,11 @@ const SongContainer: React.FC<SongContainerProps> = ({
     navigation.navigate('UpdateSong', params);
   };
 
-  const handleBottomSheetDelete = () => {};
+  const handleBottomSheetDelete = () => {
+    bottomSheetRef.current?.close();
+
+    dispatch(deleteSong(song.songId));
+  };
 
   return (
     <Song
@@ -79,6 +85,7 @@ const SongContainer: React.FC<SongContainerProps> = ({
       handleListItemPress={handleListItemPress}
       handleChevronPress={handleChevronPress}
       handleBottomSheetEdit={handleBottomSheetEdit}
+      handleBottomSheetDelete={handleBottomSheetDelete}
     />
   );
 };

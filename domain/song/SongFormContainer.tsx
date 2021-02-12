@@ -13,6 +13,7 @@ import { ReduxState } from '../../config/store';
 import { useTheme } from '../../hooks/useTheme';
 import { SongsStackParamList } from '../../navigation/SongsStack';
 import SongForm from './SongForm';
+import { Keyboard } from 'react-native';
 
 interface SongFormContainerProps {
   title: string;
@@ -102,6 +103,12 @@ const SongFormContainer: React.FC<SongFormContainerProps> = ({
     setNotes(newNotes);
   };
 
+  const handleSubmitOverridden = () => {
+    Keyboard.dismiss();
+
+    handleSubmit();
+  };
+
   return (
     <SongForm
       theme={theme}
@@ -121,7 +128,7 @@ const SongFormContainer: React.FC<SongFormContainerProps> = ({
       interpreterInputRef={interpreterInputRef}
       tempoInputRef={tempoInputRef}
       notesInputRef={notesInputRef}
-      handleSubmit={handleSubmit}
+      handleSubmit={handleSubmitOverridden}
     />
   );
 };
