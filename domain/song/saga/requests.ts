@@ -33,3 +33,9 @@ export const requestUpdateSong = async (
 
   return response;
 };
+
+export const requestDeleteSong = async (songId: string) => {
+  const response: AxiosResponse = await api.delete(`Songs/${songId}`);
+
+  return response;
+};

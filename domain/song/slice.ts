@@ -5,6 +5,7 @@ const name = "song";
 export const LOAD_SONGS = `${name}/loadSongs`;
 export const CREATE_SONG = `${name}/createSong`;
 export const UPDATE_SONG = `${name}/updateSong`;
+export const DELETE_SONG = `${name}/deleteSong`;
 
 export type SongState = {
   songs: SongEntity[];
@@ -23,6 +24,8 @@ export const loadSongs = createAction(LOAD_SONGS);
 export const createSong = createAction<CreateSongPayload>(CREATE_SONG);
 
 export const updateSong = createAction<UpdateSongPayload>(UPDATE_SONG);
+
+export const deleteSong = createAction<string>(DELETE_SONG);
 
 const songSlice = createSlice({
   name,
@@ -46,6 +49,10 @@ const songSlice = createSlice({
 
       console.log("succeed");
     },
+    deleteSongSucceeded(state, action: PayloadAction<SongEntity[]>) {
+      state.songs = action.payload;
+      state.loading = false;
+    },
     songActionFailed(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;
       state.loading = false;
@@ -60,6 +67,7 @@ export const {
   loadSongsSucceeded,
   createSongSucceeded,
   updateSongSucceeded,
+  deleteSongSucceeded,
   songActionFailed,
 } = songSlice.actions;
 
