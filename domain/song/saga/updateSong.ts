@@ -1,8 +1,8 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-import { AxiosResponse } from 'axios';
-import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { ReduxState } from '../../../config/store';
-import { getErrorsFromError } from '../../common/saga/shared';
+import { PayloadAction } from "@reduxjs/toolkit";
+import { AxiosResponse } from "axios";
+import { call, put, select, takeLatest } from "redux-saga/effects";
+import { ReduxState } from "../../../config/store";
+import { getErrorsFromError } from "../../common/saga/shared";
 import {
   songActionFailed,
   songActionStarted,
@@ -10,9 +10,9 @@ import {
   UpdateSongPayload,
   updateSongSucceeded,
   UPDATE_SONG,
-} from '../slice';
-import { requestUpdateSong } from './requests';
-import { CreateUpdateSongRequest, SongResponse } from './shared';
+} from "../slice";
+import { requestUpdateSong } from "./requests";
+import { CreateUpdateSongRequest, SongResponse } from "./shared";
 
 export function* watchUpdateSong() {
   yield takeLatest(UPDATE_SONG, handleUpdateSong);
@@ -21,8 +21,13 @@ export function* watchUpdateSong() {
 export function* handleUpdateSong(action: PayloadAction<UpdateSongPayload>) {
   yield put(songActionStarted());
 
+  const { title, interpreter, tempo, notes } = action.payload;
+
   const request: CreateUpdateSongRequest = {
-    ...action.payload,
+    title,
+    interpreter,
+    tempo,
+    notes,
   };
 
   try {
@@ -31,6 +36,8 @@ export function* handleUpdateSong(action: PayloadAction<UpdateSongPayload>) {
       action.payload.songId,
       request
     );
+
+    console.log(response);
 
     const state: SongState = yield select((state: ReduxState) => state.song);
 

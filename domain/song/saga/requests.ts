@@ -1,9 +1,9 @@
-import { AxiosResponse } from 'axios';
-import api from '../../../config/api';
-import { CreateUpdateSongRequest, SongResponse } from './shared';
+import { AxiosResponse } from "axios";
+import api from "../../../config/api";
+import { CreateUpdateSongRequest, SongResponse } from "./shared";
 
 export const requestLoadSongs = async (jwtToken: string) => {
-  const response: AxiosResponse<SongResponse[]> = await api.get('Songs', {
+  const response: AxiosResponse<SongResponse[]> = await api.get("Songs", {
     // headers: {
     //   authorization: `bearer ${jwtToken}`,
     // },
@@ -13,7 +13,7 @@ export const requestLoadSongs = async (jwtToken: string) => {
 };
 
 export const requestCreateSong = async (request: CreateUpdateSongRequest) => {
-  const response: AxiosResponse<SongResponse> = await api.post('Songs', {
+  const response: AxiosResponse<SongResponse> = await api.post("Songs", {
     ...request,
   });
 
@@ -24,8 +24,10 @@ export const requestUpdateSong = async (
   songId: string,
   request: CreateUpdateSongRequest
 ) => {
+  console.log(request);
+
   const response: AxiosResponse<SongResponse> = await api.put(
-    `Songs${songId}`,
+    `Songs/${songId}`,
     { ...request }
   );
 

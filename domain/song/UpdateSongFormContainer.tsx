@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ReduxState } from '../../config/store';
-import MainTab from '../../navigation/MainTab';
-import { updateSong, UpdateSongPayload } from './slice';
-import SongFormContainer from './SongFormContainer';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ReduxState } from "../../config/store";
+import MainTab from "../../navigation/MainTab";
+import { updateSong, UpdateSongPayload } from "./slice";
+import SongFormContainer from "./SongFormContainer";
 
 interface UpdateSongFormContainerProps {
   songId: string;
@@ -14,10 +14,10 @@ const UpdateSongFormContainer: React.FC<UpdateSongFormContainerProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState('');
-  const [interpreter, setInterpreter] = useState('');
-  const [tempo, setTempo] = useState('');
-  const [notes, setNotes] = useState('');
+  const [title, setTitle] = useState("");
+  const [interpreter, setInterpreter] = useState("");
+  const [tempo, setTempo] = useState("");
+  const [notes, setNotes] = useState("");
 
   const state = useSelector((state: ReduxState) => state.song);
   const songs = state.songs;
@@ -35,7 +35,7 @@ const UpdateSongFormContainer: React.FC<UpdateSongFormContainerProps> = ({
     setInterpreter(interpreter);
     setTempo(tempo.toString());
     setNotes(notes);
-  });
+  }, []);
 
   const handleSubmit = () => {
     const payload: UpdateSongPayload = {

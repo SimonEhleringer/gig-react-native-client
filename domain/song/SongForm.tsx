@@ -1,13 +1,13 @@
-import React, { RefObject } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { FullTheme, Input } from 'react-native-elements';
-import { ScrollView } from 'react-native-gesture-handler';
-import HideWithKeyboard from 'react-native-hide-with-keyboard';
-import { MARGIN } from '../../config/themes';
-import Errors from '../common/Errors';
-import Button from '../common/FormButton';
-import FormContainer from '../common/FormContainer';
-import LoadingAndErrors from '../common/LoadingAndErrors';
+import React, { RefObject } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { FullTheme, Input } from "react-native-elements";
+import { ScrollView } from "react-native-gesture-handler";
+import HideWithKeyboard from "react-native-hide-with-keyboard";
+import { MARGIN } from "../../config/themes";
+import Errors from "../common/Errors";
+import Button from "../common/FormButton";
+import FormContainer from "../common/FormContainer";
+import LoadingAndErrors from "../common/LoadingAndErrors";
 
 interface SongFormProps {
   theme: Partial<FullTheme>;
@@ -71,25 +71,25 @@ const SongForm: React.FC<SongFormProps> = ({
         <View style={styles.subContainer}>
           <ScrollView
             style={styles.subContainer}
-            keyboardShouldPersistTaps='always'
+            keyboardShouldPersistTaps="always"
           >
             <Input
               style={styles.formContent}
               inputStyle={{ color: theme.colors?.text }}
-              placeholder='Titel'
+              placeholder="Titel"
               onSubmitEditing={handleTitleSubmitEditing}
               onChangeText={(val) => handleTitleChanged(val)}
               value={title}
               maxLength={50}
             />
 
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: "row" }}>
               <Input
                 style={styles.formContent}
                 ref={interpreterInputRef}
                 containerStyle={{ flex: 4 }}
                 inputStyle={{ color: theme.colors?.text }}
-                placeholder='Interpreter'
+                placeholder="Interpreter"
                 onSubmitEditing={handleInterpreterSubmitEditing}
                 onChangeText={(val) => handleInterpreterChanged(val)}
                 value={interpreter}
@@ -100,8 +100,8 @@ const SongForm: React.FC<SongFormProps> = ({
                 ref={tempoInputRef}
                 containerStyle={{ flex: 1 }}
                 inputStyle={{ color: theme.colors?.text }}
-                placeholder='Tempo'
-                keyboardType='number-pad'
+                placeholder="Tempo"
+                keyboardType="number-pad"
                 onSubmitEditing={handleTempoSubmitEditing}
                 onChangeText={(val) => handleTempoChanged(val)}
                 value={tempo.toString()}
@@ -111,7 +111,7 @@ const SongForm: React.FC<SongFormProps> = ({
               style={styles.formContent}
               ref={notesInputRef}
               inputStyle={{ color: theme.colors?.text }}
-              placeholder='Notizen (Zeilenumbrüche möglich)'
+              placeholder="Notizen (Zeilenumbrüche möglich)"
               multiline
               onChangeText={(val) => handleNotesChanged(val)}
               value={notes}
@@ -119,7 +119,7 @@ const SongForm: React.FC<SongFormProps> = ({
             />
 
             <Button
-              title='Hinzufügen'
+              title="Speichern"
               onPress={handleSubmit}
               loading={loading}
             />
@@ -137,12 +137,12 @@ const SongForm: React.FC<SongFormProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   subContainer: {
-    width: '100%',
+    width: "100%",
   },
   formContent: {
     marginVertical: MARGIN,
