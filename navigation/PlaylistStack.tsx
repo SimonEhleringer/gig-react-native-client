@@ -12,7 +12,7 @@ const Stack = createStackNavigator<PlaylistStackParamList>();
 
 const PlaylistStack: React.FC<PlaylistStackProps> = ({}) => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerStyle: { elevation: 0 } }}>
       <Stack.Screen
         name='Playlists'
         component={PlaylistsScreen}

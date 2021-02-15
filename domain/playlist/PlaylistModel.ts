@@ -1,7 +1,7 @@
-import SongModel from '../song/SongEntity';
+import SongEntity from '../song/SongEntity';
 
-export default interface PlaylistModel {
-  PlaylistId?: number;
-  Name: string;
-  Songs: SongModel[];
+export default interface PlaylistEntity {
+  playlistId: string;
+  name: string;
+  songs: SongEntity[];
 }

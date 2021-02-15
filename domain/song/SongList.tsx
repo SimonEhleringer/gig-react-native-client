@@ -1,23 +1,16 @@
 import React, { RefObject } from 'react';
 import SongContainer from './SongContainer';
 import SongEntity from './SongEntity';
-import LoadingAndErrors from '../common/LoadingAndErrors';
-import { FlatList, ListRenderItemInfo, View } from 'react-native';
+import { FlatList, ListRenderItemInfo } from 'react-native';
 import PaddingView from '../common/PaddingView';
-import RBSheet from 'react-native-raw-bottom-sheet';
-import { BORDER_RADIUS } from '../../config/themes';
-import { ListItem } from 'react-native-elements';
-import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 const SONG_HEIGHT = 73.14286041259766;
 
 interface SongListProps {
   songs: SongEntity[];
-  loading: boolean;
-  errors: string[];
 }
 
-const SongList: React.FC<SongListProps> = ({ songs, loading, errors }) => {
+const SongList: React.FC<SongListProps> = ({ songs }) => {
   const renderItem = (item: ListRenderItemInfo<SongEntity>) => {
     return (
       <SongContainer
@@ -39,16 +32,14 @@ const SongList: React.FC<SongListProps> = ({ songs, loading, errors }) => {
   };
 
   return (
-    <LoadingAndErrors loading={loading} errors={errors}>
-      <FlatList
-        keyExtractor={keyExtractor}
-        data={songs}
-        renderItem={renderItem}
-        ListFooterComponent={<PaddingView />}
-        ListHeaderComponent={<PaddingView />}
-        getItemLayout={getItemLayout}
-      />
-    </LoadingAndErrors>
+    <FlatList
+      keyExtractor={keyExtractor}
+      data={songs}
+      renderItem={renderItem}
+      ListFooterComponent={<PaddingView />}
+      ListHeaderComponent={<PaddingView />}
+      getItemLayout={getItemLayout}
+    />
   );
 };
 

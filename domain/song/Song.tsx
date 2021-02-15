@@ -17,7 +17,6 @@ import {
   PADDING_DOUBLE,
 } from '../../config/themes';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { ThemeProvider } from '@react-navigation/native';
 
 interface SongProps {
   theme: Partial<FullTheme>;

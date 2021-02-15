@@ -1,19 +1,19 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import PlaylistModel from './PlaylistModel';
+import PlaylistEntity from './PlaylistModel';
 
 const name = 'playlist';
 export const LOAD_PLAYLISTS = `${name}/loadPlaylists`;
 
 export type PlaylistState = {
+  playlists: PlaylistEntity[];
   loading: boolean;
-  error: string | undefined;
-  playlists: PlaylistModel[];
+  errors: string[];
 };
 
 const initialState: PlaylistState = {
-  loading: false,
-  error: undefined,
   playlists: [],
+  loading: false,
+  errors: [],
 };
 
 export const loadPlaylists = createAction(LOAD_PLAYLISTS);
@@ -22,25 +22,25 @@ const playlistSlice = createSlice({
   name,
   initialState,
   reducers: {
-    loadPlaylistsStarted(state) {
+    playlistActionStarted(state) {
       state.loading = true;
-      state.error = undefined;
+      state.errors = [];
     },
-    loadPlaylistsSucceded(state, action: PayloadAction<PlaylistModel[]>) {
-      state.loading = false;
+    loadPlaylistsSucceded(state, action: PayloadAction<PlaylistEntity[]>) {
       state.playlists = action.payload;
+      state.loading = false;
     },
-    loadPlaylistsFailed(state, action: PayloadAction<string>) {
-      state.error = action.payload;
+    playlistActionFailed(state, action: PayloadAction<string[]>) {
+      state.errors = action.payload;
       state.loading = false;
     },
   },
 });
 
 export const {
-  loadPlaylistsStarted,
+  playlistActionStarted,
   loadPlaylistsSucceded,
-  loadPlaylistsFailed,
+  playlistActionFailed,
 } = playlistSlice.actions;
 
 export default playlistSlice.reducer;

@@ -1,13 +1,29 @@
 import React from 'react';
-import PlaylistModel from './PlaylistModel';
+import PlaylistEntity from './PlaylistModel';
 import Playlist from './Playlist';
+import { useTheme } from '../../hooks/useTheme';
 
 interface PlaylistContainerProps {
-  playlist: PlaylistModel;
+  playlist: PlaylistEntity;
+  isFirstItem: boolean;
+  isLastItem: boolean;
 }
 
-const PlaylistContainer: React.FC<PlaylistContainerProps> = ({ playlist }) => {
-  return <Playlist playlist={playlist} />;
+const PlaylistContainer: React.FC<PlaylistContainerProps> = ({
+  playlist,
+  isFirstItem,
+  isLastItem,
+}) => {
+  const theme = useTheme();
+
+  return (
+    <Playlist
+      theme={theme}
+      playlist={playlist}
+      isFirstItem={isFirstItem}
+      isLastItem={isLastItem}
+    />
+  );
 };
 
 export default PlaylistContainer;

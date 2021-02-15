@@ -3,7 +3,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import withBackground from '../domain/common/withBackground';
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
-import SongListContainer from '../domain/song/SongListContainer';
+import StoreFetchingSongListContainer from '../domain/song/StoreFetchingSongListContainer';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SongsStackParamList } from '../navigation/SongsStack';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
@@ -49,7 +49,7 @@ const SongsScreen: React.FC<SongsScreenProps> = ({ navigation }) => {
 
   return (
     <>
-      <SongListContainer />
+      <StoreFetchingSongListContainer />
 
       <RBSheet
         ref={bottomSheetRef}

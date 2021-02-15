@@ -22,15 +22,12 @@ const Stack = createStackNavigator<SongsStackParamList>();
 
 const SongsStack: React.FC<SongsStackProps> = ({}) => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerStyle: { elevation: 0 } }}>
       <Stack.Screen
         name='Songs'
         component={SongsScreen}
         options={{
           title: 'Songs',
-          headerStyle: {
-            elevation: 0,
-          },
         }}
       />
       <Stack.Screen
@@ -45,9 +42,6 @@ const SongsStack: React.FC<SongsStackProps> = ({}) => {
         component={AddSongScreen}
         options={{
           title: 'Song hinzufügen',
-          headerStyle: {
-            elevation: 0,
-          },
         }}
       />
       <Stack.Screen
@@ -55,9 +49,6 @@ const SongsStack: React.FC<SongsStackProps> = ({}) => {
         component={UpdateSongScreen}
         options={{
           title: 'Song bearbeiten',
-          headerStyle: {
-            elevation: 0,
-          },
         }}
       />
     </Stack.Navigator>

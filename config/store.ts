@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import playlist from '../domain/playlist/playlistSlice';
+import playlist from '../domain/playlist/slice';
 import authentication from '../domain/authentication/slice';
 import song from '../domain/song/slice';
 import getSongBpmSong from '../domain/song/getSongBpmSong/slice';
@@ -12,6 +12,7 @@ import { watchCreateSong } from '../domain/song/saga/createSong';
 import { watchSearchSongs } from '../domain/song/getSongBpmSong/saga/searchSongs';
 import { watchUpdateSong } from '../domain/song/saga/updateSong';
 import { watchDeleteSong } from '../domain/song/saga/deleteSong';
+import { watchLoadPlaylists } from '../domain/playlist/saga/loadPlaylists';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -32,6 +33,8 @@ sagaMiddleware.run(watchLoadSongs);
 sagaMiddleware.run(watchCreateSong);
 sagaMiddleware.run(watchUpdateSong);
 sagaMiddleware.run(watchDeleteSong);
+
+sagaMiddleware.run(watchLoadPlaylists);
 
 sagaMiddleware.run(watchSearchSongs);
 

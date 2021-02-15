@@ -1,18 +1,36 @@
 import React from 'react';
-import PlaylistModel from './PlaylistModel';
-import { Text } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import PlaylistEntity from './PlaylistModel';
+import { StyleSheet, Text } from 'react-native';
+import { FullTheme, ListItem } from 'react-native-elements';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { BORDER_RADIUS } from '../../config/themes';
 
 interface PlaylistProps {
-  playlist: PlaylistModel;
+  theme: Partial<FullTheme>;
+  playlist: PlaylistEntity;
+  isFirstItem: boolean;
+  isLastItem: boolean;
 }
 
-const Playlist: React.FC<PlaylistProps> = ({ playlist }) => {
+const Playlist: React.FC<PlaylistProps> = ({
+  theme,
+  playlist,
+  isFirstItem,
+  isLastItem,
+}) => {
   return (
-    <ListItem bottomDivider onPress={() => alert('test')}>
+    <ListItem
+      Component={TouchableWithoutFeedback}
+      containerStyle={[
+        { backgroundColor: theme.colors?.paperBackgroundColor },
+        isFirstItem ? styles.borderTopRadius : {},
+        isLastItem ? styles.borderBottomRadius : {},
+      ]}
+      bottomDivider={!isLastItem}
+    >
       <ListItem.Content>
-        <ListItem.Title>{playlist.Name}</ListItem.Title>
-        <ListItem.Subtitle>{playlist.Songs.length} Songs</ListItem.Subtitle>
+        <ListItem.Title>{playlist.name}</ListItem.Title>
+        <ListItem.Subtitle>{playlist.songs.length} Songs</ListItem.Subtitle>
       </ListItem.Content>
       <ListItem.Chevron
         name='more-vert'
@@ -23,5 +41,16 @@ const Playlist: React.FC<PlaylistProps> = ({ playlist }) => {
     </ListItem>
   );
 };
+
+const styles = StyleSheet.create({
+  borderTopRadius: {
+    borderTopLeftRadius: BORDER_RADIUS,
+    borderTopRightRadius: BORDER_RADIUS,
+  },
+  borderBottomRadius: {
+    borderBottomLeftRadius: BORDER_RADIUS,
+    borderBottomRightRadius: BORDER_RADIUS,
+  },
+});
 
 export default Playlist;

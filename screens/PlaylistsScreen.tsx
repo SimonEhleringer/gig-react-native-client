@@ -1,11 +1,12 @@
 import React from 'react';
+import withBackground from '../domain/common/withBackground';
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
-import PlaylistsContainer from '../domain/playlist/PlaylistsContainer';
+import StoreFetchingPlaylistListContainer from '../domain/playlist/StoreFetchingPlaylistListContainer';
 
 interface PlaylistsScreenProps {}
 
 const PlaylistsScreen: React.FC<PlaylistsScreenProps> = ({}) => {
-  return <PlaylistsContainer />;
+  return <StoreFetchingPlaylistListContainer />;
 };
 
-export default withBottomRoundedCorners(PlaylistsScreen);
+export default withBottomRoundedCorners(withBackground(PlaylistsScreen));
