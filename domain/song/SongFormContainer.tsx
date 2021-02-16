@@ -14,6 +14,7 @@ import { useTheme } from '../../hooks/useTheme';
 import { SongsStackParamList } from '../../navigation/SongsStack';
 import SongForm from './SongForm';
 import { Keyboard } from 'react-native';
+import { useOnUpdateEffect } from '../../hooks/useOnUpdateEffect';
 
 interface SongFormContainerProps {
   title: string;
@@ -56,15 +57,9 @@ const SongFormContainer: React.FC<SongFormContainerProps> = ({
   const loading = state.loading;
   const errors = state.errors;
 
-  const isInitialMount = useRef(true);
-
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      if (loading === false && errors.length === 0) {
-        navigation.navigate('Songs');
-      }
+  useOnUpdateEffect(() => {
+    if (loading === false && errors.length === 0) {
+      navigation.navigate('Songs');
     }
   }, [loading, errors]);
 

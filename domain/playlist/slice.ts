@@ -3,6 +3,7 @@ import PlaylistEntity from './PlaylistModel';
 
 const name = 'playlist';
 export const LOAD_PLAYLISTS = `${name}/loadPlaylists`;
+export const CREATE_PLAYLIST = `${name}/createPlaylist`;
 
 export type PlaylistState = {
   playlists: PlaylistEntity[];
@@ -18,6 +19,10 @@ const initialState: PlaylistState = {
 
 export const loadPlaylists = createAction(LOAD_PLAYLISTS);
 
+export const createPlaylist = createAction<CreatePlaylistPayload>(
+  CREATE_PLAYLIST
+);
+
 const playlistSlice = createSlice({
   name,
   initialState,
@@ -26,9 +31,11 @@ const playlistSlice = createSlice({
       state.loading = true;
       state.errors = [];
     },
-    loadPlaylistsSucceded(state, action: PayloadAction<PlaylistEntity[]>) {
+    playlistActionSucceeded(state, action: PayloadAction<PlaylistEntity[]>) {
       state.playlists = action.payload;
       state.loading = false;
+
+      console.log('loading ist ' + state.loading);
     },
     playlistActionFailed(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;
@@ -39,8 +46,12 @@ const playlistSlice = createSlice({
 
 export const {
   playlistActionStarted,
-  loadPlaylistsSucceded,
+  playlistActionSucceeded,
   playlistActionFailed,
 } = playlistSlice.actions;
 
 export default playlistSlice.reducer;
+
+export interface CreatePlaylistPayload {
+  name: string;
+}

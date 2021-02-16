@@ -1,11 +1,9 @@
 import { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { getErrorsFromError } from '../../common/saga/shared';
-import { sortArrayAlphabetically } from '../../common/shared';
-import SongEntity from '../../song/SongEntity';
 import PlaylistEntity from '../PlaylistModel';
 import {
-  loadPlaylistsSucceded,
+  playlistActionSucceeded,
   LOAD_PLAYLISTS,
   playlistActionFailed,
   playlistActionStarted,
@@ -27,7 +25,7 @@ function* handleLoadPlaylists() {
 
     const payload: PlaylistEntity[] = [...response.data];
 
-    yield put(loadPlaylistsSucceded(payload));
+    yield put(playlistActionSucceeded(payload));
   } catch (e) {
     yield put(playlistActionFailed(getErrorsFromError(e)));
   }
