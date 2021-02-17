@@ -4,6 +4,8 @@ import PlaylistEntity from './PlaylistModel';
 const name = 'playlist';
 export const LOAD_PLAYLISTS = `${name}/loadPlaylists`;
 export const CREATE_PLAYLIST = `${name}/createPlaylist`;
+export const UPDATE_PLAYLIST = `${name}/updatePlaylist`;
+export const DELETE_PLAYLIST = `${name}/deletePlaylist`;
 
 export type PlaylistState = {
   playlists: PlaylistEntity[];
@@ -22,6 +24,12 @@ export const loadPlaylists = createAction(LOAD_PLAYLISTS);
 export const createPlaylist = createAction<CreatePlaylistPayload>(
   CREATE_PLAYLIST
 );
+
+export const updatePlaylist = createAction<UpdatePlaylistPayload>(
+  UPDATE_PLAYLIST
+);
+
+export const deletePlaylist = createAction<string>(DELETE_PLAYLIST);
 
 const playlistSlice = createSlice({
   name,
@@ -53,5 +61,10 @@ export const {
 export default playlistSlice.reducer;
 
 export interface CreatePlaylistPayload {
+  name: string;
+}
+
+export interface UpdatePlaylistPayload {
+  playlistId: string;
   name: string;
 }

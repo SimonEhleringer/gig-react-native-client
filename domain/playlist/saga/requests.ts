@@ -20,3 +20,15 @@ export const requestCreatePlaylist = async (
 
   return response;
 };
+
+export const requestUpdatePlaylist = async (
+  playlistId: string,
+  request: CreateUpdatePlaylistRequest
+) => {
+  const response: AxiosResponse<PlaylistResponse> = await api.put(
+    `Playlists/${playlistId}`,
+    { ...request }
+  );
+
+  return response;
+};

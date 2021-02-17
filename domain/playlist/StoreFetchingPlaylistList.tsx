@@ -1,6 +1,6 @@
 import React from 'react';
 import LoadingAndErrors from '../common/LoadingAndErrors';
-import PlaylistList from './PlaylistList';
+import PlaylistWithBottomSheetList from './PlaylistWithBottomSheetList';
 import PlaylistEntity from './PlaylistModel';
 
 interface StoreFetchingPlaylistListProps {
@@ -16,7 +16,7 @@ const StoreFetchingPlaylistList: React.FC<StoreFetchingPlaylistListProps> = ({
 }) => {
   return (
     <LoadingAndErrors errors={errors} loading={loading}>
-      <PlaylistList playlists={playlists} />
+      <PlaylistWithBottomSheetList playlists={playlists} />
     </LoadingAndErrors>
   );
 };

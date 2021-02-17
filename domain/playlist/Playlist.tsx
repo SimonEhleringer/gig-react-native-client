@@ -1,6 +1,6 @@
 import React from 'react';
 import PlaylistEntity from './PlaylistModel';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { FullTheme, ListItem } from 'react-native-elements';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { BORDER_RADIUS } from '../../config/themes';
@@ -10,6 +10,7 @@ interface PlaylistProps {
   playlist: PlaylistEntity;
   isFirstItem: boolean;
   isLastItem: boolean;
+  handleChevronPress: () => void;
 }
 
 const Playlist: React.FC<PlaylistProps> = ({
@@ -17,6 +18,7 @@ const Playlist: React.FC<PlaylistProps> = ({
   playlist,
   isFirstItem,
   isLastItem,
+  handleChevronPress,
 }) => {
   return (
     <ListItem
@@ -36,7 +38,7 @@ const Playlist: React.FC<PlaylistProps> = ({
         name='more-vert'
         type='material'
         size={25}
-        onPress={() => alert('Test')}
+        onPress={handleChevronPress}
       />
     </ListItem>
   );

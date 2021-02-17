@@ -14,6 +14,7 @@ import { watchUpdateSong } from '../domain/song/saga/updateSong';
 import { watchDeleteSong } from '../domain/song/saga/deleteSong';
 import { watchLoadPlaylists } from '../domain/playlist/saga/loadPlaylists';
 import { watchCreatePlaylist } from '../domain/playlist/saga/createPlaylist';
+import { watchUpdatePlaylist } from '../domain/playlist/saga/updatePlaylist';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -37,6 +38,7 @@ sagaMiddleware.run(watchDeleteSong);
 
 sagaMiddleware.run(watchLoadPlaylists);
 sagaMiddleware.run(watchCreatePlaylist);
+sagaMiddleware.run(watchUpdatePlaylist);
 
 sagaMiddleware.run(watchSearchSongs);
 
