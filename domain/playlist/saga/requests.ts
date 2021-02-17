@@ -32,3 +32,9 @@ export const requestUpdatePlaylist = async (
 
   return response;
 };
+
+export const requestDeletePlaylist = async (playlistId: string) => {
+  const response: AxiosResponse = await api.delete(`Playlists/${playlistId}`);
+
+  return response;
+};

@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useRef } from 'react';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { useDispatch } from 'react-redux';
 import { useTheme } from '../../hooks/useTheme';
 import {
   PlaylistStackParamList,
@@ -9,6 +10,7 @@ import {
 } from '../../navigation/PlaylistStack';
 import PlaylistEntity from './PlaylistModel';
 import PlaylistWithBottomSheet from './PlaylistWithBottomSheet';
+import { deletePlaylist } from './slice';
 
 interface PlaylistWithBottomSheetContainerProps {
   playlist: PlaylistEntity;
@@ -22,6 +24,7 @@ const PlaylistWithBottomSheetContainer: React.FC<PlaylistWithBottomSheetContaine
   isLastItem,
 }) => {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const navigation: StackNavigationProp<
     PlaylistStackParamList,
     'Playlists'
@@ -39,7 +42,11 @@ const PlaylistWithBottomSheetContainer: React.FC<PlaylistWithBottomSheetContaine
     navigation.navigate('UpdatePlaylist', params);
   };
 
-  const handleBottomSheetDelete = () => {};
+  const handleBottomSheetDelete = () => {
+    bottomSheetRef.current?.close();
+
+    dispatch(deletePlaylist(playlist.playlistId));
+  };
 
   const handleChevronPress = () => {
     bottomSheetRef.current?.open();
