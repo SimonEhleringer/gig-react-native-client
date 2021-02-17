@@ -1,5 +1,17 @@
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useTheme } from '../../hooks/useTheme';
+import {
+  AddSongToPlaylistParams,
+  PlaylistStackParamList,
+} from '../../navigation/PlaylistStack';
+import {
+  addSongToPlaylist,
+  AddSongToPlaylistPayload,
+  playlistActionSucceeded,
+} from '../playlist/slice';
 import AddPlaylistSong from './AddPlaylistSong';
 import SongEntity from './SongEntity';
 
@@ -14,10 +26,30 @@ const AddPlaylistSongContainer: React.FC<AddPlaylistSongContainerProps> = ({
   isFirstItem,
   isLastItem,
 }) => {
+  const dispatch = useDispatch();
   const theme = useTheme();
+  const navigation: StackNavigationProp<
+    PlaylistStackParamList,
+    'AddSongToPlaylist'
+  > = useNavigation();
+  const route: RouteProp<
+    PlaylistStackParamList,
+    'AddSongToPlaylist'
+  > = useRoute();
 
   const handleListItemPress = () => {
-    alert('hii');
+    const payload: AddSongToPlaylistPayload = {
+      playlistId: route.params.playlistId,
+      songId: song.songId,
+    };
+
+    dispatch(addSongToPlaylist(payload));
+
+    const params: AddSongToPlaylistParams = {
+      playlistId: route.params.playlistId,
+    };
+
+    navigation.navigate('PlaylistSongs', params);
   };
 
   return (

@@ -7,6 +7,8 @@ export const CREATE_PLAYLIST = `${name}/createPlaylist`;
 export const UPDATE_PLAYLIST = `${name}/updatePlaylist`;
 export const DELETE_PLAYLIST = `${name}/deletePlaylist`;
 
+export const ADD_SONG_TO_PLAYLIST = `${name}/addSongToPlaylist`;
+
 export type PlaylistState = {
   playlists: PlaylistEntity[];
   loading: boolean;
@@ -30,6 +32,10 @@ export const updatePlaylist = createAction<UpdatePlaylistPayload>(
 );
 
 export const deletePlaylist = createAction<string>(DELETE_PLAYLIST);
+
+export const addSongToPlaylist = createAction<AddSongToPlaylistPayload>(
+  ADD_SONG_TO_PLAYLIST
+);
 
 const playlistSlice = createSlice({
   name,
@@ -67,4 +73,9 @@ export interface CreatePlaylistPayload {
 export interface UpdatePlaylistPayload {
   playlistId: string;
   name: string;
+}
+
+export interface AddSongToPlaylistPayload {
+  playlistId: string;
+  songId: string;
 }

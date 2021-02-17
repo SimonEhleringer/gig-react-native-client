@@ -13,7 +13,7 @@ export type PlaylistStackParamList = {
   CreatePlaylist: undefined;
   UpdatePlaylist: UpdatePlaylistParams;
   PlaylistSongs: PlaylistSongsParams;
-  AddSongToPlaylist: undefined;
+  AddSongToPlaylist: AddSongToPlaylistParams;
 };
 
 export interface UpdatePlaylistParams {
@@ -21,6 +21,10 @@ export interface UpdatePlaylistParams {
 }
 
 export interface PlaylistSongsParams {
+  playlistId: string;
+}
+
+export interface AddSongToPlaylistParams {
   playlistId: string;
 }
 

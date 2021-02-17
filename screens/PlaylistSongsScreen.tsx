@@ -15,7 +15,10 @@ import {
 import withBackground from '../domain/common/withBackground';
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
 import PlaylistSongListContainer from '../domain/song/PlaylistSongListContainer';
-import { PlaylistStackParamList } from '../navigation/PlaylistStack';
+import {
+  AddSongToPlaylistParams,
+  PlaylistStackParamList,
+} from '../navigation/PlaylistStack';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import { useTheme } from '../hooks/useTheme';
 
@@ -55,7 +58,11 @@ const PlaylistSongsScreen: React.FC<PlaylistSongsScreenProps> = ({ route }) => {
   const handleAddSong = () => {
     bottomSheetRef.current?.close();
 
-    navigation.navigate('AddSongToPlaylist');
+    const params: AddSongToPlaylistParams = {
+      playlistId: route.params.playlistId,
+    };
+
+    navigation.navigate('AddSongToPlaylist', params);
   };
 
   return (
