@@ -2,7 +2,7 @@ import React from 'react';
 import PlaylistEntity from './PlaylistModel';
 import { StyleSheet } from 'react-native';
 import { FullTheme, ListItem } from 'react-native-elements';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { TouchableWithoutFeedback } from 'react-native';
 import { BORDER_RADIUS } from '../../config/themes';
 
 interface PlaylistProps {
@@ -11,6 +11,7 @@ interface PlaylistProps {
   isFirstItem: boolean;
   isLastItem: boolean;
   handleChevronPress: () => void;
+  handlePlaylistPress: () => void;
 }
 
 const Playlist: React.FC<PlaylistProps> = ({
@@ -19,6 +20,7 @@ const Playlist: React.FC<PlaylistProps> = ({
   isFirstItem,
   isLastItem,
   handleChevronPress,
+  handlePlaylistPress,
 }) => {
   return (
     <ListItem
@@ -29,6 +31,7 @@ const Playlist: React.FC<PlaylistProps> = ({
         isLastItem ? styles.borderBottomRadius : {},
       ]}
       bottomDivider={!isLastItem}
+      onPress={handlePlaylistPress}
     >
       <ListItem.Content>
         <ListItem.Title>{playlist.name}</ListItem.Title>

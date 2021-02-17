@@ -1,7 +1,7 @@
 import React from 'react';
 import LoadingAndErrors from '../common/LoadingAndErrors';
 import SongEntity from './SongEntity';
-import SongList from './SongList';
+import SongWithBottomSheetList from './SongWithBottomSheetList';
 
 interface StoreFetchingSongListProps {
   loading: boolean;
@@ -16,7 +16,7 @@ const StoreFetchingSongList: React.FC<StoreFetchingSongListProps> = ({
 }) => {
   return (
     <LoadingAndErrors errors={errors} loading={loading}>
-      <SongList songs={songs} />
+      <SongWithBottomSheetList songs={songs} />
     </LoadingAndErrors>
   );
 };

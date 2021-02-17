@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 import { StyleSheet, View, Animated } from 'react-native';
 import { Divider, FullTheme, ListItem, Text } from 'react-native-elements';
 import Tempo from './components/Tempo';
@@ -10,13 +10,10 @@ import Collapsible from 'react-native-collapsible';
 import { TouchableWithoutFeedback } from 'react-native';
 import {
   BORDER_RADIUS,
-  BOTTOM_SHEET_HEADER_HEIGHT,
-  BOTTOM_SHEET_LIST_ITEM_HEIGHT,
   MARGIN,
   PADDING,
   PADDING_DOUBLE,
 } from '../../config/themes';
-import RBSheet from 'react-native-raw-bottom-sheet';
 
 interface SongProps {
   theme: Partial<FullTheme>;
@@ -25,11 +22,8 @@ interface SongProps {
   isLastItem: boolean;
   areNotesCollapsed: boolean;
   rotation: Animated.AnimatedInterpolation;
-  bottomSheetRef: RefObject<RBSheet>;
   handleListItemPress: () => void;
   handleChevronPress: () => void;
-  handleBottomSheetEdit: () => void;
-  handleBottomSheetDelete: () => void;
 }
 
 const Song: React.FC<SongProps> = ({
@@ -39,120 +33,85 @@ const Song: React.FC<SongProps> = ({
   isLastItem,
   areNotesCollapsed,
   rotation,
-  bottomSheetRef,
   handleListItemPress,
   handleChevronPress,
-  handleBottomSheetEdit,
-  handleBottomSheetDelete,
 }) => {
   return (
-    <>
-      <ListItem
-        Component={TouchableWithoutFeedback}
-        containerStyle={[
-          { backgroundColor: theme.colors?.paperBackgroundColor },
-          isFirstItem ? styles.borderTopRadius : {},
-          isLastItem ? styles.borderBottomRadius : {},
-        ]}
-        bottomDivider={!isLastItem}
-        onPress={handleListItemPress}
-      >
-        <ListItem.Content>
-          <View style={styles.listItemTop}>
-            <Animated.View
-              style={[
-                styles.turnIconWrapper,
-                {
-                  transform: [{ rotate: rotation }],
-                },
-              ]}
+    <ListItem
+      Component={TouchableWithoutFeedback}
+      containerStyle={[
+        { backgroundColor: theme.colors?.paperBackgroundColor },
+        isFirstItem ? styles.borderTopRadius : {},
+        isLastItem ? styles.borderBottomRadius : {},
+      ]}
+      bottomDivider={!isLastItem}
+      onPress={handleListItemPress}
+    >
+      <ListItem.Content>
+        <View style={styles.listItemTop}>
+          <Animated.View
+            style={[
+              styles.turnIconWrapper,
+              {
+                transform: [{ rotate: rotation }],
+              },
+            ]}
+          >
+            <MaskedView
+              style={styles.turnIconMaskedView}
+              maskElement={
+                <Icon name='chevron-right' size={30} color='white' />
+              }
             >
-              <MaskedView
-                style={styles.turnIconMaskedView}
-                maskElement={
-                  <Icon name='chevron-right' size={30} color='white' />
-                }
-              >
-                <LinearGradient
-                  style={styles.turnIconLinearGradient}
-                  colors={[
-                    theme.colors && theme.colors.secondary
-                      ? theme.colors.secondary
-                      : 'transparent',
-                    theme.colors && theme.colors.primary
-                      ? theme.colors.primary
-                      : 'transparent',
-                  ]}
-                  start={{ x: 0, y: 1 }}
-                  end={{ x: 1, y: 1 }}
-                />
-              </MaskedView>
-            </Animated.View>
-
-            <ListItem.Content style={styles.listItemContent}>
-              <ListItem.Content style={styles.leftListItemContent}>
-                <ListItem.Title>{song.title}</ListItem.Title>
-                <ListItem.Subtitle>{song.interpreter}</ListItem.Subtitle>
-              </ListItem.Content>
-
-              <ListItem.Content style={styles.rightListItemContent}>
-                <Tempo tempo={song.tempo} isMetronomeOn />
-              </ListItem.Content>
-
-              <ListItem.Chevron
-                name='more-vert'
-                type='material'
-                size={25}
-                onPress={handleChevronPress}
+              <LinearGradient
+                style={styles.turnIconLinearGradient}
+                colors={[
+                  theme.colors && theme.colors.secondary
+                    ? theme.colors.secondary
+                    : 'transparent',
+                  theme.colors && theme.colors.primary
+                    ? theme.colors.primary
+                    : 'transparent',
+                ]}
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 1 }}
               />
+            </MaskedView>
+          </Animated.View>
+
+          <ListItem.Content style={styles.listItemContent}>
+            <ListItem.Content style={styles.leftListItemContent}>
+              <ListItem.Title>{song.title}</ListItem.Title>
+              <ListItem.Subtitle>{song.interpreter}</ListItem.Subtitle>
             </ListItem.Content>
-          </View>
 
-          <View style={styles.notesWrapper}>
-            <Collapsible
-              duration={200}
-              collapsed={areNotesCollapsed}
-              style={styles.notesCollapsible}
-            >
-              <Divider />
-              <View style={styles.notesTextWrapper}>
-                <Text>{song.notes}</Text>
-              </View>
-            </Collapsible>
-          </View>
-        </ListItem.Content>
-      </ListItem>
+            <ListItem.Content style={styles.rightListItemContent}>
+              <Tempo tempo={song.tempo} isMetronomeOn />
+            </ListItem.Content>
 
-      <RBSheet
-        ref={bottomSheetRef}
-        closeOnDragDown
-        customStyles={{
-          container: {
-            borderTopRightRadius: BORDER_RADIUS,
-            borderTopLeftRadius: BORDER_RADIUS,
-          },
-        }}
-        height={
-          BOTTOM_SHEET_LIST_ITEM_HEIGHT * 2 +
-          BOTTOM_SHEET_HEADER_HEIGHT +
-          PADDING
-        }
-      >
-        <ListItem onPress={handleBottomSheetEdit}>
-          <Icon name='edit' size={25} color={theme.colors?.black} />
-          <ListItem.Content>
-            <ListItem.Title>Bearbeiten</ListItem.Title>
+            <ListItem.Chevron
+              name='more-vert'
+              type='material'
+              size={25}
+              onPress={handleChevronPress}
+            />
           </ListItem.Content>
-        </ListItem>
+        </View>
 
-        <ListItem onPress={handleBottomSheetDelete}>
-          <Icon name='delete' size={25} color={theme.colors?.black} />
-          <ListItem.Content>
-            <ListItem.Title>Löschen</ListItem.Title>
-          </ListItem.Content>
-        </ListItem>
-      </RBSheet>
-    </>
+        <View style={styles.notesWrapper}>
+          <Collapsible
+            duration={200}
+            collapsed={areNotesCollapsed}
+            style={styles.notesCollapsible}
+          >
+            <Divider />
+            <View style={styles.notesTextWrapper}>
+              <Text>{song.notes}</Text>
+            </View>
+          </Collapsible>
+        </View>
+      </ListItem.Content>
+    </ListItem>
   );
 };
 

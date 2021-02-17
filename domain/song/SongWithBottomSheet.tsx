@@ -7,42 +7,38 @@ import {
   BOTTOM_SHEET_LIST_ITEM_HEIGHT,
   PADDING,
 } from '../../config/themes';
-import PlaylistContainer from './PlaylistContainer';
-import PlaylistEntity from './PlaylistModel';
+import SongContainer from './SongContainer';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import SongEntity from './SongEntity';
 
-interface PlaylistWithBottomSheetProps {
+interface SongWithBottomSheetProps {
   theme: Partial<FullTheme>;
-  playlist: PlaylistEntity;
+  song: SongEntity;
   isFirstItem: boolean;
   isLastItem: boolean;
-  handleChevronPress: () => void;
   bottomSheetRef: RefObject<RBSheet>;
   handleBottomSheetEdit: () => void;
   handleBottomSheetDelete: () => void;
-  handlePlaylistPress: () => void;
+  handleChevronPress: () => void;
 }
 
-const PlaylistWithBottomSheet: React.FC<PlaylistWithBottomSheetProps> = ({
+const SongWithBottomSheet: React.FC<SongWithBottomSheetProps> = ({
   theme,
-  playlist,
+  song,
   isFirstItem,
   isLastItem,
-  handleChevronPress,
   bottomSheetRef,
   handleBottomSheetEdit,
   handleBottomSheetDelete,
-  handlePlaylistPress,
+  handleChevronPress,
 }) => {
   return (
     <>
-      <PlaylistContainer
-        playlist={playlist}
+      <SongContainer
+        song={song}
         isFirstItem={isFirstItem}
         isLastItem={isLastItem}
         handleChevronPress={handleChevronPress}
-        handlePlaylistPress={handlePlaylistPress}
       />
 
       <RBSheet
@@ -78,4 +74,4 @@ const PlaylistWithBottomSheet: React.FC<PlaylistWithBottomSheetProps> = ({
   );
 };
 
-export default PlaylistWithBottomSheet;
+export default SongWithBottomSheet;

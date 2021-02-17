@@ -8,6 +8,7 @@ interface PlaylistContainerProps {
   isFirstItem: boolean;
   isLastItem: boolean;
   handleChevronPress: () => void;
+  handlePlaylistPress: () => void;
 }
 
 const PlaylistContainer: React.FC<PlaylistContainerProps> = ({
@@ -15,6 +16,7 @@ const PlaylistContainer: React.FC<PlaylistContainerProps> = ({
   isFirstItem,
   isLastItem,
   handleChevronPress,
+  handlePlaylistPress,
 }) => {
   const theme = useTheme();
 
@@ -25,6 +27,7 @@ const PlaylistContainer: React.FC<PlaylistContainerProps> = ({
       isFirstItem={isFirstItem}
       isLastItem={isLastItem}
       handleChevronPress={handleChevronPress}
+      handlePlaylistPress={handlePlaylistPress}
     />
   );
 };

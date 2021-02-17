@@ -5,6 +5,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import { useDispatch } from 'react-redux';
 import { useTheme } from '../../hooks/useTheme';
 import {
+  PlaylistSongsParams,
   PlaylistStackParamList,
   UpdatePlaylistParams,
 } from '../../navigation/PlaylistStack';
@@ -52,6 +53,14 @@ const PlaylistWithBottomSheetContainer: React.FC<PlaylistWithBottomSheetContaine
     bottomSheetRef.current?.open();
   };
 
+  const handlePlaylistPress = () => {
+    const params: PlaylistSongsParams = {
+      playlistId: playlist.playlistId,
+    };
+
+    navigation.navigate('PlaylistSongs', params);
+  };
+
   return (
     <PlaylistWithBottomSheet
       theme={theme}
@@ -62,6 +71,7 @@ const PlaylistWithBottomSheetContainer: React.FC<PlaylistWithBottomSheetContaine
       bottomSheetRef={bottomSheetRef}
       handleBottomSheetEdit={handleBottomSheetEdit}
       handleBottomSheetDelete={handleBottomSheetDelete}
+      handlePlaylistPress={handlePlaylistPress}
     />
   );
 };
