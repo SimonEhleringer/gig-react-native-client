@@ -1,7 +1,7 @@
-import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import PlaylistEntity from "./PlaylistModel";
+import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import PlaylistEntity from './PlaylistModel';
 
-const name = "playlist";
+const name = 'playlist';
 export const LOAD_PLAYLISTS = `${name}/loadPlaylists`;
 export const CREATE_PLAYLIST = `${name}/createPlaylist`;
 export const UPDATE_PLAYLIST = `${name}/updatePlaylist`;
@@ -9,6 +9,7 @@ export const DELETE_PLAYLIST = `${name}/deletePlaylist`;
 
 export const ADD_SONG_TO_PLAYLIST = `${name}/addSongToPlaylist`;
 export const REMOVE_SONG_FROM_PLAYLIST = `${name}/removeSongFromPlaylist`;
+export const MOVE_SONG_IN_PLAYLIST = `${name}/moveSongInPlaylist`;
 
 export type PlaylistState = {
   playlists: PlaylistEntity[];
@@ -42,6 +43,10 @@ export const removeSongFromPlaylist = createAction<AddRemoveSongPlaylistPayload>
   REMOVE_SONG_FROM_PLAYLIST
 );
 
+export const moveSongInPlaylist = createAction<MoveSongInPlaylistPayload>(
+  MOVE_SONG_IN_PLAYLIST
+);
+
 const playlistSlice = createSlice({
   name,
   initialState,
@@ -54,7 +59,7 @@ const playlistSlice = createSlice({
       state.playlists = action.payload;
       state.loading = false;
 
-      console.log("loading ist " + state.loading);
+      console.log('loading ist ' + state.loading);
     },
     playlistActionFailed(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;
@@ -83,4 +88,10 @@ export interface UpdatePlaylistPayload {
 export interface AddRemoveSongPlaylistPayload {
   playlistId: string;
   songId: string;
+}
+
+export interface MoveSongInPlaylistPayload {
+  playlistId: string;
+  songIndex: number;
+  direction: 'up' | 'down';
 }

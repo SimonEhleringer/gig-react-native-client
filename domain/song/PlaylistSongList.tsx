@@ -22,6 +22,7 @@ const PlaylistSongList: React.FC<PlaylistSongListProps> = ({
         song={item.item}
         isFirstItem={item.index === 0}
         isLastItem={item.index === songs.length - 1}
+        index={item.index}
       />
     );
   };

@@ -12,7 +12,12 @@ import {
   REMOVE_SONG_FROM_PLAYLIST,
 } from '../slice';
 import { requestUpdatePlaylist } from './requests';
-import { CreateUpdatePlaylistRequest, PlaylistResponse } from './shared';
+import {
+  CreateUpdatePlaylistRequest,
+  getPlaylistActionSucceededPayload,
+  PlaylistNotFoundError,
+  PlaylistResponse,
+} from './shared';
 
 export function* watchRemoveSongFromPlaylist() {
   yield takeLatest(REMOVE_SONG_FROM_PLAYLIST, handleRemoveSongFromPlaylist);
@@ -36,9 +41,7 @@ function* handleRemoveSongFromPlaylist(
   );
 
   if (!playlist) {
-    throw new Error(
-      `Playlist mit der ID ${playlistId} konnte nicht gefunden werden.`
-    );
+    throw new PlaylistNotFoundError(playlistId);
   }
 
   const songIds = playlist.songs.map((song) => song.songId);
@@ -62,13 +65,7 @@ function* handleRemoveSongFromPlaylist(
       request
     );
 
-    const payload = [...state.playlists];
-
-    const indexToUpdate = payload.findIndex(
-      (playlist) => playlist.playlistId === response.data.playlistId
-    );
-
-    payload[indexToUpdate] = response.data;
+    const payload = getPlaylistActionSucceededPayload(state, response.data);
 
     yield put(playlistActionSucceeded(payload));
   } catch (e) {

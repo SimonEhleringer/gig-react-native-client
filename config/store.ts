@@ -1,23 +1,24 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import createSagaMiddleware from "redux-saga";
-import playlist from "../domain/playlist/slice";
-import authentication from "../domain/authentication/slice";
-import song from "../domain/song/slice";
-import getSongBpmSong from "../domain/song/getSongBpmSong/slice";
-import { watchLogin } from "../domain/authentication/saga/login";
-import { watchRegister } from "../domain/authentication/saga/register";
-import { watchLogout } from "../domain/authentication/saga/logout";
-import { watchLoadSongs } from "../domain/song/saga/loadSongs";
-import { watchCreateSong } from "../domain/song/saga/createSong";
-import { watchSearchSongs } from "../domain/song/getSongBpmSong/saga/searchSongs";
-import { watchUpdateSong } from "../domain/song/saga/updateSong";
-import { watchDeleteSong } from "../domain/song/saga/deleteSong";
-import { watchLoadPlaylists } from "../domain/playlist/saga/loadPlaylists";
-import { watchCreatePlaylist } from "../domain/playlist/saga/createPlaylist";
-import { watchUpdatePlaylist } from "../domain/playlist/saga/updatePlaylist";
-import { watchDeletePlaylist } from "../domain/playlist/saga/deletePlaylist";
-import { watchAddSongToPlaylist } from "../domain/playlist/saga/addSongToPlaylist";
-import { watchRemoveSongFromPlaylist } from "../domain/playlist/saga/removeSongFromPlaylist";
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import playlist from '../domain/playlist/slice';
+import authentication from '../domain/authentication/slice';
+import song from '../domain/song/slice';
+import getSongBpmSong from '../domain/song/getSongBpmSong/slice';
+import { watchLogin } from '../domain/authentication/saga/login';
+import { watchRegister } from '../domain/authentication/saga/register';
+import { watchLogout } from '../domain/authentication/saga/logout';
+import { watchLoadSongs } from '../domain/song/saga/loadSongs';
+import { watchCreateSong } from '../domain/song/saga/createSong';
+import { watchSearchSongs } from '../domain/song/getSongBpmSong/saga/searchSongs';
+import { watchUpdateSong } from '../domain/song/saga/updateSong';
+import { watchDeleteSong } from '../domain/song/saga/deleteSong';
+import { watchLoadPlaylists } from '../domain/playlist/saga/loadPlaylists';
+import { watchCreatePlaylist } from '../domain/playlist/saga/createPlaylist';
+import { watchUpdatePlaylist } from '../domain/playlist/saga/updatePlaylist';
+import { watchDeletePlaylist } from '../domain/playlist/saga/deletePlaylist';
+import { watchAddSongToPlaylist } from '../domain/playlist/saga/addSongToPlaylist';
+import { watchRemoveSongFromPlaylist } from '../domain/playlist/saga/removeSongFromPlaylist';
+import { watchMoveSongInPlaylist } from '../domain/playlist/saga/moveSongInPlaylist';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -45,6 +46,7 @@ sagaMiddleware.run(watchUpdatePlaylist);
 sagaMiddleware.run(watchDeletePlaylist);
 sagaMiddleware.run(watchAddSongToPlaylist);
 sagaMiddleware.run(watchRemoveSongFromPlaylist);
+sagaMiddleware.run(watchMoveSongInPlaylist);
 
 sagaMiddleware.run(watchSearchSongs);
 
