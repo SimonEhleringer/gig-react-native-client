@@ -1,8 +1,10 @@
 import React from 'react';
-import { ListRenderItemInfo } from 'react-native';
+import { ListRenderItemInfo, TouchableWithoutFeedback } from 'react-native';
+import { ListItem } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
 import LoadingAndErrors from '../common/LoadingAndErrors';
 import PaddingView from '../common/PaddingView';
+import Paper from '../common/Paper';
 import AddPlaylistSongContainer from './AddPlaylistSongContainer';
 import SongEntity from './SongEntity';
 
@@ -10,12 +12,14 @@ interface AddPlaylistSongListProps {
   songs: SongEntity[];
   loading: boolean;
   errors: string[];
+  handleDummySongPress: () => void;
 }
 
 const AddPlaylistSongList: React.FC<AddPlaylistSongListProps> = ({
   songs,
   loading,
   errors,
+  handleDummySongPress,
 }) => {
   const renderItem = (item: ListRenderItemInfo<SongEntity>) => {
     return (
@@ -44,7 +48,26 @@ const AddPlaylistSongList: React.FC<AddPlaylistSongListProps> = ({
         data={songs}
         renderItem={renderItem}
         ListFooterComponent={<PaddingView />}
-        ListHeaderComponent={<PaddingView />}
+        ListHeaderComponent={
+          <>
+            <PaddingView />
+            <Paper>
+              <ListItem
+                containerStyle={{ backgroundColor: 'transparent' }}
+                onPress={handleDummySongPress}
+                Component={TouchableWithoutFeedback}
+              >
+                <ListItem.Content>
+                  <ListItem.Title>Neuen Song erstellen</ListItem.Title>
+                  <ListItem.Subtitle>
+                    Fügt einen ganz neuen Song zur Playlist hinzu
+                  </ListItem.Subtitle>
+                </ListItem.Content>
+              </ListItem>
+            </Paper>
+            <PaddingView />
+          </>
+        }
         // getItemLayout={getItemLayout}
       />
     </LoadingAndErrors>

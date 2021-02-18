@@ -4,6 +4,8 @@ import SongsScreen from '../screens/SongsScreen';
 import AddSongScreen from '../screens/AddSongScreen';
 import SearchSongScreen from '../screens/SearchSongScreen';
 import UpdateSongScreen from '../screens/UpdateSongScreen';
+import SearchBarHeader from '../domain/song/getSongBpmSong/SearchBarHeader';
+import SearchBarHeaderContainer from '../domain/song/getSongBpmSong/SearchBarHeaderContainer';
 
 interface SongsStackProps {}
 
@@ -34,7 +36,7 @@ const SongsStack: React.FC<SongsStackProps> = ({}) => {
         name='SearchSong'
         component={SearchSongScreen}
         options={{
-          headerShown: false,
+          header: () => <SearchBarHeaderContainer />,
         }}
       />
       <Stack.Screen

@@ -5,6 +5,8 @@ import CreatePlaylistScreen from '../screens/CreatePlaylistScreen';
 import UpdatePlaylistScreen from '../screens/UpdatePlaylistScreen';
 import PlaylistSongsScreen from '../screens/PlaylistSongsScreen';
 import AddSongToPlaylistScreen from '../screens/AddSongToPlaylistScreen';
+import SearchSongForAddingToPlaylistScreen from '../screens/SearchSongForAddingToPlaylistScreen';
+import SearchBarHeaderContainer from '../domain/song/getSongBpmSong/SearchBarHeaderContainer';
 
 interface PlaylistStackProps {}
 
@@ -14,6 +16,8 @@ export type PlaylistStackParamList = {
   UpdatePlaylist: UpdatePlaylistParams;
   PlaylistSongs: PlaylistSongsParams;
   AddSongToPlaylist: AddSongToPlaylistParams;
+  SearchSong: SearchSongParams;
+  CreateSong: CreateSongParams;
 };
 
 export interface UpdatePlaylistParams {
@@ -25,6 +29,14 @@ export interface PlaylistSongsParams {
 }
 
 export interface AddSongToPlaylistParams {
+  playlistId: string;
+}
+
+export interface SearchSongParams {
+  playlistId: string;
+}
+
+export interface CreateSongParams {
   playlistId: string;
 }
 
@@ -54,6 +66,20 @@ const PlaylistStack: React.FC<PlaylistStackProps> = ({}) => {
         component={AddSongToPlaylistScreen}
         options={{ title: 'Song auswählen' }}
       />
+      <Stack.Screen
+        name='SearchSong'
+        component={SearchSongForAddingToPlaylistScreen}
+        options={{
+          header: () => <SearchBarHeaderContainer />,
+        }}
+      />
+      {/* // <Stack.Screen
+      //   name='CreateSong'
+      //   component={AddSongScreen}
+      //   options={{
+      //     title: 'Song hinzufügen',
+      //   }}
+      // /> */}
     </Stack.Navigator>
   );
 };
