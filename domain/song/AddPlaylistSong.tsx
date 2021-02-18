@@ -1,10 +1,10 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { FullTheme, ListItem } from 'react-native-elements';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { BORDER_RADIUS } from '../../config/themes';
-import Tempo from './components/Tempo';
-import SongEntity from './SongEntity';
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { FullTheme, ListItem } from "react-native-elements";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { BORDER_RADIUS } from "../../config/themes";
+import Tempo from "./components/Tempo";
+import SongEntity from "./SongEntity";
 
 interface AddPlaylistSongProps {
   theme: Partial<FullTheme>;
@@ -52,11 +52,11 @@ const AddPlaylistSong: React.FC<AddPlaylistSongProps> = ({
 
 const styles = StyleSheet.create({
   listItemTop: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   listItemContent: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   leftListItemContent: {
     flex: 2,

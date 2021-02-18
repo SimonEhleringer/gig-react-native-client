@@ -1,24 +1,24 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
-import { call, put, select, takeLatest } from "redux-saga/effects";
+import { put, select, takeLatest, call } from "redux-saga/effects";
 import { ReduxState } from "../../../config/store";
 import { getErrorsFromError } from "../../common/saga/shared";
 import {
   AddRemoveSongPlaylistPayload,
-  ADD_SONG_TO_PLAYLIST,
   playlistActionFailed,
   playlistActionStarted,
   playlistActionSucceeded,
   PlaylistState,
+  REMOVE_SONG_FROM_PLAYLIST,
 } from "../slice";
 import { requestUpdatePlaylist } from "./requests";
 import { CreateUpdatePlaylistRequest, PlaylistResponse } from "./shared";
 
-export function* watchAddSongToPlaylist() {
-  yield takeLatest(ADD_SONG_TO_PLAYLIST, handleAddSongToPlaylist);
+export function* watchRemoveSongFromPlaylist() {
+  yield takeLatest(REMOVE_SONG_FROM_PLAYLIST, handleRemoveSongFromPlaylist);
 }
 
-function* handleAddSongToPlaylist(
+function* handleRemoveSongFromPlaylist(
   action: PayloadAction<AddRemoveSongPlaylistPayload>
 ) {
   yield put(playlistActionStarted());
@@ -28,8 +28,9 @@ function* handleAddSongToPlaylist(
   const state: PlaylistState = yield select(
     (state: ReduxState) => state.playlist
   );
+
   const playlist = state.playlists.find(
-    (value) => value.playlistId === playlistId
+    (playlist) => playlist.playlistId === playlistId
   );
 
   if (!playlist) {
@@ -38,25 +39,26 @@ function* handleAddSongToPlaylist(
     );
   }
 
-  const songIds = playlist.songs.map((song) => {
-    return song.songId;
-  });
+  const songIds = playlist.songs.map((song) => song.songId);
 
-  songIds.push(songId);
+  const indexToRemove = playlist.songs.findIndex(
+    (song) => song.songId === songId
+  );
+  songIds.slice(indexToRemove, 1);
 
   const request: CreateUpdatePlaylistRequest = {
     name: playlist.name,
-    songIds: songIds,
+    songIds,
   };
 
   try {
     const response: AxiosResponse<PlaylistResponse> = yield call(
       requestUpdatePlaylist,
-      playlist.playlistId,
+      playlistId,
       request
     );
 
-    const payload = [...state.playlists];
+    const payload = state.playlists;
 
     const indexToUpdate = payload.findIndex(
       (playlist) => playlist.playlistId === response.data.playlistId
