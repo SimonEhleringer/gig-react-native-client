@@ -1,8 +1,8 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { AxiosResponse } from "axios";
-import { put, select, takeLatest, call } from "redux-saga/effects";
-import { ReduxState } from "../../../config/store";
-import { getErrorsFromError } from "../../common/saga/shared";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { AxiosResponse } from 'axios';
+import { put, select, takeLatest, call } from 'redux-saga/effects';
+import { ReduxState } from '../../../config/store';
+import { getErrorsFromError } from '../../common/saga/shared';
 import {
   AddRemoveSongPlaylistPayload,
   playlistActionFailed,
@@ -10,9 +10,9 @@ import {
   playlistActionSucceeded,
   PlaylistState,
   REMOVE_SONG_FROM_PLAYLIST,
-} from "../slice";
-import { requestUpdatePlaylist } from "./requests";
-import { CreateUpdatePlaylistRequest, PlaylistResponse } from "./shared";
+} from '../slice';
+import { requestUpdatePlaylist } from './requests';
+import { CreateUpdatePlaylistRequest, PlaylistResponse } from './shared';
 
 export function* watchRemoveSongFromPlaylist() {
   yield takeLatest(REMOVE_SONG_FROM_PLAYLIST, handleRemoveSongFromPlaylist);
@@ -21,6 +21,8 @@ export function* watchRemoveSongFromPlaylist() {
 function* handleRemoveSongFromPlaylist(
   action: PayloadAction<AddRemoveSongPlaylistPayload>
 ) {
+  console.log('In saga :)');
+
   yield put(playlistActionStarted());
 
   const { playlistId, songId } = action.payload;
@@ -44,12 +46,14 @@ function* handleRemoveSongFromPlaylist(
   const indexToRemove = playlist.songs.findIndex(
     (song) => song.songId === songId
   );
-  songIds.slice(indexToRemove, 1);
+  songIds.splice(indexToRemove, 1);
 
   const request: CreateUpdatePlaylistRequest = {
     name: playlist.name,
     songIds,
   };
+
+  console.log(request);
 
   try {
     const response: AxiosResponse<PlaylistResponse> = yield call(
@@ -58,7 +62,7 @@ function* handleRemoveSongFromPlaylist(
       request
     );
 
-    const payload = state.playlists;
+    const payload = [...state.playlists];
 
     const indexToUpdate = payload.findIndex(
       (playlist) => playlist.playlistId === response.data.playlistId

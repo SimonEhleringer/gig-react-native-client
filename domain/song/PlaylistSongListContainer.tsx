@@ -14,7 +14,15 @@ const PlaylistSongListContainer: React.FC<PlaylistSongListContainerProps> = ({
   const songs = state.playlists.find((value) => value.playlistId === playlistId)
     ?.songs;
 
-  return <>{songs && <PlaylistSongList songs={songs} />}</>;
+  const { loading, errors } = state;
+
+  return (
+    <>
+      {songs && (
+        <PlaylistSongList songs={songs} loading={loading} errors={errors} />
+      )}
+    </>
+  );
 };
 
 export default PlaylistSongListContainer;

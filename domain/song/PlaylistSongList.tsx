@@ -1,14 +1,21 @@
 import React from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
+import LoadingAndErrors from '../common/LoadingAndErrors';
 import PaddingView from '../common/PaddingView';
 import PlaylistSongContainer from './PlaylistSongContainer';
 import SongEntity from './SongEntity';
 
 interface PlaylistSongListProps {
   songs: SongEntity[];
+  loading: boolean;
+  errors: string[];
 }
 
-const PlaylistSongList: React.FC<PlaylistSongListProps> = ({ songs }) => {
+const PlaylistSongList: React.FC<PlaylistSongListProps> = ({
+  songs,
+  loading,
+  errors,
+}) => {
   const renderItem = (item: ListRenderItemInfo<SongEntity>) => {
     return (
       <PlaylistSongContainer
@@ -30,14 +37,16 @@ const PlaylistSongList: React.FC<PlaylistSongListProps> = ({ songs }) => {
   };
 
   return (
-    <FlatList
-      keyExtractor={keyExtractor}
-      data={songs}
-      renderItem={renderItem}
-      ListFooterComponent={<PaddingView />}
-      ListHeaderComponent={<PaddingView />}
-      // getItemLayout={getItemLayout}
-    />
+    <LoadingAndErrors loading={loading} errors={errors}>
+      <FlatList
+        keyExtractor={keyExtractor}
+        data={songs}
+        renderItem={renderItem}
+        ListFooterComponent={<PaddingView />}
+        ListHeaderComponent={<PaddingView />}
+        // getItemLayout={getItemLayout}
+      />
+    </LoadingAndErrors>
   );
 };
 
