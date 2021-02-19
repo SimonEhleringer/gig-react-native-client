@@ -5,10 +5,11 @@ import { useDispatch } from 'react-redux';
 import { useTheme } from '../../hooks/useTheme';
 import { PlaylistStackParamList } from '../../navigation/PlaylistStack';
 import {
-  AddRemoveSongPlaylistPayload,
+  AddSongToPlaylistPayload,
   moveSongInPlaylist,
   MoveSongInPlaylistPayload,
   removeSongFromPlaylist,
+  RemoveSongFromPlaylistPayload,
 } from '../playlist/slice';
 import PlaylistSong from './PlaylistSong';
 import SongEntity from './SongEntity';
@@ -59,9 +60,9 @@ const PlaylistSongContainer: React.FC<PlaylistSongContainerProps> = ({
   const handleBottomSheetRemoveFromPlaylist = () => {
     bottomSheetRef.current?.close();
 
-    const payload: AddRemoveSongPlaylistPayload = {
+    const payload: RemoveSongFromPlaylistPayload = {
       playlistId: route.params.playlistId,
-      songId: song.songId,
+      songIndex: index,
     };
 
     dispatch(removeSongFromPlaylist(payload));

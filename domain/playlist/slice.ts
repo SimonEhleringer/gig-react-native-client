@@ -37,11 +37,11 @@ export const updatePlaylist = createAction<UpdatePlaylistPayload>(
 
 export const deletePlaylist = createAction<string>(DELETE_PLAYLIST);
 
-export const addSongToPlaylist = createAction<AddRemoveSongPlaylistPayload>(
+export const addSongToPlaylist = createAction<AddSongToPlaylistPayload>(
   ADD_SONG_TO_PLAYLIST
 );
 
-export const removeSongFromPlaylist = createAction<AddRemoveSongPlaylistPayload>(
+export const removeSongFromPlaylist = createAction<RemoveSongFromPlaylistPayload>(
   REMOVE_SONG_FROM_PLAYLIST
 );
 
@@ -91,9 +91,14 @@ export interface UpdatePlaylistPayload {
   name: string;
 }
 
-export interface AddRemoveSongPlaylistPayload {
+export interface AddSongToPlaylistPayload {
   playlistId: string;
   songId: string;
+}
+
+export interface RemoveSongFromPlaylistPayload {
+  playlistId: string;
+  songIndex: number;
 }
 
 export interface MoveSongInPlaylistPayload {

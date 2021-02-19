@@ -4,7 +4,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { ReduxState } from '../../../config/store';
 import { getErrorsFromError } from '../../common/saga/shared';
 import {
-  AddRemoveSongPlaylistPayload,
+  AddSongToPlaylistPayload,
   ADD_SONG_TO_PLAYLIST,
   playlistActionFailed,
   playlistActionStarted,
@@ -23,7 +23,7 @@ export function* watchAddSongToPlaylist() {
 }
 
 function* handleAddSongToPlaylist(
-  action: PayloadAction<AddRemoveSongPlaylistPayload>
+  action: PayloadAction<AddSongToPlaylistPayload>
 ) {
   yield put(playlistActionStarted());
 

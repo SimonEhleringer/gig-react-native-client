@@ -4,11 +4,12 @@ import { put, select, takeLatest, call } from 'redux-saga/effects';
 import { ReduxState } from '../../../config/store';
 import { getErrorsFromError } from '../../common/saga/shared';
 import {
-  AddRemoveSongPlaylistPayload,
+  AddSongToPlaylistPayload,
   playlistActionFailed,
   playlistActionStarted,
   playlistActionSucceeded,
   PlaylistState,
+  RemoveSongFromPlaylistPayload,
   REMOVE_SONG_FROM_PLAYLIST,
 } from '../slice';
 import { requestUpdatePlaylist } from './requests';
@@ -24,13 +25,13 @@ export function* watchRemoveSongFromPlaylist() {
 }
 
 function* handleRemoveSongFromPlaylist(
-  action: PayloadAction<AddRemoveSongPlaylistPayload>
+  action: PayloadAction<RemoveSongFromPlaylistPayload>
 ) {
   console.log('In saga :)');
 
   yield put(playlistActionStarted());
 
-  const { playlistId, songId } = action.payload;
+  const { playlistId, songIndex } = action.payload;
 
   const state: PlaylistState = yield select(
     (state: ReduxState) => state.playlist
@@ -46,10 +47,7 @@ function* handleRemoveSongFromPlaylist(
 
   const songIds = playlist.songs.map((song) => song.songId);
 
-  const indexToRemove = playlist.songs.findIndex(
-    (song) => song.songId === songId
-  );
-  songIds.splice(indexToRemove, 1);
+  songIds.splice(songIndex, 1);
 
   const request: CreateUpdatePlaylistRequest = {
     name: playlist.name,

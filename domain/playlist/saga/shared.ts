@@ -1,5 +1,5 @@
 import { SongResponse } from '../../song/saga/shared';
-import { AddRemoveSongPlaylistPayload, PlaylistState } from '../slice';
+import { AddSongToPlaylistPayload, PlaylistState } from '../slice';
 
 export interface CreateUpdatePlaylistRequest {
   name: string;

@@ -15,7 +15,7 @@ import { PlaylistNotFoundError } from '../playlist/saga/shared';
 import {
   addNewSongToPlaylist,
   AddNewSongToPlaylistPayload,
-  AddRemoveSongPlaylistPayload,
+  AddSongToPlaylistPayload,
   addSongToPlaylist,
 } from '../playlist/slice';
 import AddToPlaylistSongForm from './AddToPlaylistSongForm';

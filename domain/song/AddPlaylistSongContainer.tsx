@@ -1,19 +1,19 @@
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import React from "react";
-import { useDispatch } from "react-redux";
-import { useTheme } from "../../hooks/useTheme";
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useTheme } from '../../hooks/useTheme';
 import {
   AddSongToPlaylistParams,
   PlaylistStackParamList,
-} from "../../navigation/PlaylistStack";
+} from '../../navigation/PlaylistStack';
 import {
   addSongToPlaylist,
-  AddRemoveSongPlaylistPayload,
+  AddSongToPlaylistPayload,
   playlistActionSucceeded,
-} from "../playlist/slice";
-import AddPlaylistSong from "./AddPlaylistSong";
-import SongEntity from "./SongEntity";
+} from '../playlist/slice';
+import AddPlaylistSong from './AddPlaylistSong';
+import SongEntity from './SongEntity';
 
 interface AddPlaylistSongContainerProps {
   song: SongEntity;
@@ -30,15 +30,15 @@ const AddPlaylistSongContainer: React.FC<AddPlaylistSongContainerProps> = ({
   const theme = useTheme();
   const navigation: StackNavigationProp<
     PlaylistStackParamList,
-    "AddSongToPlaylist"
+    'AddSongToPlaylist'
   > = useNavigation();
   const route: RouteProp<
     PlaylistStackParamList,
-    "AddSongToPlaylist"
+    'AddSongToPlaylist'
   > = useRoute();
 
   const handleListItemPress = () => {
-    const payload: AddRemoveSongPlaylistPayload = {
+    const payload: AddSongToPlaylistPayload = {
       playlistId: route.params.playlistId,
       songId: song.songId,
     };
@@ -49,7 +49,7 @@ const AddPlaylistSongContainer: React.FC<AddPlaylistSongContainerProps> = ({
       playlistId: route.params.playlistId,
     };
 
-    navigation.navigate("PlaylistSongs", params);
+    navigation.navigate('PlaylistSongs', params);
   };
 
   return (
