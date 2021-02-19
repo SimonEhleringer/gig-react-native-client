@@ -1,8 +1,11 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import LoadingAndErrors from '../common/LoadingAndErrors';
-import SongFormContainer from './SongFormContainer';
+import React, { Dispatch, SetStateAction } from "react";
+import LoadingAndErrors from "../common/LoadingAndErrors";
+import SongFormContainer from "./SongFormContainer";
 
 interface AddToPlaylistSongFormProps {
+  getSongBpmLoading: boolean;
+  getSongBpmErrors: string[];
+
   title: string;
   setTitle: Dispatch<SetStateAction<string>>;
 
@@ -16,8 +19,6 @@ interface AddToPlaylistSongFormProps {
   setNotes: Dispatch<SetStateAction<string>>;
 
   handleSubmit: () => void;
-
-  stateLoading: boolean;
 }
 
 const AddToPlaylistSongForm: React.FC<AddToPlaylistSongFormProps> = ({
@@ -30,10 +31,11 @@ const AddToPlaylistSongForm: React.FC<AddToPlaylistSongFormProps> = ({
   setTempo,
   notes,
   setNotes,
-  stateLoading,
+  getSongBpmLoading,
+  getSongBpmErrors,
 }) => {
   return (
-    <LoadingAndErrors loading={stateLoading} errors={[]}>
+    <LoadingAndErrors loading={getSongBpmLoading} errors={getSongBpmErrors}>
       <SongFormContainer
         title={title}
         setTitle={setTitle}
