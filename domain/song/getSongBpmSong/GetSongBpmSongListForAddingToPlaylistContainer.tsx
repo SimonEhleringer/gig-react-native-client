@@ -1,7 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { PlaylistStackParamList } from '../../../navigation/PlaylistStack';
+import {
+  AddNewSongToPlaylistParams,
+  PlaylistStackParamList,
+} from '../../../navigation/PlaylistStack';
 import GetSongBpmSongListContainer from './GetSongBpmSongListContainer';
 
 interface GetSongBpmSongListForAddingToPlaylistContainerProps {}
@@ -12,9 +15,24 @@ const GetSongBpmSongListForAddingToPlaylistContainer: React.FC<GetSongBpmSongLis
     'SearchSong'
   > = useNavigation();
 
-  const handleDummySongPress = () => {};
+  const route: RouteProp<PlaylistStackParamList, 'SearchSong'> = useRoute();
 
-  const handleSongPress = (id: string) => {};
+  const handleDummySongPress = () => {
+    const params: AddNewSongToPlaylistParams = {
+      playlistId: route.params.playlistId,
+    };
+
+    navigation.navigate('AddNewSongToPlaylist', params);
+  };
+
+  const handleSongPress = (id: string) => {
+    const params: AddNewSongToPlaylistParams = {
+      playlistId: route.params.playlistId,
+      getSongBpmSongId: id,
+    };
+
+    navigation.navigate('AddNewSongToPlaylist', params);
+  };
 
   return (
     <GetSongBpmSongListContainer

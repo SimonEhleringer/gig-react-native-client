@@ -1,4 +1,5 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CreateSongPayload } from '../song/slice';
 import PlaylistEntity from './PlaylistModel';
 
 const name = 'playlist';
@@ -10,6 +11,7 @@ export const DELETE_PLAYLIST = `${name}/deletePlaylist`;
 export const ADD_SONG_TO_PLAYLIST = `${name}/addSongToPlaylist`;
 export const REMOVE_SONG_FROM_PLAYLIST = `${name}/removeSongFromPlaylist`;
 export const MOVE_SONG_IN_PLAYLIST = `${name}/moveSongInPlaylist`;
+export const ADD_NEW_SONG_TO_PLAYLIST = `${name}/addNewSongToPlaylist`;
 
 export type PlaylistState = {
   playlists: PlaylistEntity[];
@@ -45,6 +47,10 @@ export const removeSongFromPlaylist = createAction<AddRemoveSongPlaylistPayload>
 
 export const moveSongInPlaylist = createAction<MoveSongInPlaylistPayload>(
   MOVE_SONG_IN_PLAYLIST
+);
+
+export const addNewSongToPlaylist = createAction<AddNewSongToPlaylistPayload>(
+  ADD_NEW_SONG_TO_PLAYLIST
 );
 
 const playlistSlice = createSlice({
@@ -94,4 +100,9 @@ export interface MoveSongInPlaylistPayload {
   playlistId: string;
   songIndex: number;
   direction: 'up' | 'down';
+}
+
+export interface AddNewSongToPlaylistPayload {
+  playlistId: string;
+  createSongPayload: CreateSongPayload;
 }

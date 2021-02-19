@@ -55,6 +55,8 @@ export function* handleCreateSong(action: PayloadAction<CreateSongPayload>) {
     payload.sort((a, b) => sortArrayAlphabetically(a.title, b.title));
 
     yield put(createSongSucceeded(payload));
+
+    return newSong;
   } catch (e) {
     yield put(songActionFailed(getErrorsFromError(e)));
   }

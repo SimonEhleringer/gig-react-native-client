@@ -13,9 +13,8 @@ import {
 } from '../slice';
 import { requestUpdatePlaylist } from './requests';
 import {
-  CreateUpdatePlaylistRequest,
   getPlaylistActionSucceededPayload,
-  PlaylistNotFoundError,
+  getRequestForAddingSongToPlaylist,
   PlaylistResponse,
 } from './shared';
 
@@ -28,34 +27,18 @@ function* handleAddSongToPlaylist(
 ) {
   yield put(playlistActionStarted());
 
-  const { playlistId, songId } = action.payload;
-
   const state: PlaylistState = yield select(
     (state: ReduxState) => state.playlist
   );
-  const playlist = state.playlists.find(
-    (value) => value.playlistId === playlistId
-  );
 
-  if (!playlist) {
-    throw new PlaylistNotFoundError(playlistId);
-  }
+  const { playlistId, songId } = action.payload;
 
-  const songIds = playlist.songs.map((song) => {
-    return song.songId;
-  });
-
-  songIds.push(songId);
-
-  const request: CreateUpdatePlaylistRequest = {
-    name: playlist.name,
-    songIds: songIds,
-  };
+  const request = getRequestForAddingSongToPlaylist(state, playlistId, songId);
 
   try {
     const response: AxiosResponse<PlaylistResponse> = yield call(
       requestUpdatePlaylist,
-      playlist.playlistId,
+      playlistId,
       request
     );
 

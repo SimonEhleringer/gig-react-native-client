@@ -1,6 +1,6 @@
-import React, { Dispatch, SetStateAction } from "react";
-import LoadingAndErrors from "../common/LoadingAndErrors";
-import SongFormContainer from "./SongFormContainer";
+import React, { Dispatch, SetStateAction } from 'react';
+import LoadingAndErrors from '../common/LoadingAndErrors';
+import SongFormContainer from './SongFormContainer';
 
 interface AddToPlaylistSongFormProps {
   getSongBpmLoading: boolean;
@@ -19,6 +19,9 @@ interface AddToPlaylistSongFormProps {
   setNotes: Dispatch<SetStateAction<string>>;
 
   handleSubmit: () => void;
+
+  loading: boolean;
+  errors: string[];
 }
 
 const AddToPlaylistSongForm: React.FC<AddToPlaylistSongFormProps> = ({
@@ -33,6 +36,8 @@ const AddToPlaylistSongForm: React.FC<AddToPlaylistSongFormProps> = ({
   setNotes,
   getSongBpmLoading,
   getSongBpmErrors,
+  loading,
+  errors,
 }) => {
   return (
     <LoadingAndErrors loading={getSongBpmLoading} errors={getSongBpmErrors}>
@@ -46,6 +51,8 @@ const AddToPlaylistSongForm: React.FC<AddToPlaylistSongFormProps> = ({
         notes={notes}
         setNotes={setNotes}
         handleSubmit={handleSubmit}
+        loading={loading}
+        errors={errors}
       />
     </LoadingAndErrors>
   );

@@ -30,6 +30,9 @@ interface SongFormContainerProps {
   setNotes: Dispatch<SetStateAction<string>>;
 
   handleSubmit: () => void;
+
+  loading: boolean;
+  errors: string[];
 }
 
 const SongFormContainer: React.FC<SongFormContainerProps> = ({
@@ -42,26 +45,14 @@ const SongFormContainer: React.FC<SongFormContainerProps> = ({
   setTempo,
   notes,
   setNotes,
+  loading,
+  errors,
 }) => {
   const theme = useTheme();
-  const navigation: StackNavigationProp<
-    SongsStackParamList,
-    'AddSong'
-  > = useNavigation();
 
   const interpreterInputRef = useRef<Input>(null);
   const tempoInputRef = useRef<Input>(null);
   const notesInputRef = useRef<Input>(null);
-
-  const state = useSelector((state: ReduxState) => state.song);
-  const loading = state.loading;
-  const errors = state.errors;
-
-  useOnUpdateEffect(() => {
-    if (loading === false && errors.length === 0) {
-      navigation.navigate('Songs');
-    }
-  }, [loading, errors]);
 
   const handleTitleSubmitEditing = () => {
     interpreterInputRef.current?.focus();

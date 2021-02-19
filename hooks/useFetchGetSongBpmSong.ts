@@ -1,9 +1,9 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { getErrorsFromError } from "../domain/common/saga/shared";
-import { requestSong } from "../domain/song/getSongBpmSong/saga/requests";
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { getErrorsFromError } from '../domain/common/saga/shared';
+import { requestSong } from '../domain/song/getSongBpmSong/saga/requests';
 
 export const useFetchGetSongBpmSong = (
-  getSongBpmSongId: string,
+  getSongBpmSongId: string | undefined,
   setTitle: Dispatch<SetStateAction<string>>,
   setInterpreter: Dispatch<SetStateAction<string>>,
   setTempo: Dispatch<SetStateAction<string>>

@@ -19,6 +19,9 @@ interface AddSongFormProps {
   getSongBpmErrors: string[];
 
   handleSubmit: () => void;
+
+  loading: boolean;
+  errors: string[];
 }
 
 const AddSongForm: React.FC<AddSongFormProps> = ({
@@ -33,6 +36,8 @@ const AddSongForm: React.FC<AddSongFormProps> = ({
   setTempo,
   notes,
   setNotes,
+  loading,
+  errors,
 }) => {
   return (
     <LoadingAndErrors loading={getSongBpmLoading} errors={getSongBpmErrors}>
@@ -46,6 +51,8 @@ const AddSongForm: React.FC<AddSongFormProps> = ({
         setTempo={setTempo}
         notes={notes}
         setNotes={setNotes}
+        loading={loading}
+        errors={errors}
       />
     </LoadingAndErrors>
   );

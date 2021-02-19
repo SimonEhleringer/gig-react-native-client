@@ -1,5 +1,5 @@
 import { SongResponse } from '../../song/saga/shared';
-import { PlaylistState } from '../slice';
+import { AddRemoveSongPlaylistPayload, PlaylistState } from '../slice';
 
 export interface CreateUpdatePlaylistRequest {
   name: string;
@@ -31,4 +31,31 @@ export const getPlaylistActionSucceededPayload = (
   payload[indexToUpdate] = playlistResponse;
 
   return payload;
+};
+
+export const getRequestForAddingSongToPlaylist = (
+  state: PlaylistState,
+  playlistId: string,
+  songId: string
+) => {
+  const playlist = state.playlists.find(
+    (value) => value.playlistId === playlistId
+  );
+
+  if (!playlist) {
+    throw new PlaylistNotFoundError(playlistId);
+  }
+
+  const songIds = playlist.songs.map((song) => {
+    return song.songId;
+  });
+
+  songIds.push(songId);
+
+  const request: CreateUpdatePlaylistRequest = {
+    name: playlist.name,
+    songIds: songIds,
+  };
+
+  return request;
 };
