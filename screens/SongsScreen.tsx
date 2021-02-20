@@ -1,6 +1,4 @@
 import React, { useLayoutEffect, useState, useRef } from 'react';
-import { ScrollView, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import withBackground from '../domain/common/withBackground';
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
 import StoreFetchingSongListContainer from '../domain/song/StoreFetchingSongListContainer';

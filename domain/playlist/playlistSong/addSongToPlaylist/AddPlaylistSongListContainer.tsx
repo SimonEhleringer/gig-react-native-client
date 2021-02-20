@@ -1,11 +1,11 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
-import { ReactReduxContext, useDispatch, useSelector } from 'react-redux';
-import { ReduxState } from '../../config/store';
-import { PlaylistStackParamList } from '../../navigation/PlaylistStack';
+import { useDispatch, useSelector } from 'react-redux';
+import { ReduxState } from '../../../../config/store';
+import { PlaylistStackParamList } from '../../../../navigation/PlaylistStack';
 import AddPlaylistSongList from './AddPlaylistSongList';
-import { loadSongs } from './slice';
+import { loadSongs } from '../../../song/slice';
 
 interface AddPlaylistSongListContainerProps {}
 

@@ -4,8 +4,8 @@ import React from 'react';
 import {
   AddNewSongToPlaylistParams,
   PlaylistStackParamList,
-} from '../../../navigation/PlaylistStack';
-import GetSongBpmSongListContainer from './GetSongBpmSongListContainer';
+} from '../../../../navigation/PlaylistStack';
+import GetSongBpmSongListContainer from '../../../song/getSongBpmSong/GetSongBpmSongListContainer';
 
 interface GetSongBpmSongListForAddingToPlaylistContainerProps {}
 

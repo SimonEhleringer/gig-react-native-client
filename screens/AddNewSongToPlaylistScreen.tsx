@@ -1,7 +1,7 @@
 import React from 'react';
 import withBackground from '../domain/common/withBackground';
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
-import AddToPlaylistSongFormContainer from '../domain/song/AddToPlaylistSongFormContainer';
+import AddToPlaylistSongFormContainer from '../domain/playlist/playlistSong/addSongToPlaylist/form/AddToPlaylistSongFormContainer';
 
 interface AddNewSongToPlaylistScreenProps {}
 

@@ -11,12 +11,16 @@ interface AuthenticationSettingsProps {
   theme: Partial<FullTheme>;
   username: string;
   handleLogout: () => void;
+  songCount: number;
+  playlistCount: number;
 }
 
 const AuthenticationSettings: React.FC<AuthenticationSettingsProps> = ({
   theme,
   username,
   handleLogout,
+  songCount,
+  playlistCount,
 }) => {
   return (
     <Container>
@@ -33,8 +37,8 @@ const AuthenticationSettings: React.FC<AuthenticationSettingsProps> = ({
             }}
           />
           <View style={styles.statsContainer}>
-            <Stat stat='0' statName='Songs' />
-            <Stat stat='43' statName='Playlists' />
+            <Stat stat={songCount.toString()} statName='Songs' />
+            <Stat stat={playlistCount.toString()} statName='Playlists' />
           </View>
         </View>
 

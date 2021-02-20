@@ -6,9 +6,9 @@ import {
   BOTTOM_SHEET_HEADER_HEIGHT,
   BOTTOM_SHEET_LIST_ITEM_HEIGHT,
   PADDING,
-} from '../../config/themes';
-import SongContainer from './SongContainer';
-import SongEntity from './SongEntity';
+} from '../../../config/themes';
+import SongContainer from '../../song/SongContainer';
+import SongEntity from '../../song/SongEntity';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 interface PlaylistSongProps {

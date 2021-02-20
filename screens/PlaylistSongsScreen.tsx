@@ -14,7 +14,7 @@ import {
 } from '../config/themes';
 import withBackground from '../domain/common/withBackground';
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
-import PlaylistSongListContainer from '../domain/song/PlaylistSongListContainer';
+import PlaylistSongListContainer from '../domain/playlist/playlistSong/PlaylistSongListContainer';
 import {
   AddSongToPlaylistParams,
   PlaylistStackParamList,

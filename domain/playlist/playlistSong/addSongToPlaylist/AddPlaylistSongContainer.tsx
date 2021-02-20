@@ -2,18 +2,17 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '../../../../hooks/useTheme';
 import {
   AddSongToPlaylistParams,
   PlaylistStackParamList,
-} from '../../navigation/PlaylistStack';
+} from '../../../../navigation/PlaylistStack';
 import {
   addSongToPlaylist,
   AddSongToPlaylistPayload,
-  playlistActionSucceeded,
-} from '../playlist/slice';
+} from '../../../playlist/slice';
 import AddPlaylistSong from './AddPlaylistSong';
-import SongEntity from './SongEntity';
+import SongEntity from '../../../song/SongEntity';
 
 interface AddPlaylistSongContainerProps {
   song: SongEntity;

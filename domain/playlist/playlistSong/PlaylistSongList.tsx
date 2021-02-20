@@ -1,15 +1,9 @@
 import React from 'react';
-import {
-  FlatList,
-  ListRenderItemInfo,
-  TouchableWithoutFeedback,
-} from 'react-native';
-import { ListItem } from 'react-native-elements';
-import LoadingAndErrors from '../common/LoadingAndErrors';
-import PaddingView from '../common/PaddingView';
-import Paper from '../common/Paper';
+import { FlatList, ListRenderItemInfo } from 'react-native';
+import LoadingAndErrors from '../../common/LoadingAndErrors';
+import PaddingView from '../../common/PaddingView';
 import PlaylistSongContainer from './PlaylistSongContainer';
-import SongEntity from './SongEntity';
+import SongEntity from '../../song/SongEntity';
 
 interface PlaylistSongListProps {
   songs: SongEntity[];

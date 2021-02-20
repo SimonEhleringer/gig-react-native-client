@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import withBackground from '../domain/common/withBackground';
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
-import AddSongFormContainer from '../domain/song/AddSongFormContainer';
+import AddSongFormContainer from '../domain/song/form/AddSongFormContainer';
 import { SongsStackParamList } from '../navigation/SongsStack';
 
 interface AddSongScreenProps {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, ListItem } from 'react-native-elements';
-import { MARGIN_HALF, PADDING, PADDING_HALF } from '../../../config/themes';
-import { useTheme } from '../../../hooks/useTheme';
+import { MARGIN_HALF, PADDING, PADDING_HALF } from '../../config/themes';
+import { useTheme } from '../../hooks/useTheme';
 
 interface TempoProps {
   tempo: number;

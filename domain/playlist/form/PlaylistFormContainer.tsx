@@ -3,11 +3,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { Keyboard } from 'react-native';
 import { useSelector } from 'react-redux';
-import { ReduxState } from '../../config/store';
-import { useTheme } from '../../hooks/useTheme';
-import { PlaylistStackParamList } from '../../navigation/PlaylistStack';
+import { ReduxState } from '../../../config/store';
+import { useTheme } from '../../../hooks/useTheme';
+import { PlaylistStackParamList } from '../../../navigation/PlaylistStack';
 import PlaylistForm from './PlaylistForm';
-import { useOnUpdateEffect } from '../../hooks/useOnUpdateEffect';
+import { useOnUpdateEffect } from '../../../hooks/useOnUpdateEffect';
 
 interface PlaylistFormContainerProps {
   handleSubmit: () => void;

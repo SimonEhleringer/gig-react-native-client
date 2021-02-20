@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import LoadingAndErrors from '../common/LoadingAndErrors';
-import SongFormContainer from './SongFormContainer';
+import LoadingAndErrors from '../../../../common/LoadingAndErrors';
+import SongFormContainer from '../../../../song/form/SongFormContainer';
 
 interface AddToPlaylistSongFormProps {
   getSongBpmLoading: boolean;

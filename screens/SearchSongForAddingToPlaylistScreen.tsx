@@ -1,7 +1,7 @@
 import React from 'react';
 import withBackground from '../domain/common/withBackground';
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
-import GetSongBpmSongListForAddingToPlaylistContainer from '../domain/song/getSongBpmSong/GetSongBpmSongListForAddingToPlaylistContainer';
+import GetSongBpmSongListForAddingToPlaylistContainer from '../domain/playlist/playlistSong/addSongToPlaylist/GetSongBpmSongListForAddingToPlaylistContainer';
 
 interface SearchSongForAddingToPlaylistScreenProps {}
 

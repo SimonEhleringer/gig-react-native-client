@@ -2,24 +2,24 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReduxState } from '../../config/store';
-import { useFetchGetSongBpmSong } from '../../hooks/useFetchGetSongBpmSong';
-import { useOnUpdateEffect } from '../../hooks/useOnUpdateEffect';
+import { ReduxState } from '../../../../../config/store';
+import { useFetchGetSongBpmSong } from '../../../../../hooks/useFetchGetSongBpmSong';
+import { useOnUpdateEffect } from '../../../../../hooks/useOnUpdateEffect';
 import {
   PlaylistSongsParams,
   PlaylistStackParamList,
-} from '../../navigation/PlaylistStack';
-import Errors from '../common/Errors';
-import PlaylistEntity from '../playlist/PlaylistModel';
-import { PlaylistNotFoundError } from '../playlist/saga/shared';
+} from '../../../../../navigation/PlaylistStack';
+import Errors from '../../../../common/Errors';
+import PlaylistEntity from '../../../PlaylistModel';
+import { PlaylistNotFoundError } from '../../../saga/shared';
 import {
   addNewSongToPlaylist,
   AddNewSongToPlaylistPayload,
   AddSongToPlaylistPayload,
   addSongToPlaylist,
-} from '../playlist/slice';
+} from '../../../slice';
 import AddToPlaylistSongForm from './AddToPlaylistSongForm';
-import { createSong, CreateSongPayload } from './slice';
+import { createSong, CreateSongPayload } from '../../../../song/slice';
 
 interface AddToPlaylistSongFormContainerProps {}
 

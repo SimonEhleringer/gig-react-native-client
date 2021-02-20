@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReduxState } from '../../config/store';
-import { CreateUpdatePlaylistRequest } from './saga/shared';
-import { updatePlaylist, UpdatePlaylistPayload } from './slice';
+import { ReduxState } from '../../../config/store';
+import { updatePlaylist, UpdatePlaylistPayload } from '../slice';
 import UpdatePlaylistForm from './UpdatePlaylistForm';
 
 interface UpdatePlaylistFormContainerProps {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Animated } from 'react-native';
 import { Divider, FullTheme, ListItem, Text } from 'react-native-elements';
-import Tempo from './components/Tempo';
+import Tempo from './Tempo';
 import SongEntity from './SongEntity';
 import MaskedView from '@react-native-community/masked-view';
 import { MaterialIcons as Icon } from '@expo/vector-icons';

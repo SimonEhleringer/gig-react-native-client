@@ -2,10 +2,10 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { FullTheme, Input } from 'react-native-elements';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
-import { MARGIN } from '../../config/themes';
-import Errors from '../common/Errors';
-import FormContainer from '../common/FormContainer';
-import FormButton from '../common/FormButton';
+import { MARGIN } from '../../../config/themes';
+import Errors from '../../common/Errors';
+import FormContainer from '../../common/FormContainer';
+import FormButton from '../../common/FormButton';
 
 interface PlaylistFormProps {
   theme: Partial<FullTheme>;

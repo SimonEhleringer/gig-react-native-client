@@ -2,7 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import React from 'react';
 import withBackground from '../domain/common/withBackground';
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
-import UpdateSongFormContainer from '../domain/song/UpdateSongFormContainer';
+import UpdateSongFormContainer from '../domain/song/form/UpdateSongFormContainer';
 import { SongsStackParamList } from '../navigation/SongsStack';
 
 interface UpdateSongScreenProps {

@@ -2,11 +2,11 @@ import React from 'react';
 import { ListRenderItemInfo, TouchableWithoutFeedback } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
-import LoadingAndErrors from '../common/LoadingAndErrors';
-import PaddingView from '../common/PaddingView';
-import Paper from '../common/Paper';
+import LoadingAndErrors from '../../../common/LoadingAndErrors';
+import PaddingView from '../../../common/PaddingView';
+import Paper from '../../../common/Paper';
 import AddPlaylistSongContainer from './AddPlaylistSongContainer';
-import SongEntity from './SongEntity';
+import SongEntity from '../../../song/SongEntity';
 
 interface AddPlaylistSongListProps {
   songs: SongEntity[];

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PlaylistFormContainer from './PlaylistFormContainer';
-import { createPlaylist, CreatePlaylistPayload } from './slice';
+import { createPlaylist, CreatePlaylistPayload } from '../slice';
 
 interface CreatePlaylistFormContainerProps {}
 

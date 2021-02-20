@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSong, CreateSongPayload } from './slice';
-import { requestSong } from './getSongBpmSong/saga/requests';
-import { getErrorsFromError } from '../common/saga/shared';
+import { createSong, CreateSongPayload } from '../slice';
+import { requestSong } from '../getSongBpmSong/saga/requests';
+import { getErrorsFromError } from '../../common/saga/shared';
 import AddSongForm from './AddSongForm';
-import { ReduxState } from '../../config/store';
-import { useOnUpdateEffect } from '../../hooks/useOnUpdateEffect';
+import { ReduxState } from '../../../config/store';
+import { useOnUpdateEffect } from '../../../hooks/useOnUpdateEffect';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { SongsStackParamList } from '../../navigation/SongsStack';
+import { SongsStackParamList } from '../../../navigation/SongsStack';
 import { useNavigation } from '@react-navigation/native';
 
 interface AddSongFormContainerProps {

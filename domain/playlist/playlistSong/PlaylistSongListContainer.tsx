@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { ReduxState } from '../../config/store';
+import { ReduxState } from '../../../config/store';
 import PlaylistSongList from './PlaylistSongList';
 
 interface PlaylistSongListContainerProps {

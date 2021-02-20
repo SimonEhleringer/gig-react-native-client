@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReduxState } from '../../config/store';
-import MainTab from '../../navigation/MainTab';
-import { updateSong, UpdateSongPayload } from './slice';
+import { ReduxState } from '../../../config/store';
+import MainTab from '../../../navigation/MainTab';
+import { updateSong, UpdateSongPayload } from '../slice';
 import SongFormContainer from './SongFormContainer';
 import UpdateSongForm from './UpdateSongForm';
 
@@ -23,7 +23,7 @@ const UpdateSongFormContainer: React.FC<UpdateSongFormContainerProps> = ({
   const [notes, setNotes] = useState('');
 
   const state = useSelector((state: ReduxState) => state.song);
-  const songs = state.songs;
+  const { songs, loading, errors } = state;
 
   useEffect(() => {
     setStateLoading(true);
@@ -68,6 +68,8 @@ const UpdateSongFormContainer: React.FC<UpdateSongFormContainerProps> = ({
       setNotes={setNotes}
       handleSubmit={handleSubmit}
       stateLoading={stateLoading}
+      loading={loading}
+      errors={errors}
     />
   );
 };

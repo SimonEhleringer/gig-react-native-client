@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import LoadingAndErrors from '../common/LoadingAndErrors';
+import LoadingAndErrors from '../../common/LoadingAndErrors';
 import SongFormContainer from './SongFormContainer';
 
 interface UpdateSongFormProps {
@@ -18,6 +18,9 @@ interface UpdateSongFormProps {
   handleSubmit: () => void;
 
   stateLoading: boolean;
+
+  loading: boolean;
+  errors: string[];
 }
 
 const UpdateSongForm: React.FC<UpdateSongFormProps> = ({
@@ -31,6 +34,8 @@ const UpdateSongForm: React.FC<UpdateSongFormProps> = ({
   notes,
   setNotes,
   stateLoading,
+  loading,
+  errors,
 }) => {
   return (
     <LoadingAndErrors loading={stateLoading} errors={[]}>
@@ -44,6 +49,8 @@ const UpdateSongForm: React.FC<UpdateSongFormProps> = ({
         notes={notes}
         setNotes={setNotes}
         handleSubmit={handleSubmit}
+        loading={loading}
+        errors={errors}
       />
     </LoadingAndErrors>
   );

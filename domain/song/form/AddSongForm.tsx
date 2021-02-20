@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import LoadingAndErrors from '../common/LoadingAndErrors';
+import LoadingAndErrors from '../../common/LoadingAndErrors';
 import SongFormContainer from './SongFormContainer';
 
 interface AddSongFormProps {
