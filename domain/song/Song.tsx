@@ -1,19 +1,19 @@
-import React from "react";
-import { StyleSheet, View, Animated } from "react-native";
-import { Divider, FullTheme, ListItem, Text } from "react-native-elements";
-import Tempo from "./Tempo";
-import SongEntity from "./SongEntity";
-import MaskedView from "@react-native-community/masked-view";
-import { MaterialIcons as Icon } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
-import Collapsible from "react-native-collapsible";
-import { TouchableWithoutFeedback } from "react-native";
+import React from 'react';
+import { StyleSheet, View, Animated } from 'react-native';
+import { Divider, FullTheme, ListItem, Text } from 'react-native-elements';
+import Tempo from './Tempo';
+import SongEntity from './SongEntity';
+import MaskedView from '@react-native-community/masked-view';
+import { MaterialIcons as Icon } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import Collapsible from 'react-native-collapsible';
+import { TouchableWithoutFeedback } from 'react-native';
 import {
   BORDER_RADIUS,
   MARGIN,
   PADDING,
   PADDING_DOUBLE,
-} from "../../config/themes";
+} from '../../config/themes';
 
 interface SongProps {
   theme: Partial<FullTheme>;
@@ -24,6 +24,7 @@ interface SongProps {
   rotation: Animated.AnimatedInterpolation;
   handleListItemPress: () => void;
   handleChevronPress: () => void;
+  isMetronomeOn: boolean;
 }
 
 const Song: React.FC<SongProps> = ({
@@ -35,6 +36,7 @@ const Song: React.FC<SongProps> = ({
   rotation,
   handleListItemPress,
   handleChevronPress,
+  isMetronomeOn,
 }) => {
   return (
     <ListItem
@@ -60,7 +62,7 @@ const Song: React.FC<SongProps> = ({
             <MaskedView
               style={styles.turnIconMaskedView}
               maskElement={
-                <Icon name="chevron-right" size={30} color="white" />
+                <Icon name='chevron-right' size={30} color='white' />
               }
             >
               <LinearGradient
@@ -68,10 +70,10 @@ const Song: React.FC<SongProps> = ({
                 colors={[
                   theme.colors && theme.colors.secondary
                     ? theme.colors.secondary
-                    : "transparent",
+                    : 'transparent',
                   theme.colors && theme.colors.primary
                     ? theme.colors.primary
-                    : "transparent",
+                    : 'transparent',
                 ]}
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 1 }}
@@ -86,12 +88,12 @@ const Song: React.FC<SongProps> = ({
             </ListItem.Content>
 
             <ListItem.Content style={styles.rightListItemContent}>
-              <Tempo tempo={song.tempo} isMetronomeOn={false} />
+              <Tempo tempo={song.tempo} isMetronomeOn={isMetronomeOn} />
             </ListItem.Content>
 
             <ListItem.Chevron
-              name="more-vert"
-              type="material"
+              name='more-vert'
+              type='material'
               size={25}
               onPress={handleChevronPress}
             />
@@ -117,8 +119,8 @@ const Song: React.FC<SongProps> = ({
 
 const styles = StyleSheet.create({
   listItemTop: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   turnIconWrapper: {
     marginLeft: -MARGIN,
@@ -131,17 +133,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listItemContent: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   leftListItemContent: {
     flex: 2,
   },
   rightListItemContent: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   notesWrapper: {
-    width: "100%",
-    backgroundColor: "transparent",
+    width: '100%',
+    backgroundColor: 'transparent',
     paddingRight: PADDING_DOUBLE,
     paddingLeft: PADDING_DOUBLE,
   },

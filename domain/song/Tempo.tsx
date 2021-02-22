@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Animated, Easing } from "react-native";
-import { Text, ListItem } from "react-native-elements";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { MARGIN_HALF, PADDING, PADDING_HALF } from "../../config/themes";
-import { useTheme } from "../../hooks/useTheme";
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Animated, Easing } from 'react-native';
+import { Text, ListItem } from 'react-native-elements';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { MARGIN_HALF, PADDING, PADDING_HALF } from '../../config/themes';
+import { useTheme } from '../../hooks/useTheme';
 
 interface TempoProps {
   tempo: number;
@@ -42,6 +42,7 @@ const Tempo: React.FC<TempoProps> = ({ tempo, isMetronomeOn }) => {
 
   const [xValue, setXValue] = useState(new Animated.Value(0));
   const [isLeft, setIsLeft] = useState(true);
+  const [isMetronomeShwon, setIsMetronomeShown] = useState(false);
 
   const [time, setTime] = useState(60000 / tempo);
 
@@ -59,7 +60,7 @@ const Tempo: React.FC<TempoProps> = ({ tempo, isMetronomeOn }) => {
     return () => {
       timer.stop();
     };
-  }, []);
+  }, [isMetronomeOn]);
 
   useEffect(() => {
     Animated.timing(xValue, {
@@ -69,42 +70,28 @@ const Tempo: React.FC<TempoProps> = ({ tempo, isMetronomeOn }) => {
     }).start();
   }, [isLeft]);
 
+  useEffect(() => {
+    if (isMetronomeOn) {
+      setTimeout(() => setIsMetronomeShown(true), 500);
+    } else {
+      setIsMetronomeShown(false);
+
+      setIsLeft(true);
+    }
+  }, [isMetronomeOn]);
+
   return (
     <View style={styles.container}>
-      <View style={styles.bpmIndicator}>
-        <Animated.View
-          style={[
-            styles.bpmIndicatorPoint,
-            { backgroundColor: theme.colors?.primary, left: xValue },
-          ]}
-        />
-      </View>
-      {/* {isMetronomeOn && (
-        <View style={styles.bpmIndicatorContainer}>
-          <View style={styles.bpmIndicator}>
-            <View
-              style={[
-                styles.bpmIndicatorPoint,
-                {
-                  backgroundColor: isLeftIndicatorActive
-                    ? theme.colors?.primary
-                    : 'transparent',
-                },
-              ]}
-            />
-            <View
-              style={[
-                styles.bpmIndicatorPoint,
-                {
-                  backgroundColor: isLeftIndicatorActive
-                    ? 'transparent'
-                    : theme.colors?.secondary,
-                },
-              ]}
-            />
-          </View>
+      {isMetronomeShwon && (
+        <View style={styles.bpmIndicator}>
+          <Animated.View
+            style={[
+              styles.bpmIndicatorPoint,
+              { backgroundColor: theme.colors?.primary, left: xValue },
+            ]}
+          />
         </View>
-      )} */}
+      )}
 
       <ListItem.Subtitle>{tempo} BPM</ListItem.Subtitle>
     </View>
@@ -114,12 +101,12 @@ const Tempo: React.FC<TempoProps> = ({ tempo, isMetronomeOn }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   bpmIndicator: {
     margin: MARGIN_HALF,
-    flexDirection: "row",
+    flexDirection: 'row',
     width: 35,
   },
   bpmIndicatorPoint: {

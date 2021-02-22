@@ -3,6 +3,8 @@ import Song from './Song';
 import SongEntity from './SongEntity';
 import { Animated } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
+import { useSelector } from 'react-redux';
+import { ReduxState } from '../../config/store';
 
 interface SongContainerProps {
   song: SongEntity;
@@ -21,6 +23,9 @@ const SongContainer: React.FC<SongContainerProps> = ({
 
   const [animatePress] = useState(new Animated.Value(0));
   const [areNotesCollapsed, setAreNotesCollapsed] = useState(true);
+
+  const state = useSelector((state: ReduxState) => state.playlist);
+  const isMetronomeOn = state.isGigModeActive;
 
   useEffect(() => {
     Animated.timing(animatePress, {
@@ -49,6 +54,7 @@ const SongContainer: React.FC<SongContainerProps> = ({
       rotation={rotation}
       handleListItemPress={handleListItemPress}
       handleChevronPress={handleChevronPress}
+      isMetronomeOn={isMetronomeOn}
     />
   );
 };
