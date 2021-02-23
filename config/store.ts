@@ -21,7 +21,14 @@ import { watchRemoveSongFromPlaylist } from '../domain/playlist/saga/removeSongF
 import { watchMoveSongInPlaylist } from '../domain/playlist/saga/moveSongInPlaylist';
 import { watchAddNewSongToPlaylist } from '../domain/playlist/saga/addNewSongToPlaylist';
 
-const sagaMiddleware = createSagaMiddleware();
+import AsyncStorage from '@react-native-community/async-storage';
+import { persistReducer, persistStore } from 'redux-persist';
+
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+  blacklist: [],
+};
 
 const reducer = combineReducers({
   authentication,
@@ -30,7 +37,12 @@ const reducer = combineReducers({
   getSongBpmSong,
 });
 
-const store = createStore(reducer, applyMiddleware(sagaMiddleware));
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware));
+export const persistor = persistStore(store);
 
 sagaMiddleware.run(watchLogin);
 sagaMiddleware.run(watchRegister);
