@@ -62,7 +62,10 @@ const PlaylistSong: React.FC<PlaylistSongProps> = ({
         }
       >
         {!isFirstItem && (
-          <ListItem onPress={handleBottomSheetMoveUp}>
+          <ListItem
+            onPress={handleBottomSheetMoveUp}
+            disabled={!netInfo.isInternetReachable}
+          >
             <Icon
               name='keyboard-arrow-up'
               size={25}
@@ -71,6 +74,8 @@ const PlaylistSong: React.FC<PlaylistSongProps> = ({
             <ListItem.Content>
               <ListItem.Title>Nach oben verschieben</ListItem.Title>
             </ListItem.Content>
+
+            <NetworkIndicator />
           </ListItem>
         )}
 
