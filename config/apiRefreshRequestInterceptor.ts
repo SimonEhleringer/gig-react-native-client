@@ -18,55 +18,53 @@ export const addRefreshRequestInterceptor = (api: AxiosInstance) => {
   api.interceptors.request.use(
     (config: AxiosRequestConfig) => {
       const authState = store.getState().authentication;
-      const { jwtTokenExpiryTime } = authState;
+      //const { jwtTokenExpiryTime } = authState;
 
-      // Don't check for Authentication endpoints, because they don't need a Jwt
-      // if (
-      //   config.url?.includes('Authentication') ||
-      //   config.url?.includes('Refresh')
-      // ) {
-      //   console.log('authentication oder refresh');
+      // console.log(
+      //   'Jwt abgelaufen: ' + (jwtTokenExpiryTime < Date.now() / 1000)
+      // );
 
-      //   return config;
-      // }
+      // console.log(jwtTokenExpiryTime);
+      // console.log(Date.now() / 1000);
 
-      console.log(jwtTokenExpiryTime < Date.now().valueOf() / 1000);
+      // console.log((Date.now() / 1000 - jwtTokenExpiryTime) / 60);
 
       // If Jwt is expired -> Refresh Jwt
-      if (jwtTokenExpiryTime < Date.now().valueOf() / 1000) {
-        store.dispatch(refreshStarted());
+      // if (jwtTokenExpiryTime < Date.now() / 1000) {
+      store.dispatch(refreshStarted());
 
-        const { jwtToken, refreshToken } = authState;
+      const { jwtToken, refreshToken } = authState;
 
-        const request: RefreshLogoutRequest = {
-          jwtToken,
-          refreshToken,
-        };
+      const request: RefreshLogoutRequest = {
+        jwtToken,
+        refreshToken,
+      };
 
-        console.log(request);
+      console.log(request);
 
-        requestRefresh(request)
-          .then((result) => {
-            const { jwtToken, refreshToken } = result.data;
+      requestRefresh(request)
+        .then((result) => {
+          const { jwtToken, refreshToken } = result.data;
 
-            const decodedJwt: RefreshJwtPayload = jwtDecode(jwtToken);
+          const decodedJwt: RefreshJwtPayload = jwtDecode(jwtToken);
 
-            console.log(decodedJwt);
+          console.log('decodedJwt: ' + decodedJwt);
 
-            const payload: RefreshSucceededPayload = {
-              jwtToken,
-              jwtTokenExpiryTime: decodedJwt.exp,
-              refreshToken,
-            };
+          const payload: RefreshSucceededPayload = {
+            jwtToken,
+            jwtTokenExpiryTime: decodedJwt.exp,
+            refreshToken,
+          };
 
-            store.dispatch(refreshSucceeded(payload));
-          })
-          .catch((e) => {
-            console.log(e);
+          store.dispatch(refreshSucceeded(payload));
+        })
+        .catch((e) => {
+          console.log('Errors beim Refreshen:');
+          console.log(getErrorsFromError(e));
 
-            store.dispatch(refreshFailed(getErrorsFromError(e)));
-          });
-      }
+          store.dispatch(refreshFailed());
+        });
+      // }
 
       return config;
     },

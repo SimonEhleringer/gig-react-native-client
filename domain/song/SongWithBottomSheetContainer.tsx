@@ -1,3 +1,4 @@
+import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useRef } from 'react';
@@ -29,6 +30,7 @@ const SongWithBottomSheetContainer: React.FC<SongWithBottomSheetContainerProps> 
     'Songs'
   > = useNavigation();
   const dispatch = useDispatch();
+  const netInfo = useNetInfo();
 
   const bottomSheetRef = useRef<RBSheet>(null);
 
@@ -62,6 +64,7 @@ const SongWithBottomSheetContainer: React.FC<SongWithBottomSheetContainerProps> 
       handleBottomSheetEdit={handleBottomSheetEdit}
       handleBottomSheetDelete={handleBottomSheetDelete}
       handleChevronPress={handleChevronPress}
+      netInfo={netInfo}
     />
   );
 };

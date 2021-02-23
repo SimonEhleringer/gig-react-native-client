@@ -11,6 +11,8 @@ import PlaylistContainer from './PlaylistContainer';
 import PlaylistEntity from './PlaylistModel';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import NetworkIndicator from '../common/NetworkIndicator';
+import { NetInfoState } from '@react-native-community/netinfo';
 
 interface PlaylistWithBottomSheetProps {
   theme: Partial<FullTheme>;
@@ -22,6 +24,7 @@ interface PlaylistWithBottomSheetProps {
   handleBottomSheetEdit: () => void;
   handleBottomSheetDelete: () => void;
   handlePlaylistPress: () => void;
+  netInfo: NetInfoState;
 }
 
 const PlaylistWithBottomSheet: React.FC<PlaylistWithBottomSheetProps> = ({
@@ -34,6 +37,7 @@ const PlaylistWithBottomSheet: React.FC<PlaylistWithBottomSheetProps> = ({
   handleBottomSheetEdit,
   handleBottomSheetDelete,
   handlePlaylistPress,
+  netInfo,
 }) => {
   return (
     <>
@@ -60,18 +64,28 @@ const PlaylistWithBottomSheet: React.FC<PlaylistWithBottomSheetProps> = ({
           PADDING
         }
       >
-        <ListItem onPress={handleBottomSheetEdit}>
+        <ListItem
+          onPress={handleBottomSheetEdit}
+          disabled={!netInfo.isInternetReachable}
+        >
           <Icon name='edit' size={25} color={theme.colors?.black} />
           <ListItem.Content>
             <ListItem.Title>Bearbeiten</ListItem.Title>
           </ListItem.Content>
+
+          <NetworkIndicator />
         </ListItem>
 
-        <ListItem onPress={handleBottomSheetDelete}>
+        <ListItem
+          onPress={handleBottomSheetDelete}
+          disabled={!netInfo.isInternetReachable}
+        >
           <Icon name='delete' size={25} color={theme.colors?.black} />
           <ListItem.Content>
             <ListItem.Title>Löschen</ListItem.Title>
           </ListItem.Content>
+
+          <NetworkIndicator />
         </ListItem>
       </RBSheet>
     </>

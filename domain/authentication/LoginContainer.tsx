@@ -1,16 +1,17 @@
 import React, { useState, useRef } from 'react';
 import Login from './Login';
 import { useDispatch } from 'react-redux';
-import { login } from './slice';
+import { login, setErrors } from './slice';
 import { useNavigation } from '@react-navigation/native';
 import withBackground from '../common/withBackground';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '../../config/store';
-import { Keyboard } from 'react-native';
+import { Keyboard, Text } from 'react-native';
 import { Input } from 'react-native-elements';
 import { useTheme } from '../../hooks/useTheme';
 import { AuthenticationStackParamList } from '../../navigation/AuthenticationStack';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 interface LoginContainerProps {}
 
@@ -21,6 +22,7 @@ const LoginContainer: React.FC<LoginContainerProps> = () => {
     'Login'
   > = useNavigation();
   const theme = useTheme();
+  const netInfo = useNetInfo();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,6 +47,12 @@ const LoginContainer: React.FC<LoginContainerProps> = () => {
 
   const handleLogin = () => {
     Keyboard.dismiss();
+
+    if (!netInfo.isInternetReachable) {
+      dispatch(setErrors(['Keine Internetverbindung.']));
+
+      return;
+    }
 
     dispatch(login({ email, password }));
   };

@@ -16,6 +16,8 @@ import {
 // import BottomSheetBehavior from 'reanimated-bottom-sheet';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { ListItem } from 'react-native-elements';
+import NetworkIndicator from '../domain/common/NetworkIndicator';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 interface SongsScreenProps {
   navigation: StackNavigationProp<SongsStackParamList, 'Songs'>;
@@ -24,6 +26,7 @@ interface SongsScreenProps {
 const SongsScreen: React.FC<SongsScreenProps> = ({ navigation }) => {
   const theme = useTheme();
   const bottomSheetRef = useRef<RBSheet>(null);
+  const netInfo = useNetInfo();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -62,11 +65,16 @@ const SongsScreen: React.FC<SongsScreenProps> = ({ navigation }) => {
           BOTTOM_SHEET_LIST_ITEM_HEIGHT + BOTTOM_SHEET_HEADER_HEIGHT + PADDING
         }
       >
-        <ListItem onPress={handleAddSongItemClick}>
+        <ListItem
+          onPress={handleAddSongItemClick}
+          disabled={!netInfo.isInternetReachable}
+        >
           <Icon name='add' size={25} color='black' />
           <ListItem.Content>
             <ListItem.Title>Neuen Song erstellen</ListItem.Title>
           </ListItem.Content>
+
+          <NetworkIndicator />
         </ListItem>
       </RBSheet>
     </>

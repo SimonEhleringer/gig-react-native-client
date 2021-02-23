@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { ThemeProvider, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useLayoutEffect, useRef } from 'react';
 import withBackground from '../domain/common/withBackground';
@@ -15,6 +15,11 @@ import {
 } from '../config/themes';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { ListItem } from 'react-native-elements';
+import NetworkIndicator from '../domain/common/NetworkIndicator';
+import {
+  NetInfoCellularGeneration,
+  useNetInfo,
+} from '@react-native-community/netinfo';
 
 interface PlaylistsScreenProps {}
 
@@ -24,6 +29,7 @@ const PlaylistsScreen: React.FC<PlaylistsScreenProps> = ({}) => {
     PlaylistStackParamList,
     'Playlists'
   > = useNavigation();
+  const netInfo = useNetInfo();
 
   const bottomSheetRef = useRef<RBSheet>(null);
 
@@ -63,11 +69,16 @@ const PlaylistsScreen: React.FC<PlaylistsScreenProps> = ({}) => {
           BOTTOM_SHEET_LIST_ITEM_HEIGHT + BOTTOM_SHEET_HEADER_HEIGHT + PADDING
         }
       >
-        <ListItem onPress={handleAddPlaylistItemClick}>
+        <ListItem
+          onPress={handleAddPlaylistItemClick}
+          disabled={!netInfo.isInternetReachable}
+        >
           <Icon name='add' size={25} color='black' />
           <ListItem.Content>
             <ListItem.Title>Neue Playlist erstellen</ListItem.Title>
           </ListItem.Content>
+
+          <NetworkIndicator />
         </ListItem>
       </RBSheet>
     </>

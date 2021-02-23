@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import store, { persistor } from './config/store';
 import AppStack from './navigation/AppStack';
@@ -13,13 +13,15 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Text } from 'react-native';
 
 export default function App() {
-  addRefreshRequestInterceptor(api);
-  addJwtTokenInterceptor(api);
+  useEffect(() => {
+    addRefreshRequestInterceptor(api);
+    addJwtTokenInterceptor(api);
+  }, []);
 
   return (
     <SafeAreaProvider>
       <ReduxProvider store={store}>
-        <PersistGate loading={<Text>Hiiii</Text>} persistor={persistor}>
+        <PersistGate loading={<Text>test</Text>} persistor={persistor}>
           <ThemeProvider theme={theme}>
             <NavigationContainer>
               <AppStack />

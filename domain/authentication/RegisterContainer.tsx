@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Register from './Register';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { register } from './slice';
+import { register, setErrors } from './slice';
 import withBackground from '../common/withBackground';
 import { Keyboard } from 'react-native';
 import { Input } from 'react-native-elements';
@@ -10,6 +10,7 @@ import { ReduxState } from '../../config/store';
 import { useTheme } from '../../hooks/useTheme';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AuthenticationStackParamList } from '../../navigation/AuthenticationStack';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 interface RegisterContainerProps {}
 
@@ -20,6 +21,7 @@ const RegisterContainer: React.FC<RegisterContainerProps> = ({}) => {
     'Register'
   > = useNavigation();
   const theme = useTheme();
+  const netInfo = useNetInfo();
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -68,6 +70,12 @@ const RegisterContainer: React.FC<RegisterContainerProps> = ({}) => {
 
   const handleRegister = () => {
     Keyboard.dismiss();
+
+    if (!netInfo.isInternetReachable) {
+      dispatch(setErrors(['Keine Internetverbindung.']));
+
+      return;
+    }
 
     dispatch(register({ username, email, password, confirmedPassword }));
   };

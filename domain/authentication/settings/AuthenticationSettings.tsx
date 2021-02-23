@@ -6,6 +6,7 @@ import Stat from './Stat';
 import Container from '../../common/Container';
 import Paper from '../../common/Paper';
 import { MARGIN_HALF, PADDING_DOUBLE } from '../../../config/themes';
+import Errors from '../../common/Errors';
 
 interface AuthenticationSettingsProps {
   theme: Partial<FullTheme>;
@@ -13,6 +14,8 @@ interface AuthenticationSettingsProps {
   handleLogout: () => void;
   songCount: number;
   playlistCount: number;
+  errors: string[];
+  loading: boolean;
 }
 
 const AuthenticationSettings: React.FC<AuthenticationSettingsProps> = ({
@@ -21,6 +24,8 @@ const AuthenticationSettings: React.FC<AuthenticationSettingsProps> = ({
   handleLogout,
   songCount,
   playlistCount,
+  errors,
+  loading,
 }) => {
   return (
     <Container>
@@ -51,7 +56,10 @@ const AuthenticationSettings: React.FC<AuthenticationSettingsProps> = ({
           buttonStyle={styles.buttonStyle}
           title={'Abmelden'}
           onPress={handleLogout}
+          loading={loading}
         />
+
+        <Errors errors={errors} />
       </Paper>
     </Container>
   );

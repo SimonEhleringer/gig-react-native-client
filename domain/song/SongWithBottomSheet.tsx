@@ -10,6 +10,8 @@ import {
 import SongContainer from './SongContainer';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import SongEntity from './SongEntity';
+import { NetInfoState } from '@react-native-community/netinfo';
+import NetworkIndicator from '../common/NetworkIndicator';
 
 interface SongWithBottomSheetProps {
   theme: Partial<FullTheme>;
@@ -20,6 +22,7 @@ interface SongWithBottomSheetProps {
   handleBottomSheetEdit: () => void;
   handleBottomSheetDelete: () => void;
   handleChevronPress: () => void;
+  netInfo: NetInfoState;
 }
 
 const SongWithBottomSheet: React.FC<SongWithBottomSheetProps> = ({
@@ -31,6 +34,7 @@ const SongWithBottomSheet: React.FC<SongWithBottomSheetProps> = ({
   handleBottomSheetEdit,
   handleBottomSheetDelete,
   handleChevronPress,
+  netInfo,
 }) => {
   return (
     <>
@@ -56,18 +60,28 @@ const SongWithBottomSheet: React.FC<SongWithBottomSheetProps> = ({
           PADDING
         }
       >
-        <ListItem onPress={handleBottomSheetEdit}>
+        <ListItem
+          onPress={handleBottomSheetEdit}
+          disabled={!netInfo.isInternetReachable}
+        >
           <Icon name='edit' size={25} color={theme.colors?.black} />
           <ListItem.Content>
             <ListItem.Title>Bearbeiten</ListItem.Title>
           </ListItem.Content>
+
+          <NetworkIndicator />
         </ListItem>
 
-        <ListItem onPress={handleBottomSheetDelete}>
+        <ListItem
+          onPress={handleBottomSheetDelete}
+          disabled={!netInfo.isInternetReachable}
+        >
           <Icon name='delete' size={25} color={theme.colors?.black} />
           <ListItem.Content>
             <ListItem.Title>Löschen</ListItem.Title>
           </ListItem.Content>
+
+          <NetworkIndicator />
         </ListItem>
       </RBSheet>
     </>

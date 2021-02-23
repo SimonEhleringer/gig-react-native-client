@@ -1,3 +1,4 @@
+import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useRef } from 'react';
@@ -30,6 +31,7 @@ const PlaylistWithBottomSheetContainer: React.FC<PlaylistWithBottomSheetContaine
     PlaylistStackParamList,
     'Playlists'
   > = useNavigation();
+  const netInfo = useNetInfo();
 
   const bottomSheetRef = useRef<RBSheet>(null);
 
@@ -72,6 +74,7 @@ const PlaylistWithBottomSheetContainer: React.FC<PlaylistWithBottomSheetContaine
       handleBottomSheetEdit={handleBottomSheetEdit}
       handleBottomSheetDelete={handleBottomSheetDelete}
       handlePlaylistPress={handlePlaylistPress}
+      netInfo={netInfo}
     />
   );
 };

@@ -1,4 +1,9 @@
-import { createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAction,
+  PayloadAction,
+  Action,
+} from '@reduxjs/toolkit';
 import jwtDecode from 'jwt-decode';
 
 const name = 'authentication';
@@ -117,10 +122,13 @@ const authenticationSlice = createSlice({
       state.jwtToken = jwtToken;
       state.jwtTokenExpiryTime = jwtTokenExpiryTime;
       state.refreshToken = refreshToken;
-    },
-    refreshFailed(state, action: PayloadAction<string[]>) {
-      state.errors = action.payload;
       state.loading = false;
+    },
+    refreshFailed(state) {
+      state.loading = false;
+    },
+    setErrors(state, action: PayloadAction<string[]>) {
+      state.errors = action.payload;
     },
   },
 });
@@ -135,6 +143,7 @@ export const {
   refreshStarted,
   refreshSucceeded,
   refreshFailed,
+  setErrors,
 } = authenticationSlice.actions;
 
 export default authenticationSlice.reducer;
