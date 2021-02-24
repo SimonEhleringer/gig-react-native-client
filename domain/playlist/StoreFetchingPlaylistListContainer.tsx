@@ -1,3 +1,4 @@
+import NetInfo, { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useRef, useState } from 'react';
@@ -19,6 +20,7 @@ interface StoreFetchingPlaylistListContainerProps {}
 
 const StoreFetchingPlaylistListContainer: React.FC<StoreFetchingPlaylistListContainerProps> = ({}) => {
   const dispatch = useDispatch();
+  const netInfo = useNetInfo();
 
   // This state is set true in useEffect. It prevents rendering the flatlist with the state from redux-persist
   // The problem is, that the React-Native Flatlist is rendering async. If state gets updated, while rendering is not finished
@@ -26,9 +28,21 @@ const StoreFetchingPlaylistListContainer: React.FC<StoreFetchingPlaylistListCont
   const [shouldFlatlistRender, setShouldFlatlistRender] = useState(false);
 
   useEffect(() => {
+    const unsubscribeNetInfo = NetInfo.addEventListener((state) => {
+      if (state.isInternetReachable) {
+        dispatch(loadPlaylists());
+      }
+    });
+
     setShouldFlatlistRender(true);
 
-    dispatch(loadPlaylists());
+    return () => {
+      unsubscribeNetInfo();
+    };
+
+    // if (netInfo.isInternetReachable) {
+    //   dispatch(loadPlaylists());
+    // }
   }, []);
 
   const state = useSelector((state: ReduxState) => state.playlist);
