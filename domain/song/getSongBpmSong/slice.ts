@@ -1,7 +1,7 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import GetSongBpmSongModel from './GetSongBpmSongModel';
 
-const name = 'addSong';
+const name = 'getSongBpmSong';
 export const SEARCH_SONGS = `${name}/searchSongs`;
 
 export type addSongState = {

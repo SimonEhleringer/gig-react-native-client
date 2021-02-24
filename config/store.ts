@@ -28,7 +28,7 @@ const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   blacklist: ['getSongBpmSong'],
-  //whitelist: [],
+  //whitelist: ['song'],
 };
 
 const reducer = combineReducers({

@@ -1,6 +1,10 @@
-import { ThemeProvider, useNavigation } from '@react-navigation/native';
+import {
+  ThemeProvider,
+  useFocusEffect,
+  useNavigation,
+} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useCallback, useLayoutEffect, useRef } from 'react';
 import withBackground from '../domain/common/withBackground';
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
 import StoreFetchingPlaylistListContainer from '../domain/playlist/StoreFetchingPlaylistListContainer';
@@ -20,6 +24,8 @@ import {
   NetInfoCellularGeneration,
   useNetInfo,
 } from '@react-native-community/netinfo';
+import { useDispatch } from 'react-redux';
+import { loadPlaylists } from '../domain/playlist/slice';
 
 interface PlaylistsScreenProps {}
 
@@ -30,6 +36,7 @@ const PlaylistsScreen: React.FC<PlaylistsScreenProps> = ({}) => {
     'Playlists'
   > = useNavigation();
   const netInfo = useNetInfo();
+  const dispatch = useDispatch();
 
   const bottomSheetRef = useRef<RBSheet>(null);
 
@@ -52,6 +59,12 @@ const PlaylistsScreen: React.FC<PlaylistsScreenProps> = ({}) => {
 
     bottomSheetRef.current?.close();
   };
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     dispatch(loadPlaylists());
+  //   }, [])
+  // );
 
   return (
     <>

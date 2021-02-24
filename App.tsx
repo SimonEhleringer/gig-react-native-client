@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Provider as ReduxProvider } from 'react-redux';
+import { Provider as ReduxProvider, useDispatch } from 'react-redux';
 import store, { persistor } from './config/store';
 import AppStack from './navigation/AppStack';
 import { ThemeProvider } from 'react-native-elements';
@@ -11,6 +11,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Text } from 'react-native';
+import { loadPlaylists } from './domain/playlist/slice';
 
 export default function App() {
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <ReduxProvider store={store}>
-        <PersistGate loading={<Text>test</Text>} persistor={persistor}>
+        <PersistGate loading={null} persistor={persistor}>
           <ThemeProvider theme={theme}>
             <NavigationContainer>
               <AppStack />
