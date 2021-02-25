@@ -30,7 +30,6 @@ const SongWithBottomSheetContainer: React.FC<SongWithBottomSheetContainerProps> 
     'Songs'
   > = useNavigation();
   const dispatch = useDispatch();
-  const netInfo = useNetInfo();
 
   const bottomSheetRef = useRef<RBSheet>(null);
 
@@ -64,7 +63,6 @@ const SongWithBottomSheetContainer: React.FC<SongWithBottomSheetContainerProps> 
       handleBottomSheetEdit={handleBottomSheetEdit}
       handleBottomSheetDelete={handleBottomSheetDelete}
       handleChevronPress={handleChevronPress}
-      netInfo={netInfo}
     />
   );
 };

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useTheme } from '../../../hooks/useTheme';
 import { SongsStackParamList } from '../../../navigation/SongsStack';
 import SearchBarHeader from './SearchBarHeader';
-import { searchSongs } from './slice';
+import { searchSongs, setErrors, setGetSongBpmSongs } from './slice';
 
 interface SearchBarHeaderContainerProps {}
 
@@ -20,6 +20,9 @@ const SearchBarHeaderContainer: React.FC<SearchBarHeaderContainerProps> = ({}) =
   const handleSearch = (newSearch: string) => {
     if (newSearch.length >= 3) {
       dispatch(searchSongs(newSearch));
+    } else {
+      dispatch(setErrors([]));
+      dispatch(setGetSongBpmSongs([]));
     }
   };
 

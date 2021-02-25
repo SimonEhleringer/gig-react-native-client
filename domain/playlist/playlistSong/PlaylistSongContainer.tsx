@@ -12,7 +12,6 @@ import {
 } from '../slice';
 import PlaylistSong from './PlaylistSong';
 import SongEntity from '../../song/SongEntity';
-import { useNetInfo } from '@react-native-community/netinfo';
 
 interface PlaylistSongContainerProps {
   song: SongEntity;
@@ -30,7 +29,6 @@ const PlaylistSongContainer: React.FC<PlaylistSongContainerProps> = ({
   const theme = useTheme();
   const route: RouteProp<PlaylistStackParamList, 'PlaylistSongs'> = useRoute();
   const dispatch = useDispatch();
-  const netInfo = useNetInfo();
 
   const bottomSheetRef = useRef<RBSheet>(null);
 
@@ -80,7 +78,6 @@ const PlaylistSongContainer: React.FC<PlaylistSongContainerProps> = ({
       handleBottomSheetMoveUp={handleBottomSheetMoveUp}
       handleBottomSheetMoveDown={handleBottomSheetMoveDown}
       handleBottomSheetRemoveFromPlaylist={handleBottomSheetRemoveFromPlaylist}
-      netInfo={netInfo}
     />
   );
 };

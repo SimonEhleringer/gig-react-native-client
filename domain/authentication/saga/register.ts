@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError, AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { ErrorResponse } from '../../common/saga/shared';
+import { ErrorResponse, getErrorsFromError } from '../../common/saga/shared';
 import {
   loginRegisterFailed,
   loginRegisterStarted,
@@ -48,9 +48,11 @@ function* handleRegister(action: PayloadAction<RegisterPayload>) {
 
     yield put(loginRegisterSucceeded(payload));
   } catch (e) {
-    e = e as AxiosError<ErrorResponse>;
-    if (e.response) {
-      yield put(loginRegisterFailed(e.response.data.errors));
-    }
+    yield put(loginRegisterFailed(getErrorsFromError(e)));
+
+    // e = e as AxiosError<ErrorResponse>;
+    // if (e.response) {
+    //   yield put(loginRegisterFailed(e.response.data.errors));
+    // }
   }
 }

@@ -1,21 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LoadingAndErrors from '../common/LoadingAndErrors';
 import PlaylistWithBottomSheetList from './PlaylistWithBottomSheetList';
 import PlaylistEntity from './PlaylistModel';
+import { Alert } from 'react-native';
 
 interface StoreFetchingPlaylistListProps {
   loading: boolean;
-  errors: string[];
   playlists: PlaylistEntity[];
 }
 
 const StoreFetchingPlaylistList: React.FC<StoreFetchingPlaylistListProps> = ({
   loading,
-  errors,
   playlists,
 }) => {
   return (
-    <LoadingAndErrors errors={errors} loading={loading}>
+    <LoadingAndErrors errors={[]} loading={loading}>
       <PlaylistWithBottomSheetList playlists={playlists} />
     </LoadingAndErrors>
   );

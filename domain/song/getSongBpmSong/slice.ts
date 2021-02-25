@@ -34,6 +34,12 @@ const addSongSlice = createSlice({
       state.errors = action.payload;
       state.loading = false;
     },
+    setErrors(state, action: PayloadAction<string[]>) {
+      state.errors = action.payload;
+    },
+    setGetSongBpmSongs(state, action: PayloadAction<GetSongBpmSongModel[]>) {
+      state.getSongBpmSongs = action.payload;
+    },
   },
 });
 
@@ -41,6 +47,8 @@ export const {
   searchSongsStarted,
   searchSongsSucceded,
   searchSongsFailed,
+  setErrors,
+  setGetSongBpmSongs,
 } = addSongSlice.actions;
 
 export default addSongSlice.reducer;

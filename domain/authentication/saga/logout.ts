@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { ReduxState } from '../../../config/store';
-import { ErrorResponse } from '../../common/saga/shared';
+import { ErrorResponse, getErrorsFromError } from '../../common/saga/shared';
 import {
   AuthenticationState,
   LOGOUT,
@@ -36,9 +36,6 @@ function* handleLogout() {
 
     yield put(logoutSucceeded());
   } catch (e) {
-    e = e as AxiosError<ErrorResponse>;
-    if (e.response) {
-      yield put(logoutFailed(e.response.data.errors));
-    }
+    yield put(logoutFailed(getErrorsFromError(e)));
   }
 }

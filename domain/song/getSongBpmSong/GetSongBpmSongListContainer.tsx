@@ -14,14 +14,12 @@ const GetSongBpmSongListContainer: React.FC<GetSongBpmSongListContainerProps> = 
 }) => {
   const state = useSelector((state: ReduxState) => state.getSongBpmSong);
   const getSongBpmSongs = state.getSongBpmSongs;
-  let errors = state.errors;
   const loading = state.loading;
 
   return (
     <GetSongBpmSongList
       getSongBpmSongs={getSongBpmSongs}
       loading={loading}
-      errors={errors}
       handleSongPress={handleSongPress}
       handleDummySongPress={handleDummySongPress}
     />

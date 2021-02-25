@@ -19,13 +19,10 @@ import {
 } from '../config/themes';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { ListItem } from 'react-native-elements';
-import NetworkIndicator from '../domain/common/NetworkIndicator';
-import {
-  NetInfoCellularGeneration,
-  useNetInfo,
-} from '@react-native-community/netinfo';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadPlaylists } from '../domain/playlist/slice';
+import { ReduxState } from '../config/store';
+import { setErrors } from '../domain/authentication/slice';
 
 interface PlaylistsScreenProps {}
 
@@ -35,7 +32,6 @@ const PlaylistsScreen: React.FC<PlaylistsScreenProps> = ({}) => {
     PlaylistStackParamList,
     'Playlists'
   > = useNavigation();
-  const netInfo = useNetInfo();
   const dispatch = useDispatch();
 
   const bottomSheetRef = useRef<RBSheet>(null);
@@ -62,7 +58,7 @@ const PlaylistsScreen: React.FC<PlaylistsScreenProps> = ({}) => {
 
   // useFocusEffect(
   //   useCallback(() => {
-  //     dispatch(loadPlaylists());
+  //     dispatch(setErrors([]));
   //   }, [])
   // );
 
@@ -82,16 +78,11 @@ const PlaylistsScreen: React.FC<PlaylistsScreenProps> = ({}) => {
           BOTTOM_SHEET_LIST_ITEM_HEIGHT + BOTTOM_SHEET_HEADER_HEIGHT + PADDING
         }
       >
-        <ListItem
-          onPress={handleAddPlaylistItemClick}
-          disabled={!netInfo.isInternetReachable}
-        >
+        <ListItem onPress={handleAddPlaylistItemClick}>
           <Icon name='add' size={25} color='black' />
           <ListItem.Content>
             <ListItem.Title>Neue Playlist erstellen</ListItem.Title>
           </ListItem.Content>
-
-          <NetworkIndicator />
         </ListItem>
       </RBSheet>
     </>

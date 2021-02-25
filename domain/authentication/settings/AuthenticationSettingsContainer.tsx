@@ -35,11 +35,11 @@ const AuthenticationSettingsContainer: React.FC<AuthenticationSettingsContainerP
   // }, []);
 
   const handleLogout = () => {
-    if (!netInfo.isInternetReachable) {
-      dispatch(setErrors(['Keine Internetverbindung.']));
+    // if (!netInfo.isInternetReachable) {
+    //   dispatch(setErrors(['Keine Internetverbindung.']));
 
-      return;
-    }
+    //   return;
+    // }
 
     dispatch(logout());
   };

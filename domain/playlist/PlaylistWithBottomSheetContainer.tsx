@@ -1,18 +1,17 @@
-import { useNetInfo } from "@react-native-community/netinfo";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import React, { useRef } from "react";
-import RBSheet from "react-native-raw-bottom-sheet";
-import { useDispatch } from "react-redux";
-import { useTheme } from "../../hooks/useTheme";
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useRef } from 'react';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import { useDispatch } from 'react-redux';
+import { useTheme } from '../../hooks/useTheme';
 import {
   PlaylistSongsParams,
   PlaylistStackParamList,
   UpdatePlaylistParams,
-} from "../../navigation/PlaylistStack";
-import PlaylistEntity from "./PlaylistModel";
-import PlaylistWithBottomSheet from "./PlaylistWithBottomSheet";
-import { deletePlaylist } from "./slice";
+} from '../../navigation/PlaylistStack';
+import PlaylistEntity from './PlaylistModel';
+import PlaylistWithBottomSheet from './PlaylistWithBottomSheet';
+import { deletePlaylist } from './slice';
 
 interface PlaylistWithBottomSheetContainerProps {
   playlist: PlaylistEntity;
@@ -29,9 +28,8 @@ const PlaylistWithBottomSheetContainer: React.FC<PlaylistWithBottomSheetContaine
   const dispatch = useDispatch();
   const navigation: StackNavigationProp<
     PlaylistStackParamList,
-    "Playlists"
+    'Playlists'
   > = useNavigation();
-  const netInfo = useNetInfo();
 
   const bottomSheetRef = useRef<RBSheet>(null);
 
@@ -42,7 +40,7 @@ const PlaylistWithBottomSheetContainer: React.FC<PlaylistWithBottomSheetContaine
       playlistId: playlist.playlistId,
     };
 
-    navigation.navigate("UpdatePlaylist", params);
+    navigation.navigate('UpdatePlaylist', params);
   };
 
   const handleBottomSheetDelete = () => {
@@ -60,7 +58,7 @@ const PlaylistWithBottomSheetContainer: React.FC<PlaylistWithBottomSheetContaine
       playlistId: playlist.playlistId,
     };
 
-    navigation.navigate("PlaylistSongs", params);
+    navigation.navigate('PlaylistSongs', params);
   };
 
   return (
@@ -74,7 +72,6 @@ const PlaylistWithBottomSheetContainer: React.FC<PlaylistWithBottomSheetContaine
       handleBottomSheetEdit={handleBottomSheetEdit}
       handleBottomSheetDelete={handleBottomSheetDelete}
       handlePlaylistPress={handlePlaylistPress}
-      netInfo={netInfo}
     />
   );
 };

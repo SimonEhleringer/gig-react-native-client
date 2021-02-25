@@ -17,7 +17,6 @@ import PaddingView from '../../common/PaddingView';
 interface GetSongBpmSongListProps {
   getSongBpmSongs: GetSongBpmSongModel[];
   loading: boolean;
-  errors: string[];
   handleSongPress: (id: string) => void;
   handleDummySongPress: () => void;
 }
@@ -25,13 +24,12 @@ interface GetSongBpmSongListProps {
 const GetSongBpmSongList: React.FC<GetSongBpmSongListProps> = ({
   getSongBpmSongs,
   loading,
-  errors,
   handleSongPress,
   handleDummySongPress,
 }) => {
   return (
     <>
-      <LoadingAndErrors loading={loading} errors={errors}>
+      <LoadingAndErrors loading={loading} errors={[]}>
         <FlatList
           keyExtractor={(item) => item.id}
           data={getSongBpmSongs}

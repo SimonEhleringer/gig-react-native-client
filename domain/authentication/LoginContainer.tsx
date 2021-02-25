@@ -48,11 +48,11 @@ const LoginContainer: React.FC<LoginContainerProps> = () => {
   const handleLogin = () => {
     Keyboard.dismiss();
 
-    if (!netInfo.isInternetReachable) {
-      dispatch(setErrors(['Keine Internetverbindung.']));
+    // if (!netInfo.isInternetReachable) {
+    //   dispatch(setErrors(['Keine Internetverbindung.']));
 
-      return;
-    }
+    //   return;
+    // }
 
     dispatch(login({ email, password }));
   };

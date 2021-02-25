@@ -22,8 +22,6 @@ import {
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import { useTheme } from '../hooks/useTheme';
 import { setIsGigModeActive } from '../domain/playlist/slice';
-import NetworkIndicator from '../domain/common/NetworkIndicator';
-import { useNetInfo } from '@react-native-community/netinfo';
 
 interface PlaylistSongsScreenProps {
   route: RouteProp<PlaylistStackParamList, 'PlaylistSongs'>;
@@ -36,7 +34,6 @@ const PlaylistSongsScreen: React.FC<PlaylistSongsScreenProps> = ({ route }) => {
     PlaylistStackParamList,
     'PlaylistSongs'
   > = useNavigation();
-  const netInfo = useNetInfo();
 
   const bottomSheetRef = useRef<RBSheet>(null);
 
@@ -92,16 +89,11 @@ const PlaylistSongsScreen: React.FC<PlaylistSongsScreenProps> = ({ route }) => {
           PADDING
         }
       >
-        <ListItem
-          onPress={handleAddSong}
-          disabled={!netInfo.isInternetReachable}
-        >
+        <ListItem onPress={handleAddSong}>
           <Icon name='add' size={25} color='black' />
           <ListItem.Content>
             <ListItem.Title>Song hinzufügen</ListItem.Title>
           </ListItem.Content>
-
-          <NetworkIndicator />
         </ListItem>
 
         <ListItem>

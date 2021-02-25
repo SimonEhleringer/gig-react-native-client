@@ -71,11 +71,11 @@ const RegisterContainer: React.FC<RegisterContainerProps> = ({}) => {
   const handleRegister = () => {
     Keyboard.dismiss();
 
-    if (!netInfo.isInternetReachable) {
-      dispatch(setErrors(['Keine Internetverbindung.']));
+    // if (!netInfo.isInternetReachable) {
+    //   dispatch(setErrors(['Keine Internetverbindung.']));
 
-      return;
-    }
+    //   return;
+    // }
 
     dispatch(register({ username, email, password, confirmedPassword }));
   };

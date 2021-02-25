@@ -8,13 +8,11 @@ import SongEntity from '../../song/SongEntity';
 interface PlaylistSongListProps {
   songs: SongEntity[];
   loading: boolean;
-  errors: string[];
 }
 
 const PlaylistSongList: React.FC<PlaylistSongListProps> = ({
   songs,
   loading,
-  errors,
 }) => {
   const renderItem = (item: ListRenderItemInfo<SongEntity>) => {
     return (
@@ -38,7 +36,7 @@ const PlaylistSongList: React.FC<PlaylistSongListProps> = ({
   };
 
   return (
-    <LoadingAndErrors loading={loading} errors={errors}>
+    <LoadingAndErrors loading={loading} errors={[]}>
       <FlatList
         keyExtractor={keyExtractor}
         data={songs}
