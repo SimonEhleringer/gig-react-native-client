@@ -1,18 +1,18 @@
-import React, { RefObject } from 'react';
-import { FullTheme, ListItem } from 'react-native-elements';
-import RBSheet from 'react-native-raw-bottom-sheet';
+import React, { RefObject } from "react";
+import { FullTheme, ListItem } from "react-native-elements";
+import RBSheet from "react-native-raw-bottom-sheet";
 import {
   BORDER_RADIUS,
   BOTTOM_SHEET_HEADER_HEIGHT,
   BOTTOM_SHEET_LIST_ITEM_HEIGHT,
   PADDING,
-} from '../../config/themes';
-import PlaylistContainer from './PlaylistContainer';
-import PlaylistEntity from './PlaylistModel';
-import { MaterialIcons as Icon } from '@expo/vector-icons';
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import NetworkIndicator from '../common/NetworkIndicator';
-import { NetInfoState } from '@react-native-community/netinfo';
+} from "../../config/themes";
+import PlaylistContainer from "./PlaylistContainer";
+import PlaylistEntity from "./PlaylistModel";
+import { MaterialIcons as Icon } from "@expo/vector-icons";
+import { StyleSheet, TouchableWithoutFeedback } from "react-native";
+import NetworkIndicator from "../common/NetworkIndicator";
+import { NetInfoState } from "@react-native-community/netinfo";
 
 interface PlaylistWithBottomSheetProps {
   theme: Partial<FullTheme>;
@@ -68,7 +68,7 @@ const PlaylistWithBottomSheet: React.FC<PlaylistWithBottomSheetProps> = ({
           onPress={handleBottomSheetEdit}
           disabled={!netInfo.isInternetReachable}
         >
-          <Icon name='edit' size={25} color={theme.colors?.black} />
+          <Icon name="edit" size={25} color={theme.colors?.black} />
           <ListItem.Content>
             <ListItem.Title>Bearbeiten</ListItem.Title>
           </ListItem.Content>
@@ -80,7 +80,7 @@ const PlaylistWithBottomSheet: React.FC<PlaylistWithBottomSheetProps> = ({
           onPress={handleBottomSheetDelete}
           disabled={!netInfo.isInternetReachable}
         >
-          <Icon name='delete' size={25} color={theme.colors?.black} />
+          <Icon name="delete" size={25} color={theme.colors?.black} />
           <ListItem.Content>
             <ListItem.Title>Löschen</ListItem.Title>
           </ListItem.Content>
