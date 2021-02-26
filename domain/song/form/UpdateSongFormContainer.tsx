@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ReduxState } from '../../../config/store';
-import MainTab from '../../../navigation/MainTab';
-import { updateSong, UpdateSongPayload } from '../slice';
-import SongFormContainer from './SongFormContainer';
-import UpdateSongForm from './UpdateSongForm';
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ReduxState } from "../../../config/store";
+import { useOnUpdateEffect } from "../../../hooks/useOnUpdateEffect";
+import MainTab from "../../../navigation/MainTab";
+import { SongsStackParamList } from "../../../navigation/SongsStack";
+import { updateSong, UpdateSongPayload } from "../slice";
+import SongFormContainer from "./SongFormContainer";
+import UpdateSongForm from "./UpdateSongForm";
 
 interface UpdateSongFormContainerProps {
   songId: string;
@@ -14,13 +18,17 @@ const UpdateSongFormContainer: React.FC<UpdateSongFormContainerProps> = ({
   songId,
 }) => {
   const dispatch = useDispatch();
+  const navigation: StackNavigationProp<
+    SongsStackParamList,
+    "UpdateSong"
+  > = useNavigation();
 
   const [stateLoading, setStateLoading] = useState(false);
 
-  const [title, setTitle] = useState('');
-  const [interpreter, setInterpreter] = useState('');
-  const [tempo, setTempo] = useState('');
-  const [notes, setNotes] = useState('');
+  const [title, setTitle] = useState("");
+  const [interpreter, setInterpreter] = useState("");
+  const [tempo, setTempo] = useState("");
+  const [notes, setNotes] = useState("");
 
   const state = useSelector((state: ReduxState) => state.song);
   const { songs, loading, errors } = state;
@@ -43,6 +51,12 @@ const UpdateSongFormContainer: React.FC<UpdateSongFormContainerProps> = ({
 
     setStateLoading(false);
   }, []);
+
+  useOnUpdateEffect(() => {
+    if (!loading && errors.length === 0) {
+      navigation.navigate("Songs");
+    }
+  }, [loading, errors]);
 
   const handleSubmit = () => {
     const payload: UpdateSongPayload = {

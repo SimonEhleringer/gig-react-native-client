@@ -1,20 +1,20 @@
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import React, {
   Dispatch,
   SetStateAction,
   useEffect,
   useRef,
   useState,
-} from 'react';
-import { Input } from 'react-native-elements';
-import { useSelector } from 'react-redux';
-import { ReduxState } from '../../../config/store';
-import { useTheme } from '../../../hooks/useTheme';
-import { SongsStackParamList } from '../../../navigation/SongsStack';
-import SongForm from './SongForm';
-import { Keyboard } from 'react-native';
-import { useOnUpdateEffect } from '../../../hooks/useOnUpdateEffect';
+} from "react";
+import { Input } from "react-native-elements";
+import { useSelector } from "react-redux";
+import { ReduxState } from "../../../config/store";
+import { useTheme } from "../../../hooks/useTheme";
+import { SongsStackParamList } from "../../../navigation/SongsStack";
+import SongForm from "./SongForm";
+import { Keyboard } from "react-native";
+import { useOnUpdateEffect } from "../../../hooks/useOnUpdateEffect";
 
 interface SongFormContainerProps {
   title: string;
