@@ -1,9 +1,9 @@
-import { useFocusEffect } from "@react-navigation/native";
-import React, { useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { ReduxState } from "../../../config/store";
-import GetSongBpmSongList from "./GetSongBpmSongList";
-import { setGetSongBpmSongs } from "./slice";
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ReduxState } from '../../../config/store';
+import GetSongBpmSongList from './GetSongBpmSongList';
+import { setGetSongBpmSongs } from './slice';
 
 interface GetSongBpmSongListContainerProps {
   handleSongPress: (id: string) => void;
@@ -20,11 +20,15 @@ const GetSongBpmSongListContainer: React.FC<GetSongBpmSongListContainerProps> = 
   const getSongBpmSongs = state.getSongBpmSongs;
   const loading = state.loading;
 
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(setGetSongBpmSongs([]));
-    }, [])
-  );
+  useEffect(() => {
+    dispatch(setGetSongBpmSongs([]));
+  }, []);
+
+  // useFocusEffect(
+  //   useCallback(() => {
+
+  //   }, [])
+  // );
 
   return (
     <GetSongBpmSongList
