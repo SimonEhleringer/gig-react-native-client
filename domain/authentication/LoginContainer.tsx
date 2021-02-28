@@ -11,7 +11,6 @@ import { Input } from 'react-native-elements';
 import { useTheme } from '../../hooks/useTheme';
 import { AuthenticationStackParamList } from '../../navigation/AuthenticationStack';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useNetInfo } from '@react-native-community/netinfo';
 
 interface LoginContainerProps {}
 
@@ -22,7 +21,6 @@ const LoginContainer: React.FC<LoginContainerProps> = () => {
     'Login'
   > = useNavigation();
   const theme = useTheme();
-  const netInfo = useNetInfo();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,12 +45,6 @@ const LoginContainer: React.FC<LoginContainerProps> = () => {
 
   const handleLogin = () => {
     Keyboard.dismiss();
-
-    // if (!netInfo.isInternetReachable) {
-    //   dispatch(setErrors(['Keine Internetverbindung.']));
-
-    //   return;
-    // }
 
     dispatch(login({ email, password }));
   };

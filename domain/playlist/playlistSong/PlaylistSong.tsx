@@ -10,7 +10,6 @@ import {
 import SongContainer from '../../song/SongContainer';
 import SongEntity from '../../song/SongEntity';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
-import { NetInfoState } from '@react-native-community/netinfo';
 
 interface PlaylistSongProps {
   theme: Partial<FullTheme>;

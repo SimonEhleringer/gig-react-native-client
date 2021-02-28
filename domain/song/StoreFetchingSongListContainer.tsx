@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadSongs } from './slice';
 import { ReduxState } from '../../config/store';
 import StoreFetchingSongList from './StoreFetchingSongList';
-import { useNetInfo } from '@react-native-community/netinfo';
 import { useOnUpdateEffect } from '../../hooks/useOnUpdateEffect';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SongsStackParamList } from '../../navigation/SongsStack';

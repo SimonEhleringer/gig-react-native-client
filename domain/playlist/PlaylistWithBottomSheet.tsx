@@ -10,8 +10,6 @@ import {
 import PlaylistContainer from './PlaylistContainer';
 import PlaylistEntity from './PlaylistModel';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import { NetInfoState } from '@react-native-community/netinfo';
 
 interface PlaylistWithBottomSheetProps {
   theme: Partial<FullTheme>;
