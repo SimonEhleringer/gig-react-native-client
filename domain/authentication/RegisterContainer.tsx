@@ -1,15 +1,15 @@
-import React, { useState, useRef } from 'react';
-import Register from './Register';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
-import { register } from './slice';
-import withBackground from '../common/withBackground';
-import { Keyboard } from 'react-native';
-import { Input } from 'react-native-elements';
-import { ReduxState } from '../../config/store';
-import { useTheme } from '../../hooks/useTheme';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { AuthenticationStackParamList } from '../../navigation/AuthenticationStack';
+import React, { useState, useRef, useCallback } from "react";
+import Register from "./Register";
+import { useDispatch, useSelector } from "react-redux";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { register, setErrors } from "./slice";
+import withBackground from "../common/withBackground";
+import { Keyboard } from "react-native";
+import { Input } from "react-native-elements";
+import { ReduxState } from "../../config/store";
+import { useTheme } from "../../hooks/useTheme";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { AuthenticationStackParamList } from "../../navigation/AuthenticationStack";
 
 interface RegisterContainerProps {}
 
@@ -17,14 +17,14 @@ const RegisterContainer: React.FC<RegisterContainerProps> = ({}) => {
   const dispatch = useDispatch();
   const navigation: StackNavigationProp<
     AuthenticationStackParamList,
-    'Register'
+    "Register"
   > = useNavigation();
   const theme = useTheme();
 
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmedPassword, setConfirmedPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmedPassword, setConfirmedPassword] = useState("");
 
   const emailInputRef = useRef<Input>(null);
   const passwordInputRef = useRef<Input>(null);
@@ -33,6 +33,12 @@ const RegisterContainer: React.FC<RegisterContainerProps> = ({}) => {
   const state = useSelector((state: ReduxState) => state.authentication);
   const errors = state.errors;
   const loading = state.loading;
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(setErrors([]));
+    }, [])
+  );
 
   const handleUsernameChanged = (newUsername: string) => {
     setUsername(newUsername);
