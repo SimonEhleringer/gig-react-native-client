@@ -1,18 +1,22 @@
-import React from 'react';
+import React from "react";
 import {
   FlatList,
   ScrollView,
   TouchableHighlight,
   TouchableOpacity,
-} from 'react-native-gesture-handler';
-import Container from '../../common/Container';
-import LoadingAndErrors from '../../common/LoadingAndErrors';
-import Paper from '../../common/Paper';
-import GetSongBpmSongModel from './GetSongBpmSongModel';
-import GetSongBpmSong from './GetSongBpmSong';
-import { ListItem } from 'react-native-elements';
-import { TouchableHighlightBase, TouchableWithoutFeedback } from 'react-native';
-import PaddingView from '../../common/PaddingView';
+} from "react-native-gesture-handler";
+import Container from "../../common/Container";
+import LoadingAndErrors from "../../common/LoadingAndErrors";
+import Paper from "../../common/Paper";
+import GetSongBpmSongModel from "./GetSongBpmSongModel";
+import GetSongBpmSong from "./GetSongBpmSong";
+import { ListItem } from "react-native-elements";
+import {
+  ListRenderItemInfo,
+  TouchableHighlightBase,
+  TouchableWithoutFeedback,
+} from "react-native";
+import PaddingView from "../../common/PaddingView";
 
 interface GetSongBpmSongListProps {
   getSongBpmSongs: GetSongBpmSongModel[];
@@ -27,27 +31,31 @@ const GetSongBpmSongList: React.FC<GetSongBpmSongListProps> = ({
   handleSongPress,
   handleDummySongPress,
 }) => {
+  const renderItem = (item: ListRenderItemInfo<GetSongBpmSongModel>) => {
+    return (
+      <GetSongBpmSong
+        key={item.item.id}
+        getSongBpmSong={item.item}
+        isFirstItem={item.index === 0}
+        isLastItem={item.index === getSongBpmSongs.length - 1}
+        handleSongPress={() => handleSongPress(item.item.id)}
+      />
+    );
+  };
+
   return (
     <>
       <LoadingAndErrors loading={loading} errors={[]}>
         <FlatList
           keyExtractor={(item) => item.id}
           data={getSongBpmSongs}
-          renderItem={(item) => (
-            <GetSongBpmSong
-              key={item.item.id}
-              getSongBpmSong={item.item}
-              isFirstItem={item.index === 0}
-              isLastItem={item.index === getSongBpmSongs.length - 1}
-              handleSongPress={() => handleSongPress(item.item.id)}
-            />
-          )}
+          renderItem={renderItem}
           ListHeaderComponent={
             <>
               <PaddingView />
               <Paper>
                 <ListItem
-                  containerStyle={{ backgroundColor: 'transparent' }}
+                  containerStyle={{ backgroundColor: "transparent" }}
                   onPress={handleDummySongPress}
                   Component={TouchableWithoutFeedback}
                 >
