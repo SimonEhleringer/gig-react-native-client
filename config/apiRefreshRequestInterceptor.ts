@@ -32,6 +32,7 @@ export const addRefreshRequestInterceptor = (api: AxiosInstance) => {
       // If Jwt is expired -> Refresh Jwt
       // if (jwtTokenExpiryTime < Date.now() / 1000) {
       store.dispatch(refreshStarted());
+      console.log('beim refreshen');
 
       const { jwtToken, refreshToken } = authState;
 
@@ -44,6 +45,8 @@ export const addRefreshRequestInterceptor = (api: AxiosInstance) => {
 
       requestRefresh(request)
         .then((result) => {
+          console.log(result);
+
           const { jwtToken, refreshToken } = result.data;
 
           const decodedJwt: RefreshJwtPayload = jwtDecode(jwtToken);

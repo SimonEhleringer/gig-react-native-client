@@ -20,6 +20,7 @@ export function* watchLoadSongs() {
 
 export function* handleLoadSongs() {
   yield put(songActionStarted());
+  console.log('am laden von songs');
 
   try {
     // Firt get JwtToken for authorization
@@ -33,6 +34,8 @@ export function* handleLoadSongs() {
       requestLoadSongs,
       jwtToken
     );
+
+    console.log(response);
 
     // Map SongResponses to SongEntities
     const songEntities = response.data.map((song) => {
@@ -51,6 +54,8 @@ export function* handleLoadSongs() {
 
     yield put(loadSongsSucceeded(songEntities));
   } catch (e) {
+    console.log('jetzt kommen loadSongs errors');
+    console.log(e);
     yield put(songActionFailed(getErrorsFromError(e)));
   }
 }
