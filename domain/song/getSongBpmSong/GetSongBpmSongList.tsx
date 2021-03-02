@@ -24,6 +24,7 @@ interface GetSongBpmSongListProps {
   loading: boolean;
   handleSongPress: (id: string) => void;
   handleDummySongPress: () => void;
+  handleVisitGetSongBpmPress: () => void;
 }
 
 const GetSongBpmSongList: React.FC<GetSongBpmSongListProps> = ({
@@ -31,6 +32,7 @@ const GetSongBpmSongList: React.FC<GetSongBpmSongListProps> = ({
   loading,
   handleSongPress,
   handleDummySongPress,
+  handleVisitGetSongBpmPress,
 }) => {
   const renderItem = (item: ListRenderItemInfo<GetSongBpmSongModel>) => {
     return (
@@ -54,6 +56,23 @@ const GetSongBpmSongList: React.FC<GetSongBpmSongListProps> = ({
           getItemLayout={getItemLayout}
           ListHeaderComponent={
             <>
+              <PaddingView />
+
+              <Paper>
+                <ListItem
+                  containerStyle={{ backgroundColor: 'transparent' }}
+                  onPress={handleVisitGetSongBpmPress}
+                  Component={TouchableWithoutFeedback}
+                >
+                  <ListItem.Content>
+                    <ListItem.Title>GetSongBPM besuchen</ListItem.Title>
+                    <ListItem.Subtitle>
+                      Die größte BPM Datenbank der Welt
+                    </ListItem.Subtitle>
+                  </ListItem.Content>
+                </ListItem>
+              </Paper>
+
               <PaddingView />
               <Paper>
                 <ListItem

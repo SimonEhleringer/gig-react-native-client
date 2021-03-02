@@ -1,5 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useEffect } from 'react';
+import { Linking } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReduxState } from '../../../config/store';
 import GetSongBpmSongList from './GetSongBpmSongList';
@@ -24,11 +25,9 @@ const GetSongBpmSongListContainer: React.FC<GetSongBpmSongListContainerProps> = 
     dispatch(setGetSongBpmSongs([]));
   }, []);
 
-  // useFocusEffect(
-  //   useCallback(() => {
-
-  //   }, [])
-  // );
+  const handleVisitGetSongBpmPress = () => {
+    Linking.openURL('https://getsongbpm.com/');
+  };
 
   return (
     <GetSongBpmSongList
@@ -36,6 +35,7 @@ const GetSongBpmSongListContainer: React.FC<GetSongBpmSongListContainerProps> = 
       loading={loading}
       handleSongPress={handleSongPress}
       handleDummySongPress={handleDummySongPress}
+      handleVisitGetSongBpmPress={handleVisitGetSongBpmPress}
     />
   );
 };
