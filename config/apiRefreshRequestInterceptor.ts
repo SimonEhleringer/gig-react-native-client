@@ -1,7 +1,8 @@
-import { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import jwtDecode from 'jwt-decode';
 import {
-  refreshFailed,
+  refreshFailedWithNormalError,
+  refreshFailedWithAxiosError,
   refreshStarted,
   refreshSucceeded,
   RefreshSucceededPayload,
@@ -13,6 +14,7 @@ import {
 } from '../domain/authentication/saga/shared';
 import { getErrorsFromError } from '../domain/common/saga/shared';
 import store from './store';
+import { isAxiosResponse } from '../domain/common/saga/shared';
 
 export const addRefreshRequestInterceptor = (api: AxiosInstance) => {
   api.interceptors.request.use(
@@ -65,14 +67,25 @@ export const addRefreshRequestInterceptor = (api: AxiosInstance) => {
           console.log('Errors beim Refreshen:');
           console.log(getErrorsFromError(e));
 
-          store.dispatch(refreshFailed());
+          // Don't log user out, if e.g. a network error ist thrown
+          if (isAxiosResponse(e)) {
+            console.log('token error');
+            store.dispatch(refreshFailedWithAxiosError());
+          } else {
+            console.log('network error');
+            store.dispatch(refreshFailedWithNormalError());
+          }
         });
       // }
 
       return config;
     },
     (error) => {
+      console.log('Promise wird rejected:');
+      console.log(error);
+
       return Promise.reject(error);
+      //throw error;
     }
   );
 };

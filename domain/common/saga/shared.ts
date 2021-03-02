@@ -4,11 +4,11 @@ export interface ErrorResponse {
   errors: string[];
 }
 
-const isAxiosResponse = (error: Error): error is AxiosError => {
+export const isAxiosResponse = (error: Error): error is AxiosError => {
   return (error as AxiosError).response !== undefined;
 };
 
-const isErrorResponse = (response: any): response is ErrorResponse => {
+export const isErrorResponse = (response: any): response is ErrorResponse => {
   return (response as ErrorResponse).errors !== undefined;
 };
 

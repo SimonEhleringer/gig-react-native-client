@@ -124,8 +124,23 @@ const authenticationSlice = createSlice({
       state.refreshToken = refreshToken;
       state.loading = false;
     },
-    refreshFailed(state) {
+    refreshFailedWithAxiosError(state) {
+      state.isUserLoggedIn = false;
+      state.username = '';
+      state.email = '';
+      state.jwtToken = '';
+      state.jwtTokenExpiryTime = 0;
+      state.refreshToken = '';
+      state.userId = '';
       state.loading = false;
+      state.errors = [];
+
+      console.log('token error (reducer)');
+    },
+    refreshFailedWithNormalError(state) {
+      state.loading = false;
+
+      console.log('network error (reducer)');
     },
     setErrors(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;
@@ -142,7 +157,8 @@ export const {
   logoutFailed,
   refreshStarted,
   refreshSucceeded,
-  refreshFailed,
+  refreshFailedWithAxiosError,
+  refreshFailedWithNormalError,
   setErrors,
 } = authenticationSlice.actions;
 

@@ -25,6 +25,8 @@ export function* watchAddSongToPlaylist() {
 function* handleAddSongToPlaylist(
   action: PayloadAction<AddSongToPlaylistPayload>
 ) {
+  console.log('Ich adde grade einen Song zur Playlist :)');
+
   yield put(playlistActionStarted());
 
   const state: PlaylistState = yield select(

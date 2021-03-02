@@ -20,6 +20,7 @@ export function* watchUpdatePlaylist() {
 }
 
 function* handleUpdatePlaylist(action: PayloadAction<UpdatePlaylistPayload>) {
+  console.log('Ich update grade eine Playlist :)');
   yield put(playlistActionStarted());
 
   const { playlistId, name } = action.payload;
