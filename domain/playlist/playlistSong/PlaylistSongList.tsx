@@ -4,6 +4,7 @@ import LoadingAndErrors from '../../common/LoadingAndErrors';
 import PaddingView from '../../common/PaddingView';
 import PlaylistSongContainer from './PlaylistSongContainer';
 import SongEntity from '../../song/SongEntity';
+import { getItemLayout } from '../../common/shared';
 
 interface PlaylistSongListProps {
   songs: SongEntity[];
@@ -25,12 +26,6 @@ const PlaylistSongList: React.FC<PlaylistSongListProps> = ({
     );
   };
 
-  // const getItemLayout = (data: any, index: any) => ({
-  //   length: SONG_HEIGHT,
-  //   offset: SONG_HEIGHT * index,
-  //   index,
-  // });
-
   const keyExtractor = (item: SongEntity) => {
     return item.songId;
   };
@@ -41,9 +36,9 @@ const PlaylistSongList: React.FC<PlaylistSongListProps> = ({
         keyExtractor={keyExtractor}
         data={songs}
         renderItem={renderItem}
+        getItemLayout={getItemLayout}
         ListFooterComponent={<PaddingView />}
         ListHeaderComponent={<PaddingView />}
-        // getItemLayout={getItemLayout}
       />
     </LoadingAndErrors>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, ListRenderItemInfo, Text } from 'react-native';
 import PaddingView from '../common/PaddingView';
+import { getItemLayout } from '../common/shared';
 import PlaylistEntity from './PlaylistModel';
 import PlaylistWithBottomSheetContainer from './PlaylistWithBottomSheetContainer';
 
@@ -30,6 +31,7 @@ const PlaylistList: React.FC<PlaylistListProps> = ({ playlists }) => {
       renderItem={renderItem}
       ListFooterComponent={<PaddingView />}
       ListHeaderComponent={<PaddingView />}
+      getItemLayout={getItemLayout}
     />
   );
 };

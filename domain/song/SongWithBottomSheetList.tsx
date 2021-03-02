@@ -3,8 +3,7 @@ import SongEntity from './SongEntity';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 import PaddingView from '../common/PaddingView';
 import SongWithBottomSheetContainer from './SongWithBottomSheetContainer';
-
-const SONG_HEIGHT = 73.14286041259766;
+import { getItemLayout } from '../common/shared';
 
 interface SongWithBottomSheetListProps {
   songs: SongEntity[];
@@ -23,11 +22,11 @@ const SongWithBottomSheetList: React.FC<SongWithBottomSheetListProps> = ({
     );
   };
 
-  const getItemLayout = (data: any, index: any) => ({
-    length: SONG_HEIGHT,
-    offset: SONG_HEIGHT * index,
-    index,
-  });
+  // const getItemLayout = (data: any, index: any) => ({
+  //   length: LISTITEM_HEIGHT,
+  //   offset: LISTITEM_HEIGHT * index,
+  //   index,
+  // });
 
   const keyExtractor = (item: SongEntity) => {
     return item.songId;

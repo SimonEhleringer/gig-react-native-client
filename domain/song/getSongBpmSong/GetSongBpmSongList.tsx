@@ -1,22 +1,23 @@
-import React from "react";
+import React from 'react';
 import {
   FlatList,
   ScrollView,
   TouchableHighlight,
   TouchableOpacity,
-} from "react-native-gesture-handler";
-import Container from "../../common/Container";
-import LoadingAndErrors from "../../common/LoadingAndErrors";
-import Paper from "../../common/Paper";
-import GetSongBpmSongModel from "./GetSongBpmSongModel";
-import GetSongBpmSong from "./GetSongBpmSong";
-import { ListItem } from "react-native-elements";
+} from 'react-native-gesture-handler';
+import Container from '../../common/Container';
+import LoadingAndErrors from '../../common/LoadingAndErrors';
+import Paper from '../../common/Paper';
+import GetSongBpmSongModel from './GetSongBpmSongModel';
+import GetSongBpmSong from './GetSongBpmSong';
+import { ListItem } from 'react-native-elements';
 import {
   ListRenderItemInfo,
   TouchableHighlightBase,
   TouchableWithoutFeedback,
-} from "react-native";
-import PaddingView from "../../common/PaddingView";
+} from 'react-native';
+import PaddingView from '../../common/PaddingView';
+import { getItemLayout } from '../../common/shared';
 
 interface GetSongBpmSongListProps {
   getSongBpmSongs: GetSongBpmSongModel[];
@@ -50,12 +51,13 @@ const GetSongBpmSongList: React.FC<GetSongBpmSongListProps> = ({
           keyExtractor={(item) => item.id}
           data={getSongBpmSongs}
           renderItem={renderItem}
+          getItemLayout={getItemLayout}
           ListHeaderComponent={
             <>
               <PaddingView />
               <Paper>
                 <ListItem
-                  containerStyle={{ backgroundColor: "transparent" }}
+                  containerStyle={{ backgroundColor: 'transparent' }}
                   onPress={handleDummySongPress}
                   Component={TouchableWithoutFeedback}
                 >

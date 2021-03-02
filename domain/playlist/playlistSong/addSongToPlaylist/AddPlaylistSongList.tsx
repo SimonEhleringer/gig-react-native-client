@@ -7,6 +7,7 @@ import PaddingView from '../../../common/PaddingView';
 import Paper from '../../../common/Paper';
 import AddPlaylistSongContainer from './AddPlaylistSongContainer';
 import SongEntity from '../../../song/SongEntity';
+import { getItemLayout } from '../../../common/shared';
 
 interface AddPlaylistSongListProps {
   songs: SongEntity[];
@@ -47,6 +48,7 @@ const AddPlaylistSongList: React.FC<AddPlaylistSongListProps> = ({
         keyExtractor={keyExtractor}
         data={songs}
         renderItem={renderItem}
+        getItemLayout={getItemLayout}
         ListFooterComponent={<PaddingView />}
         ListHeaderComponent={
           <>
