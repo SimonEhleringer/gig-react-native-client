@@ -6,6 +6,8 @@ import { ReduxState } from '../../../../config/store';
 import { PlaylistStackParamList } from '../../../../navigation/PlaylistStack';
 import AddPlaylistSongList from './AddPlaylistSongList';
 import { loadSongs } from '../../../song/slice';
+import { PlaylistNotFoundError } from '../../saga/shared';
+import PlaylistsScreen from '../../../../screens/PlaylistsScreen';
 
 interface AddPlaylistSongListContainerProps {}
 
@@ -24,8 +26,26 @@ const AddPlaylistSongListContainer: React.FC<AddPlaylistSongListContainerProps> 
     dispatch(loadSongs());
   }, []);
 
+  const playlist = useSelector(
+    (state: ReduxState) => state.playlist
+  ).playlists.find(
+    (playlist) => playlist.playlistId === route.params.playlistId
+  );
+
+  if (!playlist) {
+    throw new PlaylistNotFoundError(route.params.playlistId);
+  }
+
   const state = useSelector((state: ReduxState) => state.song);
   const { loading, errors, songs } = state;
+
+  // Get all songIds in playlist
+  const playlistSongIds = playlist.songs.map((song) => song.songId);
+
+  // Filter the songs, that are not included in playlist
+  const filteredSongs = songs.filter(
+    (song) => !playlistSongIds.includes(song.songId)
+  );
 
   const handleDummySongPress = () => {
     navigation.navigate('SearchSong', { playlistId: route.params.playlistId });
@@ -33,7 +53,7 @@ const AddPlaylistSongListContainer: React.FC<AddPlaylistSongListContainerProps> 
 
   return (
     <AddPlaylistSongList
-      songs={songs}
+      songs={filteredSongs}
       loading={loading}
       errors={errors}
       handleDummySongPress={handleDummySongPress}
