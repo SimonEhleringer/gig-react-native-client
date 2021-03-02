@@ -37,6 +37,9 @@ function* handleAddSongToPlaylist(
 
   const request = getRequestForAddingSongToPlaylist(state, playlistId, songId);
 
+  console.log('request für AddPlaylist');
+  console.log(request);
+
   try {
     const response: AxiosResponse<PlaylistResponse> = yield call(
       requestUpdatePlaylist,

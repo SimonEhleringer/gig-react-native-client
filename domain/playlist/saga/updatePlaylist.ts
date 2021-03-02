@@ -13,7 +13,11 @@ import {
   UPDATE_PLAYLIST,
 } from '../slice';
 import { requestUpdatePlaylist } from './requests';
-import { CreateUpdatePlaylistRequest, PlaylistResponse } from './shared';
+import {
+  CreateUpdatePlaylistRequest,
+  PlaylistNotFoundError,
+  PlaylistResponse,
+} from './shared';
 
 export function* watchUpdatePlaylist() {
   yield takeLatest(UPDATE_PLAYLIST, handleUpdatePlaylist);
@@ -25,9 +29,23 @@ function* handleUpdatePlaylist(action: PayloadAction<UpdatePlaylistPayload>) {
 
   const { playlistId, name } = action.payload;
 
+  const state: PlaylistState = yield select(
+    (state: ReduxState) => state.playlist
+  );
+
+  const playlist = state.playlists.find(
+    (playlist) => playlist.playlistId === playlistId
+  );
+
+  if (!playlist) {
+    throw new PlaylistNotFoundError(playlistId);
+  }
+
+  const songIds = playlist.songs.map((song) => song.songId);
+
   const request: CreateUpdatePlaylistRequest = {
     name,
-    songIds: [],
+    songIds,
   };
 
   console.log('request erstellt');
@@ -43,9 +61,6 @@ function* handleUpdatePlaylist(action: PayloadAction<UpdatePlaylistPayload>) {
 
     console.log('response ist gekommen');
 
-    const state: PlaylistState = yield select(
-      (state: ReduxState) => state.playlist
-    );
     const payload = [...state.playlists];
 
     const indexToUpdate = payload.findIndex(
