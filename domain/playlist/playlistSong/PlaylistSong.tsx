@@ -52,7 +52,12 @@ const PlaylistSong: React.FC<PlaylistSongProps> = ({
           },
         }}
         height={
-          BOTTOM_SHEET_LIST_ITEM_HEIGHT * (isFirstItem || isLastItem ? 2 : 3) +
+          BOTTOM_SHEET_LIST_ITEM_HEIGHT *
+            (isFirstItem && isLastItem
+              ? 1
+              : isFirstItem || isLastItem
+              ? 2
+              : 3) +
           BOTTOM_SHEET_HEADER_HEIGHT +
           PADDING
         }
