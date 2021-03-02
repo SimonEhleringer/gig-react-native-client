@@ -24,21 +24,38 @@ import { watchAddNewSongToPlaylist } from '../domain/playlist/saga/addNewSongToP
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistReducer, persistStore } from 'redux-persist';
 
-const persistConfig = {
+const rootPersistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['getSongBpmSong'],
-  //whitelist: ['song'],
+  blacklist: ['authentication', 'playlist', 'song', 'getSongBpmSong'],
+};
+
+const authenticationPersistConfig = {
+  key: 'authentication',
+  storage: AsyncStorage,
+  blacklist: ['loading', 'errors'],
+};
+
+const playlistPersistConfig = {
+  key: 'playlist',
+  storage: AsyncStorage,
+  blacklist: ['loading', 'errors'],
+};
+
+const songPersistConfig = {
+  key: 'song',
+  storage: AsyncStorage,
+  blacklist: ['loading', 'errors'],
 };
 
 const reducer = combineReducers({
-  authentication,
-  playlist,
-  song,
+  authentication: persistReducer(authenticationPersistConfig, authentication),
+  playlist: persistReducer(playlistPersistConfig, playlist),
+  song: persistReducer(songPersistConfig, song),
   getSongBpmSong,
 });
 
-const persistedReducer = persistReducer(persistConfig, reducer);
+const persistedReducer = persistReducer(rootPersistConfig, reducer);
 
 const sagaMiddleware = createSagaMiddleware();
 
