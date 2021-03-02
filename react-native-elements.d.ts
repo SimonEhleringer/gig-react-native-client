@@ -7,6 +7,7 @@ declare module 'react-native-elements' {
     text: string;
     lightGrey: string;
     paperBackgroundColor: string;
+    transparentBackgroundColor: string;
   }
 
   export interface FullTheme {

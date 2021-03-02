@@ -1,9 +1,13 @@
 import React from 'react';
 import PlaylistEntity from './PlaylistModel';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableHighlightBase } from 'react-native';
 import { FullTheme, ListItem } from 'react-native-elements';
 import { TouchableWithoutFeedback } from 'react-native';
 import { BORDER_RADIUS } from '../../config/themes';
+import {
+  TouchableNativeFeedback,
+  TouchableOpacity,
+} from 'react-native-gesture-handler';
 
 interface PlaylistProps {
   theme: Partial<FullTheme>;
@@ -38,6 +42,7 @@ const Playlist: React.FC<PlaylistProps> = ({
         <ListItem.Subtitle>{playlist.songs.length} Songs</ListItem.Subtitle>
       </ListItem.Content>
       <ListItem.Chevron
+        Component={TouchableWithoutFeedback}
         name='more-vert'
         type='material'
         size={25}

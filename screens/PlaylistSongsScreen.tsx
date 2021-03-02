@@ -22,6 +22,7 @@ import {
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import { useTheme } from '../hooks/useTheme';
 import { setIsGigModeActive } from '../domain/playlist/slice';
+import GreyBackgroundView from '../domain/common/GreyBackgroundView';
 
 interface PlaylistSongsScreenProps {
   route: RouteProp<PlaylistStackParamList, 'PlaylistSongs'>;
@@ -73,7 +74,7 @@ const PlaylistSongsScreen: React.FC<PlaylistSongsScreenProps> = ({ route }) => {
   };
 
   return (
-    <>
+    <GreyBackgroundView>
       <RBSheet
         ref={bottomSheetRef}
         closeOnDragDown
@@ -121,8 +122,8 @@ const PlaylistSongsScreen: React.FC<PlaylistSongsScreenProps> = ({ route }) => {
       </RBSheet>
 
       <PlaylistSongListContainer playlistId={route.params.playlistId} />
-    </>
+    </GreyBackgroundView>
   );
 };
 
-export default withBottomRoundedCorners(withBackground(PlaylistSongsScreen));
+export default withBottomRoundedCorners(PlaylistSongsScreen);

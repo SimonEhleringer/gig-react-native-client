@@ -92,6 +92,7 @@ const Song: React.FC<SongProps> = ({
             </ListItem.Content>
 
             <ListItem.Chevron
+              Component={TouchableWithoutFeedback}
               name='more-vert'
               type='material'
               size={25}

@@ -5,11 +5,16 @@ import GetSongBpmSongListContainer from '../domain/song/getSongBpmSong/GetSongBp
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
 import withBackground from '../domain/common/withBackground';
 import GetSongBpmSongListForCreatingSongContainer from '../domain/song/getSongBpmSong/GetSongBpmSongListForCreatingSongContainer';
+import GreyBackgroundView from '../domain/common/GreyBackgroundView';
 
 interface SearchSongScreenProps {}
 
 const SearchSongScreen: React.FC<SearchSongScreenProps> = ({}) => {
-  return <GetSongBpmSongListForCreatingSongContainer />;
+  return (
+    <GreyBackgroundView>
+      <GetSongBpmSongListForCreatingSongContainer />
+    </GreyBackgroundView>
+  );
 };
 
-export default withBottomRoundedCorners(withBackground(SearchSongScreen));
+export default withBottomRoundedCorners(SearchSongScreen);

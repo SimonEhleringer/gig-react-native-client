@@ -23,6 +23,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadPlaylists } from '../domain/playlist/slice';
 import { ReduxState } from '../config/store';
 import { setErrors } from '../domain/authentication/slice';
+import { View } from 'react-native';
+import GreyBackgroundView from '../domain/common/GreyBackgroundView';
 
 interface PlaylistsScreenProps {}
 
@@ -63,7 +65,7 @@ const PlaylistsScreen: React.FC<PlaylistsScreenProps> = ({}) => {
   // );
 
   return (
-    <>
+    <GreyBackgroundView>
       <StoreFetchingPlaylistListContainer />
       <RBSheet
         ref={bottomSheetRef}
@@ -85,8 +87,8 @@ const PlaylistsScreen: React.FC<PlaylistsScreenProps> = ({}) => {
           </ListItem.Content>
         </ListItem>
       </RBSheet>
-    </>
+    </GreyBackgroundView>
   );
 };
 
-export default withBottomRoundedCorners(withBackground(PlaylistsScreen));
+export default withBottomRoundedCorners(PlaylistsScreen);

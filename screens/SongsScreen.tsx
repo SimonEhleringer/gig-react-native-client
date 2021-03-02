@@ -16,6 +16,7 @@ import {
 // import BottomSheetBehavior from 'reanimated-bottom-sheet';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { ListItem } from 'react-native-elements';
+import GreyBackgroundView from '../domain/common/GreyBackgroundView';
 
 interface SongsScreenProps {
   navigation: StackNavigationProp<SongsStackParamList, 'Songs'>;
@@ -46,7 +47,7 @@ const SongsScreen: React.FC<SongsScreenProps> = ({ navigation }) => {
   };
 
   return (
-    <>
+    <GreyBackgroundView>
       <StoreFetchingSongListContainer />
 
       <RBSheet
@@ -69,8 +70,8 @@ const SongsScreen: React.FC<SongsScreenProps> = ({ navigation }) => {
           </ListItem.Content>
         </ListItem>
       </RBSheet>
-    </>
+    </GreyBackgroundView>
   );
 };
 
-export default withBottomRoundedCorners(withBackground(SongsScreen));
+export default withBottomRoundedCorners(SongsScreen);

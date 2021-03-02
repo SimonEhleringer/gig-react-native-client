@@ -21,7 +21,7 @@ function withBackground<T>(Component: React.ComponentType<T>) {
           <View
             style={[
               styles.backgroundOverlay,
-              { backgroundColor: theme.colors?.paperBackgroundColor },
+              { backgroundColor: theme.colors?.transparentBackgroundColor },
             ]}
           >
             <Component {...props} />
