@@ -26,7 +26,12 @@ const SearchBarHeader: React.FC<SearchBarHeaderProps> = ({
     <>
       <StatusBar barStyle='dark-content' />
       <SafeAreaView style={{ backgroundColor: theme.colors?.white }}>
-        <View style={styles.header}>
+        <View
+          style={[
+            styles.header,
+            { borderBottomColor: theme.colors?.lightGrey },
+          ]}
+        >
           <TouchableRipple
             onPress={handleGoBack}
             borderless
@@ -59,6 +64,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: PADDING,
+    borderBottomWidth: 0.5,
   },
   searchBar: {
     borderRadius: BORDER_RADIUS_LESS,

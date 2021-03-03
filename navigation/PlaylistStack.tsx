@@ -8,10 +8,7 @@ import AddSongToPlaylistScreen from '../screens/AddSongToPlaylistScreen';
 import SearchSongForAddingToPlaylistScreen from '../screens/SearchSongForAddingToPlaylistScreen';
 import SearchBarHeaderContainer from '../domain/song/getSongBpmSong/SearchBarHeaderContainer';
 import AddNewSongToPlaylistScreen from '../screens/AddNewSongToPlaylistScreen';
-import { MaterialIcons as Icon } from '@expo/vector-icons';
-import { Platform } from 'react-native';
-import { PADDING_HALF } from '../config/themes';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { useTheme } from '../hooks/useTheme';
 
 interface PlaylistStackProps {}
 
@@ -54,10 +51,16 @@ export interface AddNewSongToPlaylistParams {
 const Stack = createStackNavigator<PlaylistStackParamList>();
 
 const PlaylistStack: React.FC<PlaylistStackProps> = ({}) => {
+  const theme = useTheme();
+
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { elevation: 0 },
+        headerStyle: {
+          elevation: 0,
+          borderBottomWidth: 0.5,
+          borderBottomColor: theme.colors?.lightGrey,
+        },
       }}
     >
       <Stack.Screen

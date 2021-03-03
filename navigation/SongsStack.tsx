@@ -6,6 +6,7 @@ import SearchSongScreen from '../screens/SearchSongScreen';
 import UpdateSongScreen from '../screens/UpdateSongScreen';
 import SearchBarHeader from '../domain/song/getSongBpmSong/SearchBarHeader';
 import SearchBarHeaderContainer from '../domain/song/getSongBpmSong/SearchBarHeaderContainer';
+import { useTheme } from '../hooks/useTheme';
 
 interface SongsStackProps {}
 
@@ -23,8 +24,18 @@ export interface AddUpdateSongParams {
 const Stack = createStackNavigator<SongsStackParamList>();
 
 const SongsStack: React.FC<SongsStackProps> = ({}) => {
+  const theme = useTheme();
+
   return (
-    <Stack.Navigator screenOptions={{ headerStyle: { elevation: 0 } }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          elevation: 0,
+          borderBottomWidth: 0.5,
+          borderBottomColor: theme.colors?.lightGrey,
+        },
+      }}
+    >
       <Stack.Screen
         name='Songs'
         component={SongsScreen}
