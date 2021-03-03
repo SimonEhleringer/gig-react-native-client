@@ -1,5 +1,8 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import ProfileScreen from '../screens/ProfileScreen';
 import { useTheme } from '../hooks/useTheme';
 
@@ -26,6 +29,7 @@ const ProfileStack: React.FC<ProfileStackProps> = ({}) => {
             borderBottomWidth: 0.5,
             borderBottomColor: theme.colors?.lightGrey,
           },
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
     </Stack.Navigator>

@@ -1,5 +1,8 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import PlaylistsScreen from '../screens/PlaylistsScreen';
 import CreatePlaylistScreen from '../screens/CreatePlaylistScreen';
 import UpdatePlaylistScreen from '../screens/UpdatePlaylistScreen';
@@ -61,6 +64,7 @@ const PlaylistStack: React.FC<PlaylistStackProps> = ({}) => {
           borderBottomWidth: 0.5,
           borderBottomColor: theme.colors?.lightGrey,
         },
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
       <Stack.Screen

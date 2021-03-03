@@ -3,7 +3,10 @@ import AuthenticationStack from './AuthenticationStack';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '../config/store';
 import MainTab from './MainTab';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 
 interface NavigationContainerProps {}
 
@@ -20,7 +23,12 @@ const NavigationContainer: React.FC<NavigationContainerProps> = ({}) => {
   );
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
       {isUserLoggedIn ? (
         <Stack.Screen name='MainTab' component={MainTab} />
       ) : (

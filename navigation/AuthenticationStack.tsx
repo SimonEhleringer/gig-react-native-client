@@ -1,5 +1,8 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 
@@ -14,21 +17,14 @@ const Stack = createStackNavigator<AuthenticationStackParamList>();
 
 const AuthenticationStack: React.FC<AuthenticationStackProps> = ({}) => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name='Login'
-        component={LoginScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name='Register'
-        component={RegisterScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
+      <Stack.Screen name='Login' component={LoginScreen} />
+      <Stack.Screen name='Register' component={RegisterScreen} />
     </Stack.Navigator>
   );
 };
