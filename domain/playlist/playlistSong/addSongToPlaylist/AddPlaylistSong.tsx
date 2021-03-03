@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableHighlight, View } from 'react-native';
 import { FullTheme, ListItem } from 'react-native-elements';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { BORDER_RADIUS } from '../../../../config/themes';
@@ -23,7 +23,11 @@ const AddPlaylistSong: React.FC<AddPlaylistSongProps> = ({
 }) => {
   return (
     <ListItem
-      Component={TouchableWithoutFeedback}
+      style={[
+        isFirstItem ? styles.borderTopRadius : {},
+        isLastItem ? styles.borderBottomRadius : {},
+      ]}
+      Component={TouchableHighlight}
       containerStyle={[
         { backgroundColor: theme.colors?.paperBackgroundColor },
         isFirstItem ? styles.borderTopRadius : {},

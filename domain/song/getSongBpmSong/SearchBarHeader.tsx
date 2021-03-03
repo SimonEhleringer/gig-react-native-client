@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, StyleSheet, TextInput, View } from 'react-native';
+import { StatusBar, StyleSheet, TextInput, View, Platform } from 'react-native';
 import {
   BORDER_RADIUS_LESS,
   MARGIN,
@@ -9,6 +9,7 @@ import {
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import { FullTheme } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { TouchableRipple } from 'react-native-paper';
 
 interface SearchBarHeaderProps {
   theme: Partial<FullTheme>;
@@ -26,12 +27,17 @@ const SearchBarHeader: React.FC<SearchBarHeaderProps> = ({
       <StatusBar barStyle='dark-content' />
       <SafeAreaView style={{ backgroundColor: theme.colors?.white }}>
         <View style={styles.header}>
-          <Icon
-            name='arrow-back'
-            size={25}
-            style={{ padding: PADDING_HALF }}
+          <TouchableRipple
             onPress={handleGoBack}
-          />
+            borderless
+            style={{ borderRadius: 50 }}
+          >
+            <Icon
+              name={Platform.OS === 'ios' ? 'arrow-back-ios' : 'arrow-back'}
+              size={25}
+              style={{ padding: PADDING_HALF }}
+            />
+          </TouchableRipple>
 
           <TextInput
             style={[

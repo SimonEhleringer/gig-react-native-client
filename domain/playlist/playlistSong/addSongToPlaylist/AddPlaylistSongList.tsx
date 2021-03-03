@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListRenderItemInfo, TouchableWithoutFeedback } from 'react-native';
+import { ListRenderItemInfo, TouchableHighlight } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
 import LoadingAndErrors from '../../../common/LoadingAndErrors';
@@ -55,9 +55,9 @@ const AddPlaylistSongList: React.FC<AddPlaylistSongListProps> = ({
             <PaddingView />
             <Paper>
               <ListItem
-                containerStyle={{ backgroundColor: 'transparent' }}
+                //containerStyle={{ backgroundColor: 'transparent' }}
                 onPress={handleDummySongPress}
-                Component={TouchableWithoutFeedback}
+                Component={TouchableHighlight}
               >
                 <ListItem.Content>
                   <ListItem.Title>Neuen Song erstellen</ListItem.Title>

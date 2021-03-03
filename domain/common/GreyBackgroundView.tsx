@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
 
 interface GreyBackgroundViewProps {}
@@ -10,9 +10,16 @@ const GreyBackgroundView: React.FC<GreyBackgroundViewProps> = ({
   const theme = useTheme();
 
   return (
-    <View style={[styles.root, { backgroundColor: theme.colors?.lightGrey }]}>
-      {children}
-    </View>
+    <>
+      <StatusBar
+        backgroundColor='transparent'
+        translucent={true}
+        barStyle='dark-content'
+      />
+      <View style={[styles.root, { backgroundColor: theme.colors?.lightGrey }]}>
+        {children}
+      </View>
+    </>
   );
 };
 

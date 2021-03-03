@@ -1,13 +1,9 @@
 import React from 'react';
 import PlaylistEntity from './PlaylistModel';
-import { StyleSheet, TouchableHighlightBase } from 'react-native';
+import { StyleSheet, TouchableHighlight } from 'react-native';
 import { FullTheme, ListItem } from 'react-native-elements';
 import { TouchableWithoutFeedback } from 'react-native';
 import { BORDER_RADIUS } from '../../config/themes';
-import {
-  TouchableNativeFeedback,
-  TouchableOpacity,
-} from 'react-native-gesture-handler';
 
 interface PlaylistProps {
   theme: Partial<FullTheme>;
@@ -28,7 +24,11 @@ const Playlist: React.FC<PlaylistProps> = ({
 }) => {
   return (
     <ListItem
-      Component={TouchableWithoutFeedback}
+      style={[
+        isFirstItem ? styles.borderTopRadius : {},
+        isLastItem ? styles.borderBottomRadius : {},
+      ]}
+      Component={TouchableHighlight}
       containerStyle={[
         { backgroundColor: theme.colors?.paperBackgroundColor },
         isFirstItem ? styles.borderTopRadius : {},
