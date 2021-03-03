@@ -8,7 +8,7 @@ import Paper from '../../common/Paper';
 import { MARGIN_HALF, PADDING_DOUBLE } from '../../../config/themes';
 import Errors from '../../common/Errors';
 
-interface AuthenticationSettingsProps {
+interface ProfileProps {
   theme: Partial<FullTheme>;
   username: string;
   handleLogout: () => void;
@@ -18,7 +18,7 @@ interface AuthenticationSettingsProps {
   loading: boolean;
 }
 
-const AuthenticationSettings: React.FC<AuthenticationSettingsProps> = ({
+const Profile: React.FC<ProfileProps> = ({
   theme,
   username,
   handleLogout,
@@ -98,4 +98,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AuthenticationSettings;
+export default Profile;

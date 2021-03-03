@@ -4,7 +4,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import PlaylistStack from './PlaylistStack';
-import SettingsStack from './SettingsStack';
+import ProfileStack from './ProfileStack';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from '../hooks/useTheme';
 import SongsStack from './SongsStack';
@@ -14,7 +14,7 @@ interface MainTabProps {}
 export type MainTabParamList = {
   Playlists: undefined;
   Songs: undefined;
-  Settings: undefined;
+  Profile: undefined;
 };
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -53,13 +53,13 @@ const MainTab: React.FC<MainTabProps> = ({}) => {
         }}
       />
       <Tab.Screen
-        name='Settings'
-        component={SettingsStack}
+        name='Profile'
+        component={ProfileStack}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name='settings' color={color} size={size} />
+            <MaterialIcons name='account-circle' color={color} size={size} />
           ),
-          title: 'Einstellungen',
+          title: 'Profil',
         }}
       />
     </Tab.Navigator>

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import AuthenticationSettings from './AuthenticationSettings';
+import Profile from './Profile';
 import { useSelector, useDispatch } from 'react-redux';
 import { ReduxState } from '../../../config/store';
 import { useTheme } from '../../../hooks/useTheme';
 import { logout } from '../slice';
 
-interface AuthenticationSettingsContainerProps {}
+interface ProfileContainerProps {}
 
-const AuthenticationSettingsContainer: React.FC<AuthenticationSettingsContainerProps> = ({}) => {
+const ProfileContainer: React.FC<ProfileContainerProps> = ({}) => {
   const theme = useTheme();
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const AuthenticationSettingsContainer: React.FC<AuthenticationSettingsContainerP
   };
 
   return (
-    <AuthenticationSettings
+    <Profile
       username={username}
       theme={theme}
       handleLogout={handleLogout}
@@ -35,4 +35,4 @@ const AuthenticationSettingsContainer: React.FC<AuthenticationSettingsContainerP
   );
 };
 
-export default AuthenticationSettingsContainer;
+export default ProfileContainer;

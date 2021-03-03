@@ -2,19 +2,19 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import withBackground from '../domain/common/withBackground';
 import withBottomRoundedCorners from '../domain/common/withBottomRoundedCorners';
-import AuthenticationSettingsContainer from '../domain/authentication/settings/AuthenticationSettingsContainer';
+import ProfileContainer from '../domain/authentication/profile/AuthenticationSettingsContainer';
 import GreyBackgroundView from '../domain/common/GreyBackgroundView';
 
-interface SettingsScreenProps {}
+interface ProfileScreenProps {}
 
-const SettingsScreen: React.FC<SettingsScreenProps> = ({}) => {
+const ProfileScreen: React.FC<ProfileScreenProps> = ({}) => {
   return (
     <GreyBackgroundView>
       <ScrollView>
-        <AuthenticationSettingsContainer />
+        <ProfileContainer />
       </ScrollView>
     </GreyBackgroundView>
   );
 };
 
-export default withBottomRoundedCorners(withBackground(SettingsScreen));
+export default withBottomRoundedCorners(withBackground(ProfileScreen));
