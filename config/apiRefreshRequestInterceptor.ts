@@ -18,7 +18,7 @@ import { isAxiosResponse } from '../domain/common/saga/shared';
 
 export const addRefreshRequestInterceptor = (api: AxiosInstance) => {
   api.interceptors.request.use(
-    (config: AxiosRequestConfig) => {
+    async (config: AxiosRequestConfig) => {
       const authState = store.getState().authentication;
       //const { jwtTokenExpiryTime } = authState;
 
@@ -45,39 +45,71 @@ export const addRefreshRequestInterceptor = (api: AxiosInstance) => {
 
       console.log(request);
 
-      requestRefresh(request)
-        .then((result) => {
-          console.log(result);
+      try {
+        const response = await requestRefresh(request);
 
-          const { jwtToken, refreshToken } = result.data;
+        console.log('response vom refreshen');
+        console.log(response);
 
-          const decodedJwt: RefreshJwtPayload = jwtDecode(jwtToken);
+        const { jwtToken, refreshToken } = response.data;
 
-          console.log('decodedJwt: ' + decodedJwt);
+        const decodedJwt: RefreshJwtPayload = jwtDecode(jwtToken);
 
-          const payload: RefreshSucceededPayload = {
-            jwtToken,
-            jwtTokenExpiryTime: decodedJwt.exp,
-            refreshToken,
-          };
+        console.log('decodedJwt: ' + decodedJwt);
 
-          store.dispatch(refreshSucceeded(payload));
-        })
-        .catch((e) => {
-          console.log('Errors beim Refreshen:');
-          console.log(getErrorsFromError(e));
+        const payload: RefreshSucceededPayload = {
+          jwtToken,
+          jwtTokenExpiryTime: decodedJwt.exp,
+          refreshToken,
+        };
 
-          // Don't log user out, if e.g. a network error ist thrown
-          if (isAxiosResponse(e)) {
-            console.log('token error');
-            store.dispatch(refreshFailedWithAxiosError());
-          } else {
-            console.log('network error');
-            store.dispatch(refreshFailedWithNormalError());
-          }
-        });
+        store.dispatch(refreshSucceeded(payload));
+      } catch (e) {
+        console.log('Errors beim Refreshen:');
+        console.log(getErrorsFromError(e));
+
+        // Don't log user out, if e.g. a network error ist thrown
+        if (isAxiosResponse(e)) {
+          console.log('token error');
+          store.dispatch(refreshFailedWithAxiosError());
+        } else {
+          console.log('network error');
+          store.dispatch(refreshFailedWithNormalError());
+        }
+      }
+
+      // requestRefresh(request)
+      //   .then((result) => {
+      //     console.log(result);
+
+      //     const { jwtToken, refreshToken } = result.data;
+
+      //     const decodedJwt: RefreshJwtPayload = jwtDecode(jwtToken);
+
+      //     console.log('decodedJwt: ' + decodedJwt);
+
+      //     const payload: RefreshSucceededPayload = {
+      //       jwtToken,
+      //       jwtTokenExpiryTime: decodedJwt.exp,
+      //       refreshToken,
+      //     };
+
+      //     store.dispatch(refreshSucceeded(payload));
+      //   })
+      //   .catch((e) => {
+      //     console.log('Errors beim Refreshen:');
+      //     console.log(getErrorsFromError(e));
+
+      //     // Don't log user out, if e.g. a network error ist thrown
+      //     if (isAxiosResponse(e)) {
+      //       console.log('token error');
+      //       store.dispatch(refreshFailedWithAxiosError());
+      //     } else {
+      //       console.log('network error');
+      //       store.dispatch(refreshFailedWithNormalError());
+      //     }
+      //   })
       // }
-
       return config;
     },
     (error) => {
