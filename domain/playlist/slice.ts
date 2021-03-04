@@ -17,14 +17,14 @@ export type PlaylistState = {
   playlists: PlaylistEntity[];
   loading: boolean;
   errors: string[];
-  isGigModeActive: boolean;
+  // isGigModeActive: boolean;
 };
 
 const initialState: PlaylistState = {
   playlists: [],
   loading: false,
   errors: [],
-  isGigModeActive: false,
+  // isGigModeActive: false,
 };
 
 export const loadPlaylists = createAction(LOAD_PLAYLISTS);
@@ -73,9 +73,9 @@ const playlistSlice = createSlice({
       state.errors = action.payload;
       state.loading = false;
     },
-    setIsGigModeActive(state, action: PayloadAction<boolean>) {
-      state.isGigModeActive = action.payload;
-    },
+    // setIsGigModeActive(state, action: PayloadAction<boolean>) {
+    //   state.isGigModeActive = action.payload;
+    // },
   },
 });
 
@@ -83,7 +83,7 @@ export const {
   playlistActionStarted,
   playlistActionSucceeded,
   playlistActionFailed,
-  setIsGigModeActive,
+  // setIsGigModeActive,
 } = playlistSlice.actions;
 
 export default playlistSlice.reducer;

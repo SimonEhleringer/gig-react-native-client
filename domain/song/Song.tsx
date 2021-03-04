@@ -24,7 +24,7 @@ interface SongProps {
   rotation: Animated.AnimatedInterpolation;
   handleListItemPress: () => void;
   handleChevronPress: () => void;
-  isMetronomeOn: boolean;
+  // isMetronomeOn: boolean;
 }
 
 const Song: React.FC<SongProps> = ({
@@ -36,7 +36,7 @@ const Song: React.FC<SongProps> = ({
   rotation,
   handleListItemPress,
   handleChevronPress,
-  isMetronomeOn,
+  // isMetronomeOn,
 }) => {
   return (
     <ListItem
@@ -88,7 +88,7 @@ const Song: React.FC<SongProps> = ({
             </ListItem.Content>
 
             <ListItem.Content style={styles.rightListItemContent}>
-              <Tempo tempo={song.tempo} isMetronomeOn={isMetronomeOn} />
+              <Tempo tempo={song.tempo} isMetronomeOn={false} />
             </ListItem.Content>
 
             <ListItem.Chevron

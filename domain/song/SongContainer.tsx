@@ -24,8 +24,8 @@ const SongContainer: React.FC<SongContainerProps> = ({
   const [animatePress] = useState(new Animated.Value(0));
   const [areNotesCollapsed, setAreNotesCollapsed] = useState(true);
 
-  const state = useSelector((state: ReduxState) => state.playlist);
-  const isMetronomeOn = state.isGigModeActive;
+  // const state = useSelector((state: ReduxState) => state.playlist);
+  // const isMetronomeOn = state.isGigModeActive;
 
   useEffect(() => {
     Animated.timing(animatePress, {
@@ -54,7 +54,7 @@ const SongContainer: React.FC<SongContainerProps> = ({
       rotation={rotation}
       handleListItemPress={handleListItemPress}
       handleChevronPress={handleChevronPress}
-      isMetronomeOn={isMetronomeOn}
+      // isMetronomeOn={isMetronomeOn}
     />
   );
 };

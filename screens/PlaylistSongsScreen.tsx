@@ -21,7 +21,7 @@ import {
 } from '../navigation/PlaylistStack';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import { useTheme } from '../hooks/useTheme';
-import { setIsGigModeActive } from '../domain/playlist/slice';
+// import { setIsGigModeActive } from '../domain/playlist/slice';
 import GreyBackgroundView from '../domain/common/GreyBackgroundView';
 
 interface PlaylistSongsScreenProps {
@@ -30,7 +30,7 @@ interface PlaylistSongsScreenProps {
 
 const PlaylistSongsScreen: React.FC<PlaylistSongsScreenProps> = ({ route }) => {
   const theme = useTheme();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigation: StackNavigationProp<
     PlaylistStackParamList,
     'PlaylistSongs'
@@ -42,7 +42,7 @@ const PlaylistSongsScreen: React.FC<PlaylistSongsScreenProps> = ({ route }) => {
   const playlist = state.playlists.find(
     (value) => value.playlistId === route.params.playlistId
   );
-  const isGigModeActive = state.isGigModeActive;
+  //const isGigModeActive = state.isGigModeActive;
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -69,9 +69,9 @@ const PlaylistSongsScreen: React.FC<PlaylistSongsScreenProps> = ({ route }) => {
     navigation.navigate('AddSongToPlaylist', params);
   };
 
-  const handleSetIsGigModeActive = (val: boolean) => {
-    dispatch(setIsGigModeActive(val));
-  };
+  // const handleSetIsGigModeActive = (val: boolean) => {
+  //   dispatch(setIsGigModeActive(val));
+  // };
 
   return (
     <GreyBackgroundView>
@@ -85,9 +85,7 @@ const PlaylistSongsScreen: React.FC<PlaylistSongsScreenProps> = ({ route }) => {
           },
         }}
         height={
-          BOTTOM_SHEET_LIST_ITEM_HEIGHT * 2 +
-          BOTTOM_SHEET_HEADER_HEIGHT +
-          PADDING
+          BOTTOM_SHEET_LIST_ITEM_HEIGHT + BOTTOM_SHEET_HEADER_HEIGHT + PADDING
         }
       >
         <ListItem onPress={handleAddSong}>
@@ -97,7 +95,7 @@ const PlaylistSongsScreen: React.FC<PlaylistSongsScreenProps> = ({ route }) => {
           </ListItem.Content>
         </ListItem>
 
-        <ListItem>
+        {/* <ListItem>
           <Icon
             name={isGigModeActive ? 'music-note' : 'music-off'}
             size={25}
@@ -118,7 +116,7 @@ const PlaylistSongsScreen: React.FC<PlaylistSongsScreenProps> = ({ route }) => {
               />
             </View>
           </ListItem.Content>
-        </ListItem>
+        </ListItem> */}
       </RBSheet>
 
       <PlaylistSongListContainer playlistId={route.params.playlistId} />
