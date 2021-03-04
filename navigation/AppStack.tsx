@@ -26,7 +26,6 @@ const NavigationContainer: React.FC<NavigationContainerProps> = ({}) => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
       {isUserLoggedIn ? (

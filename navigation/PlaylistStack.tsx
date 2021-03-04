@@ -64,7 +64,6 @@ const PlaylistStack: React.FC<PlaylistStackProps> = ({}) => {
           borderBottomWidth: 0.5,
           borderBottomColor: theme.colors?.lightGrey,
         },
-        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
       <Stack.Screen
@@ -82,7 +81,13 @@ const PlaylistStack: React.FC<PlaylistStackProps> = ({}) => {
         component={UpdatePlaylistScreen}
         options={{ title: 'Playlist bearbeiten' }}
       />
-      <Stack.Screen name='PlaylistSongs' component={PlaylistSongsScreen} />
+      <Stack.Screen
+        name='PlaylistSongs'
+        component={PlaylistSongsScreen}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
       <Stack.Screen
         name='AddSongToPlaylist'
         component={AddSongToPlaylistScreen}
@@ -93,6 +98,7 @@ const PlaylistStack: React.FC<PlaylistStackProps> = ({}) => {
         component={SearchSongForAddingToPlaylistScreen}
         options={{
           header: () => <SearchBarHeaderContainer />,
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
       <Stack.Screen
@@ -100,6 +106,7 @@ const PlaylistStack: React.FC<PlaylistStackProps> = ({}) => {
         component={AddNewSongToPlaylistScreen}
         options={{
           title: 'Song erstellen',
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
     </Stack.Navigator>

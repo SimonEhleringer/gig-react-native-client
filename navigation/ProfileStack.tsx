@@ -29,7 +29,6 @@ const ProfileStack: React.FC<ProfileStackProps> = ({}) => {
             borderBottomWidth: 0.5,
             borderBottomColor: theme.colors?.lightGrey,
           },
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
     </Stack.Navigator>

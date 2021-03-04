@@ -37,7 +37,6 @@ const SongsStack: React.FC<SongsStackProps> = ({}) => {
           borderBottomWidth: 0.5,
           borderBottomColor: theme.colors?.lightGrey,
         },
-        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
       <Stack.Screen
@@ -59,6 +58,7 @@ const SongsStack: React.FC<SongsStackProps> = ({}) => {
         component={AddSongScreen}
         options={{
           title: 'Song hinzufügen',
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
       <Stack.Screen
