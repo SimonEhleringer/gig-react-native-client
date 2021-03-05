@@ -24,8 +24,6 @@ export const requestUpdateSong = async (
   songId: string,
   request: CreateUpdateSongRequest
 ) => {
-  console.log(request);
-
   const response: AxiosResponse<SongResponse> = await api.put(
     `Songs/${songId}`,
     { ...request }

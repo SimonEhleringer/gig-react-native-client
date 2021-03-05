@@ -1,18 +1,18 @@
-import { AxiosResponse } from 'axios';
-import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { getErrorsFromError } from '../../common/saga/shared';
-import SongEntity from '../SongEntity';
+import { AxiosResponse } from "axios";
+import { call, put, select, takeLatest } from "redux-saga/effects";
+import { getErrorsFromError } from "../../common/saga/shared";
+import SongEntity from "../SongEntity";
 import {
   songActionStarted,
   loadSongsSucceeded,
   songActionFailed,
   LOAD_SONGS,
-} from '../slice';
-import { requestLoadSongs } from './requests';
-import { ReduxState } from '../../../config/store';
-import { AuthenticationState } from '../../authentication/slice';
-import { SongResponse } from './shared';
-import { sortArrayAlphabetically } from '../../common/shared';
+} from "../slice";
+import { requestLoadSongs } from "./requests";
+import { ReduxState } from "../../../config/store";
+import { AuthenticationState } from "../../authentication/slice";
+import { SongResponse } from "./shared";
+import { sortArrayAlphabetically } from "../../common/shared";
 
 export function* watchLoadSongs() {
   yield takeLatest(LOAD_SONGS, handleLoadSongs);
@@ -20,7 +20,6 @@ export function* watchLoadSongs() {
 
 export function* handleLoadSongs() {
   yield put(songActionStarted());
-  console.log('am laden von songs');
 
   try {
     // Firt get JwtToken for authorization
@@ -34,8 +33,6 @@ export function* handleLoadSongs() {
       requestLoadSongs,
       jwtToken
     );
-
-    console.log(response);
 
     // Map SongResponses to SongEntities
     const songEntities = response.data.map((song) => {
@@ -54,8 +51,6 @@ export function* handleLoadSongs() {
 
     yield put(loadSongsSucceeded(songEntities));
   } catch (e) {
-    console.log('jetzt kommen loadSongs errors');
-    console.log(e);
     yield put(songActionFailed(getErrorsFromError(e)));
   }
 }

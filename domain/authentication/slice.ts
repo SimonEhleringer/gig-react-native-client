@@ -3,10 +3,10 @@ import {
   createAction,
   PayloadAction,
   Action,
-} from '@reduxjs/toolkit';
-import jwtDecode from 'jwt-decode';
+} from "@reduxjs/toolkit";
+import jwtDecode from "jwt-decode";
 
-const name = 'authentication';
+const name = "authentication";
 export const REGISTER = `${name}/register`;
 export const LOGIN = `${name}/login`;
 export const REFRESH = `${name}/refresh`;
@@ -26,12 +26,12 @@ export type AuthenticationState = {
 
 const initialState: AuthenticationState = {
   isUserLoggedIn: false,
-  username: '',
-  email: '',
-  jwtToken: '',
+  username: "",
+  email: "",
+  jwtToken: "",
   jwtTokenExpiryTime: 0,
-  refreshToken: '',
-  userId: '',
+  refreshToken: "",
+  userId: "",
   loading: false,
   errors: [],
 };
@@ -99,12 +99,12 @@ const authenticationSlice = createSlice({
     },
     logoutSucceeded(state) {
       state.isUserLoggedIn = false;
-      state.username = '';
-      state.email = '';
-      state.jwtToken = '';
+      state.username = "";
+      state.email = "";
+      state.jwtToken = "";
       state.jwtTokenExpiryTime = 0;
-      state.refreshToken = '';
-      state.userId = '';
+      state.refreshToken = "";
+      state.userId = "";
       state.loading = false;
       state.errors = [];
     },
@@ -126,21 +126,17 @@ const authenticationSlice = createSlice({
     },
     refreshFailedWithAxiosError(state) {
       state.isUserLoggedIn = false;
-      state.username = '';
-      state.email = '';
-      state.jwtToken = '';
+      state.username = "";
+      state.email = "";
+      state.jwtToken = "";
       state.jwtTokenExpiryTime = 0;
-      state.refreshToken = '';
-      state.userId = '';
+      state.refreshToken = "";
+      state.userId = "";
       state.loading = false;
       state.errors = [];
-
-      console.log('token error (reducer)');
     },
     refreshFailedWithNormalError(state) {
       state.loading = false;
-
-      console.log('network error (reducer)');
     },
     setErrors(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;

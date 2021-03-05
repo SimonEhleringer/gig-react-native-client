@@ -1,8 +1,8 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-import { AxiosResponse } from 'axios';
-import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { ReduxState } from '../../../config/store';
-import { getErrorsFromError } from '../../common/saga/shared';
+import { PayloadAction } from "@reduxjs/toolkit";
+import { AxiosResponse } from "axios";
+import { call, put, select, takeLatest } from "redux-saga/effects";
+import { ReduxState } from "../../../config/store";
+import { getErrorsFromError } from "../../common/saga/shared";
 import {
   AddSongToPlaylistPayload,
   ADD_SONG_TO_PLAYLIST,
@@ -10,13 +10,13 @@ import {
   playlistActionStarted,
   playlistActionSucceeded,
   PlaylistState,
-} from '../slice';
-import { requestUpdatePlaylist } from './requests';
+} from "../slice";
+import { requestUpdatePlaylist } from "./requests";
 import {
   getPlaylistActionSucceededPayload,
   getRequestForAddingSongToPlaylist,
   PlaylistResponse,
-} from './shared';
+} from "./shared";
 
 export function* watchAddSongToPlaylist() {
   yield takeLatest(ADD_SONG_TO_PLAYLIST, handleAddSongToPlaylist);
@@ -25,8 +25,6 @@ export function* watchAddSongToPlaylist() {
 function* handleAddSongToPlaylist(
   action: PayloadAction<AddSongToPlaylistPayload>
 ) {
-  console.log('Ich adde grade einen Song zur Playlist :)');
-
   yield put(playlistActionStarted());
 
   const state: PlaylistState = yield select(
@@ -36,9 +34,6 @@ function* handleAddSongToPlaylist(
   const { playlistId, songId } = action.payload;
 
   const request = getRequestForAddingSongToPlaylist(state, playlistId, songId);
-
-  console.log('request für AddPlaylist');
-  console.log(request);
 
   try {
     const response: AxiosResponse<PlaylistResponse> = yield call(

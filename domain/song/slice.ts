@@ -54,8 +54,6 @@ const songSlice = createSlice({
     songActionFailed(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;
       state.loading = false;
-
-      console.log(action.payload);
     },
     setSongs(state, action: PayloadAction<SongEntity[]>) {
       state.songs = action.payload;

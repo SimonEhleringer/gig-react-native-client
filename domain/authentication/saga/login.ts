@@ -1,20 +1,20 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-import { AxiosError, AxiosResponse } from 'axios';
-import { takeLatest, put, call, select } from 'redux-saga/effects';
-import { ErrorResponse, getErrorsFromError } from '../../common/saga/shared';
+import { PayloadAction } from "@reduxjs/toolkit";
+import { AxiosError, AxiosResponse } from "axios";
+import { takeLatest, put, call, select } from "redux-saga/effects";
+import { ErrorResponse, getErrorsFromError } from "../../common/saga/shared";
 import {
   LOGIN,
   LoginPayload,
   loginRegisterFailed,
   loginRegisterStarted,
   loginRegisterSucceeded,
-} from '../slice';
-import { requestLogin } from './requests';
+} from "../slice";
+import { requestLogin } from "./requests";
 import {
   AuthenticationResponse,
   getLoginRegisterSucceededPayload,
   LoginRequest,
-} from './shared';
+} from "./shared";
 
 export function* watchLogin() {
   yield takeLatest(LOGIN, handleLogin);
@@ -38,11 +38,7 @@ function* handleLogin(action: PayloadAction<LoginPayload>) {
 
     const { jwtToken, refreshToken } = response.data;
 
-    console.log(refreshToken);
-
     const payload = getLoginRegisterSucceededPayload(jwtToken, refreshToken);
-
-    console.log(payload);
 
     yield put(loginRegisterSucceeded(payload));
   } catch (e) {

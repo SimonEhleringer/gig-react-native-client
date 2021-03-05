@@ -1,9 +1,9 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-import { AxiosResponse } from 'axios';
-import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { ReduxState } from '../../../config/store';
-import { getErrorsFromError } from '../../common/saga/shared';
-import { sortArrayAlphabetically } from '../../common/shared';
+import { PayloadAction } from "@reduxjs/toolkit";
+import { AxiosResponse } from "axios";
+import { call, put, select, takeLatest } from "redux-saga/effects";
+import { ReduxState } from "../../../config/store";
+import { getErrorsFromError } from "../../common/saga/shared";
+import { sortArrayAlphabetically } from "../../common/shared";
 import {
   playlistActionFailed,
   playlistActionStarted,
@@ -11,20 +11,19 @@ import {
   PlaylistState,
   UpdatePlaylistPayload,
   UPDATE_PLAYLIST,
-} from '../slice';
-import { requestUpdatePlaylist } from './requests';
+} from "../slice";
+import { requestUpdatePlaylist } from "./requests";
 import {
   CreateUpdatePlaylistRequest,
   PlaylistNotFoundError,
   PlaylistResponse,
-} from './shared';
+} from "./shared";
 
 export function* watchUpdatePlaylist() {
   yield takeLatest(UPDATE_PLAYLIST, handleUpdatePlaylist);
 }
 
 function* handleUpdatePlaylist(action: PayloadAction<UpdatePlaylistPayload>) {
-  console.log('Ich update grade eine Playlist :)');
   yield put(playlistActionStarted());
 
   const { playlistId, name } = action.payload;
@@ -48,18 +47,12 @@ function* handleUpdatePlaylist(action: PayloadAction<UpdatePlaylistPayload>) {
     songIds,
   };
 
-  console.log('request erstellt');
-  console.log(request);
-  console.log(playlistId);
-
   try {
     const response: AxiosResponse<PlaylistResponse> = yield call(
       requestUpdatePlaylist,
       playlistId,
       request
     );
-
-    console.log('response ist gekommen');
 
     const payload = [...state.playlists];
 

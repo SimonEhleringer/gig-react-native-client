@@ -66,8 +66,6 @@ const playlistSlice = createSlice({
     playlistActionSucceeded(state, action: PayloadAction<PlaylistEntity[]>) {
       state.playlists = action.payload;
       state.loading = false;
-
-      console.log("loading ist " + state.loading);
     },
     playlistActionFailed(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;
