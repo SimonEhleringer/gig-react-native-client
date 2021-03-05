@@ -1,16 +1,18 @@
-import { AxiosError } from 'axios';
-import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { ReduxState } from '../../../config/store';
-import { ErrorResponse, getErrorsFromError } from '../../common/saga/shared';
+import { AxiosError } from "axios";
+import { call, put, select, takeLatest } from "redux-saga/effects";
+import { ReduxState } from "../../../config/store";
+import { ErrorResponse, getErrorsFromError } from "../../common/saga/shared";
+import { setPlaylists } from "../../playlist/slice";
+import { setSongs } from "../../song/slice";
 import {
   AuthenticationState,
   LOGOUT,
   logoutFailed,
   logoutStarted,
   logoutSucceeded,
-} from '../slice';
-import { requestLogout } from './requests';
-import { RefreshLogoutRequest } from './shared';
+} from "../slice";
+import { requestLogout } from "./requests";
+import { RefreshLogoutRequest } from "./shared";
 
 export function* watchLogout() {
   yield takeLatest(LOGOUT, handleLogout);
@@ -33,6 +35,9 @@ function* handleLogout() {
     };
 
     yield call(requestLogout, logoutRequest);
+
+    yield put(setPlaylists([]));
+    yield put(setSongs([]));
 
     yield put(logoutSucceeded());
   } catch (e) {

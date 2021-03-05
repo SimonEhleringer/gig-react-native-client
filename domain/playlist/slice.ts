@@ -1,8 +1,8 @@
-import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CreateSongPayload } from '../song/slice';
-import PlaylistEntity from './PlaylistModel';
+import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CreateSongPayload } from "../song/slice";
+import PlaylistEntity from "./PlaylistModel";
 
-const name = 'playlist';
+const name = "playlist";
 export const LOAD_PLAYLISTS = `${name}/loadPlaylists`;
 export const CREATE_PLAYLIST = `${name}/createPlaylist`;
 export const UPDATE_PLAYLIST = `${name}/updatePlaylist`;
@@ -67,11 +67,14 @@ const playlistSlice = createSlice({
       state.playlists = action.payload;
       state.loading = false;
 
-      console.log('loading ist ' + state.loading);
+      console.log("loading ist " + state.loading);
     },
     playlistActionFailed(state, action: PayloadAction<string[]>) {
       state.errors = action.payload;
       state.loading = false;
+    },
+    setPlaylists(state, action: PayloadAction<PlaylistEntity[]>) {
+      state.playlists = action.payload;
     },
     // setIsGigModeActive(state, action: PayloadAction<boolean>) {
     //   state.isGigModeActive = action.payload;
@@ -83,7 +86,7 @@ export const {
   playlistActionStarted,
   playlistActionSucceeded,
   playlistActionFailed,
-  // setIsGigModeActive,
+  setPlaylists,
 } = playlistSlice.actions;
 
 export default playlistSlice.reducer;
@@ -110,7 +113,7 @@ export interface RemoveSongFromPlaylistPayload {
 export interface MoveSongInPlaylistPayload {
   playlistId: string;
   songIndex: number;
-  direction: 'up' | 'down';
+  direction: "up" | "down";
 }
 
 export interface AddNewSongToPlaylistPayload {

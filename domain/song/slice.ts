@@ -1,7 +1,7 @@
-import { createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
-import SongEntity from './SongEntity';
+import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
+import SongEntity from "./SongEntity";
 
-const name = 'song';
+const name = "song";
 export const LOAD_SONGS = `${name}/loadSongs`;
 export const CREATE_SONG = `${name}/createSong`;
 export const UPDATE_SONG = `${name}/updateSong`;
@@ -57,6 +57,9 @@ const songSlice = createSlice({
 
       console.log(action.payload);
     },
+    setSongs(state, action: PayloadAction<SongEntity[]>) {
+      state.songs = action.payload;
+    },
   },
 });
 
@@ -67,6 +70,7 @@ export const {
   updateSongSucceeded,
   deleteSongSucceeded,
   songActionFailed,
+  setSongs,
 } = songSlice.actions;
 
 export default songSlice.reducer;
