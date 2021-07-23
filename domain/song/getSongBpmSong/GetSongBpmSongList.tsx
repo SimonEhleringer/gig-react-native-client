@@ -1,14 +1,13 @@
 import React from 'react';
-import { FlatList } from 'react-native-gesture-handler';
-import Container from '../../common/Container';
-import LoadingAndErrors from '../../common/LoadingAndErrors';
-import Paper from '../../common/Paper';
-import GetSongBpmSongModel from './GetSongBpmSongModel';
-import GetSongBpmSong from './GetSongBpmSong';
-import { ListItem } from 'react-native-elements';
 import { ListRenderItemInfo, TouchableHighlight } from 'react-native';
+import { ListItem } from 'react-native-elements';
+import { FlatList } from 'react-native-gesture-handler';
+import LoadingAndErrors from '../../common/LoadingAndErrors';
 import PaddingView from '../../common/PaddingView';
+import Paper from '../../common/Paper';
 import { getItemLayout } from '../../common/shared';
+import GetSongBpmSong from './GetSongBpmSong';
+import GetSongBpmSongModel from './GetSongBpmSongModel';
 
 interface GetSongBpmSongListProps {
   getSongBpmSongs: GetSongBpmSongModel[];
@@ -45,6 +44,7 @@ const GetSongBpmSongList: React.FC<GetSongBpmSongListProps> = ({
           data={getSongBpmSongs}
           renderItem={renderItem}
           getItemLayout={getItemLayout}
+          keyboardShouldPersistTaps='always'
           ListHeaderComponent={
             <>
               <PaddingView />
