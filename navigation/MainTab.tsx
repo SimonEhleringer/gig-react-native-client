@@ -1,12 +1,10 @@
+import { MaterialIcons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import {
-  BottomTabBar,
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
+import { PADDING_HALF } from '../config/themes';
+import { useTheme } from '../hooks/useTheme';
 import PlaylistStack from './PlaylistStack';
 import ProfileStack from './ProfileStack';
-import { MaterialIcons } from '@expo/vector-icons';
-import { useTheme } from '../hooks/useTheme';
 import SongsStack from './SongsStack';
 
 interface MainTabProps {}
@@ -29,7 +27,11 @@ const MainTab: React.FC<MainTabProps> = ({}) => {
         activeTintColor: theme.colors?.primary,
         activeBackgroundColor: 'black',
         inactiveBackgroundColor: 'black',
-        style: { borderTopColor: 'black' },
+        style: {
+          borderTopColor: 'black',
+          paddingBottom: PADDING_HALF,
+          backgroundColor: 'black',
+        },
       }}
     >
       <Tab.Screen
