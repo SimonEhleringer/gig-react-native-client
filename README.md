@@ -11,17 +11,18 @@ Click [here](https://github.com/SimonEhleringer/GigApi) to go to the repository 
 Follow the steps below for a live demo.
 
 - Download and open [Expo Go](https://expo.dev/client) on your mobile phone
-- Press on "Scan QR Code" and scan the code below
+- Copy `exp://exp.host/@simonehleringer/gig` to your clipboard and press on "Open from Clipboard" <br>
+  (You can also press on "Scan QR Code" and scan the code below)
 
   ![gig_qr-code](https://user-images.githubusercontent.com/72859064/129714173-c93b6a4a-edcf-4467-a276-3f210efc58d5.png)
 
-- The app will open, you can use "Max_Mustermann@example.com" as e-mail and "Passwort123!" as password
+- The app will open, you can use `Max_Mustermann@example.com` as e-mail and `Passwort123!` as password
 
 ## Features
 
 - Authentication
 - Create playlists and add songs
-- Access to data of millions of songs (GetSongBPM API)
+- Access to data of millions of songs ([GetSongBPM API](https://getsongbpm.com/api))
 
 ## Technologies
 
