@@ -8,8 +8,6 @@ Click [here](https://github.com/SimonEhleringer/GigApi) to go to the repository 
 
 ## Live demo
 
-Follow the steps below for a live demo.
-
 - Download and open [Expo Go](https://expo.dev/client) on your mobile phone
 - Copy `exp://exp.host/@simonehleringer/gig` to your clipboard and press on "Open from Clipboard" <br>
   (You can also press on "Scan QR Code" and scan the code below)
