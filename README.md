@@ -34,15 +34,30 @@ Click [here](https://github.com/SimonEhleringer/GigApi) to go to the repository 
 
 ### Login screen
 
-![Login screen](https://user-images.githubusercontent.com/72859064/130052488-79a99473-af68-4e59-93de-c9c7363e50b1.jpg)
+<kbd>
+  <img src="https://user-images.githubusercontent.com/72859064/130052488-79a99473-af68-4e59-93de-c9c7363e50b1.jpg" alt="Login screen" />
+</kbd>
 
 ### Songs (All songs | Search songs | Create song)
 
-![All songs](https://user-images.githubusercontent.com/72859064/130052489-448d0dfe-b1c0-49a2-94a9-df83e7a8f8e2.jpg)
-![Search songs](https://user-images.githubusercontent.com/72859064/130052490-578fca30-ef52-4bb8-8210-eaabcd7bbc10.jpg)
-![Create song](https://user-images.githubusercontent.com/72859064/130052491-ff91e87b-a671-4ff2-a051-04db73738718.jpg)
+<kbd>
+  <img src="https://user-images.githubusercontent.com/72859064/130052489-448d0dfe-b1c0-49a2-94a9-df83e7a8f8e2.jpg" alt="All songs" />
+</kbd>  
+
+<kbd>
+  <img src="https://user-images.githubusercontent.com/72859064/130052490-578fca30-ef52-4bb8-8210-eaabcd7bbc10.jpg" alt="Search songs" />
+</kbd>  
+
+<kbd>
+  <img src="https://user-images.githubusercontent.com/72859064/130052491-ff91e87b-a671-4ff2-a051-04db73738718.jpg" alt="Create song" />
+</kbd>  
 
 ### Playlists (All playlists | Songs in playlist)
 
-![All playlists](https://user-images.githubusercontent.com/72859064/130052494-93842125-bd16-440e-bdeb-52aac91867ac.jpg)
-![Songs in playlist](https://user-images.githubusercontent.com/72859064/130052496-aa87dd4f-d064-4e7c-8a5d-38181c312b46.jpg)
+<kbd>
+  <img src="https://user-images.githubusercontent.com/72859064/130052494-93842125-bd16-440e-bdeb-52aac91867ac.jpg" alt="All playlists" />
+</kbd>  
+
+<kbd>
+  <img src="https://user-images.githubusercontent.com/72859064/130052496-aa87dd4f-d064-4e7c-8a5d-38181c312b46.jpg" alt="Songs in playlist" />
+</kbd>  
